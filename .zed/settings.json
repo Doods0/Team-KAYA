@@ -1,0 +1,40 @@
+﻿{
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.vs",
+    "**/Library",
+    "**/Temp",
+    "**/Obj",
+    "**/Build",
+    "**/Builds",
+    "**/Logs",
+    "**/UserSettings",
+    "**/*.csproj",
+    "**/*.sln",
+    "**/*.user",
+    "**/*.userprefs",
+    "**/*.pidb",
+    "**/*.booproj",
+    "**/*.unityproj",
+    "**/*.dll",
+    "**/*.exe"
+  ],
+  "languages": {
+    "CSharp": {
+      "language_servers": ["roslyn", "..."]
+    }
+  },
+  "lsp": {
+    "roslyn": {
+      "settings": {
+        "csharp|projects": {
+          "dotnet_enable_automatic_restore": true
+        },
+        "csharp|background_analysis": {
+          "dotnet_analyzer_diagnostics_scope": "openFiles",
+          "dotnet_compiler_diagnostics_scope": "openFiles"
+        }
+      }
+    }
+  }
+}

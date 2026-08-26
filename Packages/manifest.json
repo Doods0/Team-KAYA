@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.gamebayoumy.zed-unity": "https://github.com/GameBayoumy/zed-unity.git?path=/packages/com.gamebayoumy.zed-unity",
     "com.unity.2d.animation": "15.1.0",
     "com.unity.2d.aseprite": "5.0.3",
     "com.unity.2d.psdimporter": "14.0.3",
@@ -14,8 +15,10 @@
     "com.unity.inputsystem": "1.20.0",
     "com.unity.multiplayer.center": "1.0.1",
     "com.unity.render-pipelines.universal": "17.6.0",
+    "com.unity.sdk.linux-x86_64": "1.1.0",
     "com.unity.test-framework": "1.7.0",
     "com.unity.timeline": "1.8.12",
+    "com.unity.toolchain.linux-x86_64-linux": "1.1.0",
     "com.unity.ugui": "2.5.0",
     "com.unity.visualscripting": "1.9.12",
     "com.unity.modules.accessibility": "1.0.0",
