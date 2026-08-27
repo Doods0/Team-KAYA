@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 85403c1eeed7f2245924106bc434fb38
+guid: 24a8fb6b014105d82809f58f4ed24d2f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 971859897978946914
-    second: 7b608cf21696d3efa60f102c75aa535a_0
+      213: 889477550884767163
+    second: skull-clock_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 7b608cf21696d3efa60f102c75aa535a_0
+      name: skull-clock_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 103
-        width: 370
-        height: 466
+        y: 0
+        width: 627
+        height: 628
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2658b769d6dbc7d00800000000000000
-      internalID: 971859897978946914
+      spriteID: bb5cb20be1f085c00800000000000000
+      internalID: 889477550884767163
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5c9fd14ec94533e42a52c61963f74c38
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      7b608cf21696d3efa60f102c75aa535a_0: 971859897978946914
+      skull-clock_0: 889477550884767163
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
