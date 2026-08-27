@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -442,6 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerTransform: {fileID: 2103229017}
+  enemy: {fileID: 2380258183937040191, guid: 0600ab68c610ee650ba79b72c7bb950a, type: 3}
 --- !u!4 &1080491172
 Transform:
   m_ObjectHideFlags: 0
