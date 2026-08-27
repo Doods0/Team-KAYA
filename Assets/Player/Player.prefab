@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3155206028196630668}
   - component: {fileID: 4507063332803190897}
   - component: {fileID: 2637829541062154066}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,8 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00108caf318247b41a9a5bc70d990466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  rb: {fileID: 3155206028196630668}
-  input: {fileID: 4507063332803190897}
   camera: {fileID: 0}
   weaponPivot: {fileID: 7213980122949132133}
   xMovementRef: {fileID: -8406488619022093789, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
@@ -228,7 +226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6786451869246759775}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hitbox Emitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1201193175192779795}
   - component: {fileID: 803467896068870398}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon Shape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7213980122949132133}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

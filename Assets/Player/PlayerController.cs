@@ -4,9 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+
     [Header("Components")]
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private PlayerInput input;
+    private Rigidbody2D rb ;
+    private PlayerInput input;
     [SerializeField] private Camera camera;
     [SerializeField] private Transform weaponPivot;
 
@@ -25,8 +26,12 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
+        input = GetComponent<PlayerInput>();
+
         xMovementAction = input.actions.FindAction(xMovementRef.action.id);
         yMovementAction = input.actions.FindAction(yMovementRef.action.id);
+
     }
 
     private void Update()
