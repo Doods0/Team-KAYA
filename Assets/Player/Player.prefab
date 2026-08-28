@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2637829541062154066}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -217,6 +217,7 @@ MonoBehaviour:
   xMovementRef: {fileID: -8406488619022093789, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   yMovementRef: {fileID: 7339679998338197221, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   walkspeed: 5
+  health: 10
 --- !u!1 &3317779942017512241
 GameObject:
   m_ObjectHideFlags: 0
