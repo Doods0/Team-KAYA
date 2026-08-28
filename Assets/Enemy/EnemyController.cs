@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public float speed;
+    public int damage;
 
     private Rigidbody2D rigidbody;
 
@@ -31,5 +32,19 @@ public class EnemyController : MonoBehaviour
 
         rigidbody.linearVelocityX = moveDirection.x;
         rigidbody.linearVelocityY = moveDirection.y;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
+        if (playerController == null)
+        {
+            return;
+        }
+
+        playerController.TakeDamage(damage);
+
+
+
     }
 }

@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Settings")]
     public float walkspeed;
+    public int health;
 
     private InputAction xMovementAction;
     private InputAction yMovementAction;
@@ -57,5 +58,10 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocityX = xMovementDir * walkspeed;
         rb.linearVelocityY = yMovementDir * walkspeed;
+    }
+
+    public void TakeDamage(int damageTaken)
+    {
+        health -= damageTaken;
     }
 }
