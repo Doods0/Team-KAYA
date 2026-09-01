@@ -17,6 +17,8 @@ public class LocalWeaponsData
 
     public LocalWeaponsData()
     {
+        if (GameStatus.instance is null) return;
+
         contactFilter = new ContactFilter2D
         {
             layerMask = GameStatus.instance.enemyLayer,
@@ -39,13 +41,11 @@ public class GearHandler : MonoBehaviour
     // For now we keep getting the camera from the animator and the mouse here
     // We could write a third party script to track and return these values for both scripts independently, later though
 
-    [HideInInspector] public LocalWeaponsData localWeaponsData;
+    [HideInInspector] public LocalWeaponsData localWeaponsData = new LocalWeaponsData();
 
     private float currentCooldown;
     private void Update() => currentCooldown = Mathf.Max(0f, currentCooldown - Time.deltaTime);
     // Or fixedDeltaTime? should it change according to time speed?
-
-    private void Awake() => localWeaponsData = new LocalWeaponsData();
 
     public void Attack(bool withHeavy, bool isThrowMode)
     {
