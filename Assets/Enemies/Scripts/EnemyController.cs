@@ -4,24 +4,13 @@ public class EnemyController : MonoBehaviour
 {
     public float speed;
     public int damage;
+    public int health;
 
     private Rigidbody2D rigidbody;
 
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void FixedUpdate()
@@ -43,8 +32,11 @@ public class EnemyController : MonoBehaviour
         }
 
         playerController.TakeDamage(damage);
+    }
 
-
-
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0) Destroy(gameObject);
     }
 }
