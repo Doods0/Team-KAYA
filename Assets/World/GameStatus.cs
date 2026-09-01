@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameStatus : MonoBehaviour
 {
     public static GameStatus instance;
+    public LayerMask enemyLayer;
 
     public Transform playerTransform;
     public Object enemy;

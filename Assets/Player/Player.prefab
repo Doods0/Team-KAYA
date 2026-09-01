@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2973344048670075227}
   - component: {fileID: 2637829541062154066}
   - component: {fileID: 6505086626376703030}
+  - component: {fileID: 2555524040789637061}
   - component: {fileID: 5257004828600501051}
   - component: {fileID: 3155206028196630668}
   - component: {fileID: 4507063332803190897}
@@ -50,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00108caf318247b41a9a5bc70d990466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  Animator: {fileID: 9081746724929457452}
+  Animator: {fileID: 2219050965675229364}
   xMovementRef: {fileID: -8406488619022093789, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   yMovementRef: {fileID: 7339679998338197221, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   heavyAttackRef: {fileID: 2315012282989480615, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
@@ -70,10 +71,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546d0a4dd558b604c8a662626fb5493e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GearHandler
-  heavyWeapon: {fileID: 0}
-  lightWeapon: {fileID: 0}
-  hittingZone: {fileID: 0}
-  animator: {fileID: 9081746724929457452}
+  heavyWeapon: {fileID: 11400000, guid: 607cf59d278e30e49b27b6d5a60f4365, type: 2}
+  lightWeapon: {fileID: 11400000, guid: 39bd6d2f19ad889459b6948e6640c6e9, type: 2}
+  localSpatialData: {fileID: 2555524040789637061}
+  animator: {fileID: 2219050965675229364}
+  localWeaponsData:
+    contactFilter:
+      useTriggers: 0
+      useLayerMask: 0
+      useDepth: 0
+      useOutsideDepth: 0
+      useNormalAngle: 0
+      useOutsideNormalAngle: 0
+      layerMask:
+        serializedVersion: 2
+        m_Bits: 0
+      minDepth: 0
+      maxDepth: 0
+      minNormalAngle: 0
+      maxNormalAngle: 0
+--- !u!114 &2555524040789637061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2515544000073562450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887697303887ccb458f0508f8c2c4115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpatialTracker
+  camera: {fileID: 0}
+  playerPosition: {x: 0, y: 0, z: 0}
+  cursorDirection: {x: 0, y: 0}
 --- !u!70 &5257004828600501051
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -270,7 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8517276779835407789}
   - component: {fileID: 740649557855701849}
-  - component: {fileID: 9081746724929457452}
+  - component: {fileID: 2219050965675229364}
   - component: {fileID: 8409257162083559834}
   m_Layer: 0
   m_Name: Character
@@ -355,7 +386,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!114 &9081746724929457452
+--- !u!114 &2219050965675229364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -364,14 +395,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3188175393367837330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07cfebd3b2195d24ab077e89d23f5fc6, type: 3}
+  m_Script: {fileID: 11500000, guid: fe899862315acbd4bbde383aba4b951b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityAnimator
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
   character: {fileID: 3188175393367837330}
-  weaponPivot: {fileID: 7213980122949132133}
-  camera: {fileID: 0}
   state: 1
   ruleSO: {fileID: 11400000, guid: 2732c2804552a7647ad173d9e9fe25d3, type: 2}
+  spatialTracker: {fileID: 0}
+  weaponPivot: {fileID: 7213980122949132133}
 --- !u!95 &8409257162083559834
 Animator:
   serializedVersion: 7

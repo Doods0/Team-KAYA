@@ -9,11 +9,6 @@ public class LightWeaponSO : WeaponSO
     public float throwDamage;
     public float throwCooldown;
 
-    public override float Slash()
-    {
-        return slashCooldown;
-    }
-
     public virtual float Throw()
     {
         return throwCooldown;

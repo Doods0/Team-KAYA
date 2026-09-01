@@ -285,6 +285,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed246e451322d246a2a7de234c3ef60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
   playerTransform: {fileID: 1812880721}
   enemy: {fileID: 2380258183937040191, guid: 0600ab68c610ee650ba79b72c7bb950a, type: 3}
 --- !u!4 &1080491172
@@ -310,10 +313,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2219050965675229364, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
+      propertyPath: spatialTracker
+      value: 
+      objectReference: {fileID: 2053290550}
     - target: {fileID: 2515544000073562450, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2555524040789637061, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 191575832}
     - target: {fileID: 2973344048670075227, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -354,10 +365,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9081746724929457452, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 191575832}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -368,6 +375,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2973344048670075227, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
   m_PrefabInstance: {fileID: 1199141029}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2053290550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2555524040789637061, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
+  m_PrefabInstance: {fileID: 1199141029}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887697303887ccb458f0508f8c2c4115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpatialTracker
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

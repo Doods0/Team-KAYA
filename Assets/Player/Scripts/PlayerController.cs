@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Components")]
-    [SerializeField] EntityAnimator Animator;
+    [Header("Utils")]
+    [SerializeField] PlayerAnimator Animator;
     
     [Header("Action references")]
     #region Action References
