@@ -4,54 +4,81 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
     [Header("Components")]
-    private Rigidbody2D rb ;
-    private PlayerInput input;
-    [SerializeField] private Camera camera;
-    [SerializeField] private Transform weaponPivot;
-
+    [SerializeField] EntityAnimator Animator;
+    
     [Header("Action references")]
+    #region Action References
     [SerializeField] private InputActionReference xMovementRef;
     [SerializeField] private InputActionReference yMovementRef;
+    [SerializeField] private InputActionReference heavyAttackRef;
+    [SerializeField] private InputActionReference lightAttackRef;
+    [SerializeField] private InputActionReference toggleThrowRef;
+    #endregion
 
     [Header("Settings")]
     public float walkspeed;
     public int health;
 
+    private Rigidbody2D rb;
+    private PlayerInput input;
+    private GearHandler gearHandler;
+    #region Actions
     private InputAction xMovementAction;
     private InputAction yMovementAction;
+    private InputAction heavyAttackAction;
+    private InputAction lightAttackAction;
+    private InputAction toggleThrowAction;
+    #endregion
 
     private int xMovementDir;
     private int yMovementDir;
+    private bool isThrowMode = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInput>();
-
+        gearHandler = GetComponent<GearHandler>();
+        #region Action Assigning
         xMovementAction = input.actions.FindAction(xMovementRef.action.id);
         yMovementAction = input.actions.FindAction(yMovementRef.action.id);
-
+        heavyAttackAction = input.actions.FindAction(heavyAttackRef.action.id);
+        lightAttackAction = input.actions.FindAction(lightAttackRef.action.id);
+        toggleThrowAction = input.actions.FindAction(toggleThrowRef.action.id);
+        #endregion
     }
+
+    #region Action Passing
+    private void OnEnable()
+    {
+        heavyAttackAction.performed += HeavyAttack;
+        lightAttackAction.performed += LightAttack;
+        toggleThrowAction.performed += ToggleThrow;
+    }
+    private void OnDisable()
+    {
+        heavyAttackAction.performed -= HeavyAttack;
+        lightAttackAction.performed -= LightAttack;
+        toggleThrowAction.performed -= ToggleThrow;
+    }
+
+    private void HeavyAttack(InputAction.CallbackContext _input) => gearHandler.Attack(true, isThrowMode);
+    private void LightAttack(InputAction.CallbackContext _input) => gearHandler.Attack(false, isThrowMode);
+    private void ToggleThrow(InputAction.CallbackContext _input) => isThrowMode = !isThrowMode;
+    #endregion
 
     private void Update()
     {
+        // Movement values update
         xMovementDir = (int)math.sign(xMovementAction.ReadValue<float>());
         yMovementDir = (int)math.sign(yMovementAction.ReadValue<float>());
 
-        Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
-        Vector3 mouseWorldPos = camera.ScreenToWorldPoint(mouseScreenPos);
+        // Animations
+        if (xMovementDir != 0 || yMovementDir != 0) Animator.state = EntityState.Walking;
+        else Animator.state = EntityState.Idle;
 
-        Vector2 aimDirection = (mouseWorldPos - weaponPivot.position).normalized;
-        float targetAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-
-        Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
-
-        weaponPivot.rotation = targetRotation;
-
-        if (math.sign(aimDirection.x) < 0) weaponPivot.transform.localScale = new Vector3 (1, -1, 1);
-        else weaponPivot.transform.localScale = new Vector3(1, 1, 1);
+        Animator.flipCharacter(xMovementDir);
     }
 
     private void FixedUpdate()
