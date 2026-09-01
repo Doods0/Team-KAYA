@@ -27,7 +27,7 @@
                     "priority": 0
                 },
                 {
-                    "name": "Left Action",
+                    "name": "Heavy Weapon",
                     "type": "Button",
                     "id": "886bab13-eba0-4aa3-8493-ca64d93f2a3c",
                     "expectedControlType": "",
@@ -37,9 +37,19 @@
                     "priority": 0
                 },
                 {
-                    "name": "Throw",
+                    "name": "Light Weapon",
                     "type": "Button",
                     "id": "58ce70a2-8c22-400a-9af7-edebdfad63fd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Toggle Throw",
+                    "type": "Button",
+                    "id": "04d8e993-447f-4dfb-bede-8ca853e55178",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -165,18 +175,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Left Action",
+                    "action": "Heavy Weapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "6775c1d6-4ff5-4d59-b121-44888e37f67a",
-                    "path": "<Mouse>/middleButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Throw",
+                    "action": "Light Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2cc82da3-5d31-47a3-8551-922ebf93a6e4",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

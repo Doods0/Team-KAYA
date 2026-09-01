@@ -10,7 +10,7 @@ public class GameStatus : MonoBehaviour
     public void Awake()
     {
         instance = this;
-        InvokeRepeating(nameof(SpawnEnemy), 3.0f, 1.0f);
+        //InvokeRepeating(nameof(SpawnEnemy), 3.0f, 1.0f); TEMPORARILY STOPPED
     }
 
     void SpawnEnemy()

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a4ed7f226ea4fd4eb3854b6b06f1c43, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationRuleSO
+  rules:
+  - state: 1
+    track: {fileID: -3100369314251171874, guid: 9c7f05ae8b803984c9ad505aa2b727ab, type: 3}
+    fade: 0
+    oneShot: 0
+    track_hash: 2081823275
+  - state: 0
+    track: {fileID: 1358262452650834379, guid: 9c7f05ae8b803984c9ad505aa2b727ab, type: 3}
+    fade: 0
+    oneShot: 0
+    track_hash: 1326225478
