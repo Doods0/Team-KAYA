@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
         rigidbody.linearVelocityY = moveDirection.y;
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
         if (playerController == null)
