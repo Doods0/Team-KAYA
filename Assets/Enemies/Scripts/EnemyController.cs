@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
         rigidbody.linearVelocityY = moveDirection.y;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
         PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
         if (playerController == null)
@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
-        playerController.TakeDamage(damage);
+        playerController.TakeDamage(damage, transform.position);
     }
 
     public void TakeDamage(int damage)

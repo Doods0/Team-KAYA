@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Utils")]
     [SerializeField] PlayerAnimator Animator;
-    
+
     [Header("Action references")]
     #region Action References
     [SerializeField] private InputActionReference xMovementRef;
@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
     private int xMovementDir;
     private int yMovementDir;
     private bool isThrowMode = false;
+    private bool stunned = false;
+    private Vector3 knockbackVector;
+    private bool invulnerable = false;
 
     private void Awake()
     {
@@ -83,12 +86,48 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocityX = xMovementDir * walkspeed;
-        rb.linearVelocityY = yMovementDir * walkspeed;
+        if (!stunned)
+        {
+            rb.linearVelocityX = xMovementDir * walkspeed;
+            rb.linearVelocityY = yMovementDir * walkspeed;
+        }
+        else
+        {
+            rb.linearVelocityX = knockbackVector.x;
+            rb.linearVelocityY = knockbackVector.y;
+        }
     }
 
-    public void TakeDamage(int damageTaken)
+    public void TakeDamage(int damageTaken, Vector3 source)
     {
+        TakeDamage(damageTaken, source, 3.0f);
+    }
+    public void TakeDamage(int damageTaken, Vector3 source, float knockback)
+    {
+        if (invulnerable)
+        {
+            return;
+        }
+
         health -= damageTaken;
+
+        stunned = true;
+        invulnerable = true;
+        Invoke(nameof(UnStun), 1.0f);
+        Invoke(nameof(MakeVulnerable), 2.0f);
+
+        knockbackVector = (transform.position - source).normalized * knockback;
+    }
+
+    void UnStun()
+    {
+        stunned = false;
+
+        rb.linearVelocityX = 0;
+        rb.linearVelocityY = 0;
+    }
+    void MakeVulnerable()
+    {
+        invulnerable = false;
     }
 }
