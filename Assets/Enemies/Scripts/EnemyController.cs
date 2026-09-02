@@ -37,6 +37,12 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if (health <= 0) Destroy(gameObject);
+        if (health <= 0)
+        {
+            Time.timeScale += .015f;
+            Time.timeScale *= 1.015f; // Changing of game speed should scale with current game speed.
+
+            Destroy(gameObject);
+        }
     }
 }

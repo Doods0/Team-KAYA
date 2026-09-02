@@ -12,6 +12,7 @@ public class GameStatus : MonoBehaviour
     {
         instance = this;
         //InvokeRepeating(nameof(SpawnEnemy), 3.0f, 1.0f);
+        InvokeRepeating(nameof(SlowTime), 0f, 1f);
     }
 
     void SpawnEnemy()
@@ -28,6 +29,12 @@ public class GameStatus : MonoBehaviour
         }
         Vector3 offset = new Vector3(RR(), RR(), 0).normalized * Random.Range(20f, 40f);
         Instantiate(enemy, playerTransform.position + offset, Quaternion.identity);
+    }
+
+    void SlowTime()
+    {
+        Time.timeScale -= .01f;
+        Time.timeScale *= .99f; // Changing of game speed should scale with current game speed.
     }
 
 }
