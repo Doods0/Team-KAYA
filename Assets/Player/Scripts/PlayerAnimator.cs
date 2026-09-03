@@ -17,8 +17,8 @@ public class PlayerAnimator : EntityAnimator
 
         weaponPivot.rotation = targetRotation;
 
-        if (math.sign(aimDirection.x) < 0) weaponPivot.transform.localScale = new Vector3(1, -1, 1);
-        else weaponPivot.transform.localScale = new Vector3(1, 1, 1);
+        if (math.sign(aimDirection.x) < 0) { weaponPivot.transform.localScale = new Vector3(1, -1, 1); }
+        else { weaponPivot.transform.localScale = new Vector3(1, 1, 1); }
 
         base.Update(); // Regular EntityAnimator behavior
     }
