@@ -16,7 +16,7 @@ public class WeaponSO : ScriptableObject
 
     // Function must return a float (Cooldown value)
     // code slashing here as it's common between both types
-    public virtual float Slash(LocalWeaponsData weaponMemory, SpatialTracker spatialData) 
+    public virtual float Slash(LocalWeaponsData weaponMemory, SpatialTracker spatialData)
     {
         List<Collider2D> hitBuffer = weaponMemory.hitBuffer;
         Vector3 playerPos = spatialData.playerPosition;
@@ -33,13 +33,14 @@ public class WeaponSO : ScriptableObject
 
             if (angle <= slashAngle / 2f)
             {
-                if (hitBuffer[i].TryGetComponent<EnemyController>(out var target)) // Assuming enemy controller is the health handler
+                // Assuming enemy controller is the health handler
+                if (hitBuffer[i].TryGetComponent<EnemyController>(out var target))
                 {
                     target.TakeDamage((int)slashDamage);
                 }
             }
         }
 
-        return slashCooldown; 
+        return slashCooldown;
     }
 }
