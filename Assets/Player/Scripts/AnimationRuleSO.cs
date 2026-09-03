@@ -22,7 +22,7 @@ public class AnimationRuleSO : ScriptableObject
     {
         foreach (AnimationRule rule in rules)
         {
-            if (rule.track == null) { continue; }
+            if (rule.track == null) continue;
             rule.track_hash = Animator.StringToHash(rule.track.name);
         }
     }
@@ -33,7 +33,7 @@ public class AnimationRuleSO : ScriptableObject
 
         foreach (AnimationRule rule in rules)
         {
-            if (rule.track == null) { continue; }
+            if (rule.track == null) continue;
 
             dict[rule.state] = rule;
         }

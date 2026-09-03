@@ -78,8 +78,8 @@ public class PlayerController : MonoBehaviour
         yMovementDir = (int)math.sign(yMovementAction.ReadValue<float>());
 
         // Animations
-        if (xMovementDir != 0 || yMovementDir != 0) { Animator.state = EntityState.Walking; }
-        else { Animator.state = EntityState.Idle; }
+        if (xMovementDir != 0 || yMovementDir != 0) Animator.state = EntityState.Walking;
+        else Animator.state = EntityState.Idle;
 
         Animator.flipCharacter(xMovementDir);
     }
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
     }
     public void TakeDamage(int damageTaken, Vector3 source, float knockback)
     {
-        if (invulnerable) { return; }
+        if (invulnerable) return;
 
         health -= damageTaken;
 

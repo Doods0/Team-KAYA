@@ -25,7 +25,7 @@ public class EntityAnimator : MonoBehaviour
     {
         // Animations section
         var currentRule = rulesDictionary[state];
-        if (currentRule == null) { return; }
+        if (currentRule == null)  return;
 
         changeAnimation(currentRule.track_hash, currentRule.track, currentRule.fade);
     }
@@ -41,7 +41,7 @@ public class EntityAnimator : MonoBehaviour
 
     public void flipCharacter(int direction)
     {
-        if (direction == 0) { return; }
+        if (direction == 0) return;
         transform.localScale = new Vector3(direction, transform.localScale.y, transform.localScale.z);
     }
 }
