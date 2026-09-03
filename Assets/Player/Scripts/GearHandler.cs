@@ -17,7 +17,7 @@ public class LocalWeaponsData
 
     public LocalWeaponsData()
     {
-        if (GameStatus.instance is null) return;
+        if (GameStatus.instance is null) { return; }
 
         contactFilter = new ContactFilter2D
         {
@@ -49,7 +49,7 @@ public class GearHandler : MonoBehaviour
 
     public void Attack(bool withHeavy, bool isThrowMode)
     {
-        if (currentCooldown > 0) return;
+        if (currentCooldown > 0) { return; }
 
         WeaponSO weaponInUse;
         WeaponSO otherWeapon;
@@ -67,11 +67,11 @@ public class GearHandler : MonoBehaviour
 
         float cooldown;
 
-        if (withHeavy) cooldown = heavyWeapon.Slash(localWeaponsData, localSpatialData);
+        if (withHeavy) { cooldown = heavyWeapon.Slash(localWeaponsData, localSpatialData); }
         else
         {
-            if (!isThrowMode) cooldown = lightWeapon.Slash(localWeaponsData, localSpatialData);
-            else cooldown = lightWeapon.Throw();
+            if (!isThrowMode) { cooldown = lightWeapon.Slash(localWeaponsData, localSpatialData); }
+            else { cooldown = lightWeapon.Throw(); }
         }
 
         animator.triggerWeaponAnimation(weaponInUse, otherWeapon);

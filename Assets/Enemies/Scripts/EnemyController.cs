@@ -26,10 +26,7 @@ public class EnemyController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
-        if (playerController == null)
-        {
-            return;
-        }
+        if (playerController == null) { return; }
 
         playerController.TakeDamage(damage, transform.position);
     }
