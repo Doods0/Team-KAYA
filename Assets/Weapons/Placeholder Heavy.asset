@@ -17,5 +17,5 @@ MonoBehaviour:
   concealedGripOffset: 0
   slashDamage: 3.6
   slashCooldown: 0.50
-  slashRadius: 2.0
+  slashRadius: 3.0
   slashAngle: 128.99

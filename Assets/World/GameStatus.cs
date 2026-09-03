@@ -7,6 +7,7 @@ public class GameStatus : MonoBehaviour
 
     public Transform playerTransform;
     public Object enemy;
+    public Object rangedEnemy;
 
     public void Awake()
     {
@@ -28,7 +29,12 @@ public class GameStatus : MonoBehaviour
             return x;
         }
         Vector3 offset = new Vector3(RR(), RR(), 0).normalized * Random.Range(20f, 40f);
-        Instantiate(enemy, playerTransform.position + offset, Quaternion.identity);
+
+        Object toBeSpawned;
+        if (Random.Range(0, 2) == 1) toBeSpawned = enemy;
+        else toBeSpawned = rangedEnemy;
+
+        Instantiate(toBeSpawned, playerTransform.position + offset, Quaternion.identity);
     }
 
     void SlowTime()
