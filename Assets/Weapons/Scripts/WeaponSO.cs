@@ -16,20 +16,20 @@ public class WeaponSO : ScriptableObject
 
     // Function must return a float (Cooldown value)
     // code slashing here as it's common between both types
-    public virtual float Slash(LocalWeaponsData weaponMemory, SpatialTracker spatialData)
+    public virtual float Slash(LocalWeaponsData weaponMemory)
     {
-        List<Collider2D> hitBuffer = weaponMemory.hitBuffer;
-        Vector3 playerPos = spatialData.playerPosition;
+        List<Collider2D> hitBuffer = weaponMemory.hitsBuffer;
+        Vector3 playerPos = GameUtils.instance.playerPosition;
 
         hitBuffer.Clear();
-        int count = Physics2D.OverlapCircle(playerPos, slashRadius, weaponMemory.contactFilter, hitBuffer);
+        int count = Physics2D.OverlapCircle(playerPos, slashRadius, weaponMemory.enemyFilter, hitBuffer);
 
         for (int i = 0; i < count; i++)
         {
             Vector2 directionToEnemy = (hitBuffer[i].transform.position - playerPos).normalized;
 
             // Calculate angle between aim direction and enemy
-            float angle = Vector2.Angle(spatialData.cursorDirection, directionToEnemy);
+            float angle = Vector2.Angle(GameUtils.instance.cursorWorldLocation, directionToEnemy);
 
             if (angle <= slashAngle / 2f)
             {
