@@ -6,6 +6,7 @@ public class GameStatus : MonoBehaviour
     public LayerMask enemyLayer;
 
     public Transform playerTransform;
+    public PlayerController playerController;
     public Object enemy;
 
     public void Awake()

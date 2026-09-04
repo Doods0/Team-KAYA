@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [Header("Settings")]
     public float walkspeed;
     public int health;
+    public int maxHealth;
 
     private Rigidbody2D rb;
     private PlayerInput input;
