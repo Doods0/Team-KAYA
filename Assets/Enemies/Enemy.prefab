@@ -143,9 +143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e734636c11f135e17b600556d72332dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  speed: 100
+  knockbackDecayRate: 4
+  speed: 5
   damage: 1
   health: 10
+  rigidbody: {fileID: 0}
 --- !u!50 &6012531304567061385
 Rigidbody2D:
   serializedVersion: 5
@@ -154,7 +156,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2380258183937040191}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

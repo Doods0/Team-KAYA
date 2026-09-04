@@ -42,6 +42,6 @@ public class EntityAnimator : MonoBehaviour
     public void flipCharacter(int direction)
     {
         if (direction == 0) return;
-        transform.localScale = new Vector3(direction, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(direction, 1, 1);
     }
 }
