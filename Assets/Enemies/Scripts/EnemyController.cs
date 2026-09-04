@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float knockbackDecayRate = 4f;
+    public float knockbackDecayRate = 4f;
 
     [Header("Stats")]
     public float speed;
@@ -15,13 +15,11 @@ public class EnemyController : MonoBehaviour
     public AudioClip death;
 
     [HideInInspector] public Rigidbody2D rigidbody;
-    private Vector2 knockbackVelocity;
+    [HideInInspector] public Vector2 knockbackVelocity;
 
+    public virtual void Awake() => rigidbody = GetComponent<Rigidbody2D>();
 
-
-    private void Awake() => rigidbody = GetComponent<Rigidbody2D>();
-
-    private void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
 

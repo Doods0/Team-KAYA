@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [Header("Placeholder")]
     public Object enemy;
     public Object rangedEnemy;
+    public HUDManager HUD;
 
     [Header("Session")]
     // Use to set up timescale externally and manually
@@ -19,7 +20,12 @@ public class GameManager : MonoBehaviour
     public bool isTimeBypassed = false;
     public float timeScale = 1f;
 
-    private void Update() { if (!isTimeBypassed) Time.timeScale = timeScale; }
+    private void Update() 
+    {
+        if (timeScale <= 0.1) TriggerGameOver();
+        if (!isTimeBypassed) Time.timeScale = timeScale;
+        HUD.UpdateTimeScale(timeScale);
+    }
 
     private void Awake()
     {
@@ -66,5 +72,14 @@ public class GameManager : MonoBehaviour
 
         Instantiate(toBeSpawned, GameUtils.instance.playerPosition + offset, Quaternion.identity);
 
+    }
+
+    // Triggering game over is something global so it'll be fired from here
+    public void TriggerGameOver()
+    {
+        instance.isTimeBypassed = true;
+        Time.timeScale = 0;
+
+        HUD.ShowLossMenu();
     }
 }

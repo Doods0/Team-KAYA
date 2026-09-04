@@ -30,6 +30,7 @@ public class PlayerStats : MonoBehaviour
     public float knockbackOnDamaged;
     public float cooldownOnDamaged;
     public int health;
+    public int maxHealth;
     public bool isImmune = false;
 
     [Header("Settings")]
@@ -38,12 +39,13 @@ public class PlayerStats : MonoBehaviour
 
     [Header("Utils")]
     [SerializeField] private PlayerAnimator animator;
-
-    [HideInInspector] public LocalWeaponsData localWeaponsData;
-    [HideInInspector] public ContactFilter2D enemyFilter;
+    [SerializeField] private HUDManager HUD;
 
     [Header("Sounds")]
     public AudioClip shockwave;
+
+    [HideInInspector] public LocalWeaponsData localWeaponsData;
+    [HideInInspector] public ContactFilter2D enemyFilter;
 
     private float currentCooldown;
     private void Update() => currentCooldown = Mathf.Max(0f, currentCooldown - Time.deltaTime);
@@ -51,6 +53,8 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
+        HUD.UpdateHealth(health, maxHealth);
+
         enemyFilter = new ContactFilter2D
         {
             layerMask = GameUtils.instance.enemyLayer,
@@ -96,12 +100,20 @@ public class PlayerStats : MonoBehaviour
     {
         if (isImmune) return;
 
+        health -= damageTaken;
+
+        HUD.UpdateHealth(health, maxHealth);
+
+        if (health <= 0)
+        {
+            GameManager.instance.TriggerGameOver();
+            return;
+        }
+
         // Pause game
         GameManager.instance.isTimeBypassed = true;
         Time.timeScale = 0;
         isImmune = true;
-
-        health -= damageTaken;
 
         GameUtils.instance.audioSource.PlayOneShot(shockwave);
 
