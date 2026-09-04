@@ -100,7 +100,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (isImmune) return;
 
-        health -= damageTaken;
+        health = Mathf.Clamp(health - damageTaken, 0, 100);
 
         HUD.UpdateHealth(health, maxHealth);
 

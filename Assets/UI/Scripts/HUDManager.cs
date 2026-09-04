@@ -15,7 +15,7 @@ public class HUDManager : MonoBehaviour
     public void ShowLossMenu() => lossMenu.SetActive(true);
     public void UpdateTimeScale(float timeScale)
     {
-        timeScaleText.text = timeScale.ToString();
+        timeScaleText.text = timeScale.ToString("0.00");
     }
     public void UpdateHealth(int health, int maxHealth)
     {

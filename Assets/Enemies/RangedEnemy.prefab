@@ -174,8 +174,8 @@ MonoBehaviour:
   speed: 100
   damage: 0
   health: 5
-  hurt: {fileID: 8300000, guid: b985479660fab0a418e9b76fc018f358, type: 3}
-  death: {fileID: 8300000, guid: b985479660fab0a418e9b76fc018f358, type: 3}
+  hurt: {fileID: 8300000, guid: bb1976bf6428d994e98a0cd2c028f253, type: 3}
+  death: {fileID: 8300000, guid: 8301373d11f383e4e8cef47c6ba8a23a, type: 3}
   rigidbody: {fileID: 0}
   knockbackVelocity: {x: 0, y: 0}
   speedWhileAiming: 25
