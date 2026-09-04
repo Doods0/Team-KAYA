@@ -7,6 +7,8 @@ public class EnemyBullet : MonoBehaviour
     public int damage;
     public float torque;
 
+    public AudioClip explosion;
+
 
     Rigidbody2D rigidBody;
 
@@ -37,6 +39,7 @@ public class EnemyBullet : MonoBehaviour
         PlayerStats playerController = other.gameObject.GetComponent<PlayerStats>();
         if (playerController == null) return;
 
+        GameUtils.instance.audioSource.PlayOneShot(explosion, Random.Range(.5f, 0.8f));
         playerController.TakeDamage(damage);
         Destroy(gameObject);
     }

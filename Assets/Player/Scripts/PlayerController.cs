@@ -27,6 +27,13 @@ public class PlayerController : MonoBehaviour
     private InputAction toggleThrowAction;
     #endregion
 
+    [Header("Sounds (yes, I know they shouldn't be in this script. Sorry")]
+    public AudioClip walk1;
+    public AudioClip walk2;
+    public AudioClip walk3;
+    public float timeBetweenFootsteps;
+    float footstepTimer;
+
     private int xMovementDir;
     private int yMovementDir;
     private bool isThrowMode = false;
@@ -43,6 +50,7 @@ public class PlayerController : MonoBehaviour
         lightAttackAction = input.actions.FindAction(lightAttackRef.action.id);
         toggleThrowAction = input.actions.FindAction(toggleThrowRef.action.id);
         #endregion
+
     }
 
     #region Action Passing
@@ -79,7 +87,26 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        footstepTimer += Time.deltaTime;
+        // I can't use (rb.linearVelocity.magnitude != 0) because I need to make sure the reason
+        // for movement is walking.
+        if (footstepTimer > timeBetweenFootsteps && (xMovementDir != 0 || yMovementDir != 0))
+        {
+            GameUtils.instance.audioSource.PlayOneShot(RandomFootstepClip(), UnityEngine.Random.Range(.25f, 0.8f));
+            footstepTimer = 0;
+        }
+
+
         rb.linearVelocityX = xMovementDir * gearHandler.walkspeed;
         rb.linearVelocityY = yMovementDir * gearHandler.walkspeed;
+    }
+
+    AudioClip RandomFootstepClip()
+    {
+        int random = UnityEngine.Random.Range(0, 3);
+
+        if (random == 0) return walk1;
+        if (random == 1) return walk2;
+        else return walk3;
     }
 }
