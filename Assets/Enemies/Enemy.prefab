@@ -147,6 +147,8 @@ MonoBehaviour:
   speed: 5
   damage: 1
   health: 10
+  hurt: {fileID: 8300000, guid: efee9d083b9bcaa8c926c3c522f13028, type: 3}
+  death: {fileID: 8300000, guid: 92acbd75e684c38e6bc37afee67ead90, type: 3}
   rigidbody: {fileID: 0}
 --- !u!50 &6012531304567061385
 Rigidbody2D:

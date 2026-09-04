@@ -168,11 +168,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad181613d90b535099876412fffd83f2, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: '::'
+  knockbackDecayRate: 4
   speed: 100
   damage: 0
   health: 5
+  hurt: {fileID: 8300000, guid: 3791b5fd2bdd74a93b4fcbde9a1fe870, type: 3}
+  death: {fileID: 8300000, guid: 28fb2edcca6ec622fbe4dfd9da8ad970, type: 3}
+  rigidbody: {fileID: 0}
   speedWhileAiming: 25
   rangedDamage: 2
   range: 15

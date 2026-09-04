@@ -10,8 +10,14 @@ public class EnemyController : MonoBehaviour
     public int damage;
     public int health;
 
+    [Header("Sounds")]
+    public AudioClip hurt;
+    public AudioClip death;
+
     [HideInInspector] public Rigidbody2D rigidbody;
     private Vector2 knockbackVelocity;
+
+
 
     private void Awake() => rigidbody = GetComponent<Rigidbody2D>();
 
@@ -40,8 +46,12 @@ public class EnemyController : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            GameUtils.instance.audioSource.PlayOneShot(death, Random.Range(.75f, 1.25f));
+
             GameManager.instance.SpeedTime();
             Destroy(gameObject); // To be replaced by enemy pooling
-        }
+        } else GameUtils.instance.audioSource.PlayOneShot(hurt, Random.Range(.75f, 1.25f));
+
+
     }
 }

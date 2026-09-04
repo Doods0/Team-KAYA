@@ -42,6 +42,9 @@ public class PlayerStats : MonoBehaviour
     [HideInInspector] public LocalWeaponsData localWeaponsData;
     [HideInInspector] public ContactFilter2D enemyFilter;
 
+    [Header("Sounds")]
+    public AudioClip shockwave;
+
     private float currentCooldown;
     private void Update() => currentCooldown = Mathf.Max(0f, currentCooldown - Time.deltaTime);
     // Or fixedDeltaTime? should it change according to time speed?
@@ -99,6 +102,8 @@ public class PlayerStats : MonoBehaviour
         isImmune = true;
 
         health -= damageTaken;
+
+        GameUtils.instance.audioSource.PlayOneShot(shockwave);
 
         List<Collider2D> hitsBuffer = new List<Collider2D>();
         int hitCount = Physics2D.OverlapCircle(transform.position, damageImpactRange, enemyFilter, hitsBuffer);
