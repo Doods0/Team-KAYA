@@ -16,12 +16,10 @@ public class RangedEnemyController : EnemyController
     // Used to "charge up" shots.
     float timeSpentCharging = 0;
 
-    // private Rigidbody2D rigidbody;
-
-    void Awake() => rigidbody = GetComponent<Rigidbody2D>();
-
-    void FixedUpdate()
+    public override void FixedUpdate()
     {
+        knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
+
         Vector3 playerPosition = GameUtils.instance.playerTransform.position;
         Vector3 position = transform.position;
 
@@ -77,7 +75,7 @@ public class RangedEnemyController : EnemyController
         // Stop moving while in the preferred range.
         else moveVector *= 0;
 
-        rigidbody.linearVelocityX = moveVector.x;
-        rigidbody.linearVelocityY = moveVector.y;
+        rigidbody.linearVelocityX = moveVector.x + knockbackVelocity.x;
+        rigidbody.linearVelocityY = moveVector.y + knockbackVelocity.x;
     }
 }

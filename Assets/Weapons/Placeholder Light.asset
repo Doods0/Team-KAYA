@@ -15,9 +15,9 @@ MonoBehaviour:
   texture: {fileID: 0}
   inUseGripOffset: 0
   concealedGripOffset: 0
-  slashDamage: 2.07
-  slashCooldown: 1.42
-  slashRadius: 0
-  slashAngle: 0
+  slashDamage: 1.5
+  slashCooldown: 0.5
+  slashRadius: 6
+  slashAngle: 90
   throwDamage: 0
   throwCooldown: 0
