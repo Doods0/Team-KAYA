@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Placeholder")]
     public Object enemy;
+    public Object rangedEnemy;
 
     [Header("Session")]
     // Use to set up timescale externally and manually
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
         if (!isTimeBypassed)
         {
             timeScale = (timeScale + timeSpeedIncrease) * (1 + timeSpeedIncrease);
-        }   
+        }
     }
     // Changing of game speed should scale with current game speed.
     private void DecayTime()
@@ -58,6 +59,12 @@ public class GameManager : MonoBehaviour
             return x;
         }
         Vector3 offset = new Vector3(RR(), RR(), 0).normalized * Random.Range(20f, 40f);
-        Instantiate(enemy, GameUtils.instance.playerPosition + offset, Quaternion.identity);
+
+        Object toBeSpawned;
+        if (Random.Range(0, 2) == 1) toBeSpawned = enemy;
+        else toBeSpawned = rangedEnemy;
+
+        Instantiate(toBeSpawned, GameUtils.instance.playerPosition + offset, Quaternion.identity);
+
     }
 }
