@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,15 +8,17 @@ public class HUDManager : MonoBehaviour
     [Header("Menus")]
     [SerializeField] private GameObject lossMenu;
     [SerializeField] TextMeshProUGUI timeScaleText;
+    [SerializeField] TextMeshProUGUI timePassedText;
     [Header("Health")]
     [SerializeField] private GameObject healthBar;
     [SerializeField] private GameObject healthFull;
     [SerializeField] private GameObject healthEmpty;
 
     public void ShowLossMenu() => lossMenu.SetActive(true);
-    public void UpdateTimeScale(float timeScale)
+    public void UpdateUI(float timeScale, float timePassed)
     {
         timeScaleText.text = timeScale.ToString("0.00");
+        timePassedText.text = ((int)timePassed).ToString();
     }
     public void UpdateHealth(int health, int maxHealth)
     {
