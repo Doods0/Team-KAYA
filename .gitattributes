@@ -10,6 +10,7 @@
 *.mat text eol=crlf
 *.anim text eol=crlf
 *.controller text eol=crlf
+*.meta text eol=crlf
 
 *.png binary
 *.jpg binary
