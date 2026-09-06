@@ -1,83 +1,197 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class enemyEntry
+{
+    public GameObject enemyPrefab;
+    public string enemyId;
+    public int enemyPrice; // per unit
+    public int enemyCapPrice; // hard cap to how much you can purchase based on currency
+    public int enemyCapPerPrice; // how much will be purchasable if you meet the cap
+    public int enemyPriority; // which will the game begin spending currency on
+
+    [HideInInspector] public int enemyCap = 0; // How many of these can we buy and spawn (CHANGE DURING RUNTIME)
+    [HideInInspector] public int instancesToSpawn;
+    [HideInInspector] public int numberOfInstances = 0; // How many of those exist now
+}
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [Header("Settings")]
+    [Header("Stats")]
     public float timeSpeedDecay;
     public float timeSpeedIncrease;
+    
 
     [Header("Placeholder")]
-    public Object enemy;
-    public Object rangedEnemy;
+    public GameObject enemy;
+    public GameObject rangedEnemy;
     public HUDManager HUD;
+
+    [Header("Settings")] // These are constants
+    [Header("Enemy Spawnrate")]
+    public float enemySpawnrate;
+    public float minEnemySpawnrate;
+    public float spawnrateDecreasePerPhase;
+    [Header("Phase")]
+    public int timeTillNextPhase;
+    public int enemyCurrencyPerPhase;
 
     [Header("Session")]
     // Use to set up timescale externally and manually
     // AKA to be able to use Time.timeScale without this script overriding it
     // It pauses the time decay and time speeding too
+    
     public bool isTimeBypassed = false;
     public float timeScale = 1f;
+    
+    public float timePassed = 0;
+    private int currentPhase;
+    private int lastComputedPhase = -1;
+    private int currentEnemyCurrency;
 
-    private void Update() 
+    public List<enemyEntry> enemies = new List<enemyEntry>();
+    private Dictionary<string, List<GameObject>> resourcePool = new Dictionary<string, List<GameObject>>();
+
+    private void Update()
     {
-        if (timeScale <= 0.1) TriggerGameOver();
+        if (timeScale <= 0.2) TriggerGameOver();
         if (!isTimeBypassed) Time.timeScale = timeScale;
-        HUD.UpdateTimeScale(timeScale);
+
+        timePassed = Time.realtimeSinceStartup;
+        currentPhase = ((int)timePassed / timeTillNextPhase) + 1;
+
+        HUD.UpdateUI(timeScale, timePassed);
     }
 
     private void Awake()
     {
         instance = this;
 
-        InvokeRepeating(nameof(SpawnEnemy), 3.0f, 1.0f);
-        InvokeRepeating(nameof(DecayTime), 0f, 1f);
+        StartCoroutine(SpawnEnemy());
+        StartCoroutine(DecayTime());
     }
+
+    #region Resource Pooling
+
+    public void AddInPool(string id, GameObject obj)
+    {
+        if (resourcePool.TryGetValue(id, out List<GameObject> objs))
+        {
+            resourcePool[id].Add(obj);
+        }
+        else
+        {
+            resourcePool[id] = new List<GameObject>();
+            resourcePool[id].Add(obj);
+        }
+        enemies.Find(entry => entry.enemyId == id).numberOfInstances--;
+    }
+
+    
+
+    public GameObject GetFromPool(string id)
+    {
+        if (resourcePool.TryGetValue(id, out List<GameObject> objs) && objs.Count > 0)
+        {
+            GameObject obj = objs[^1];
+            objs.RemoveAt(objs.Count - 1);
+            return obj;
+        }
+        return null;
+    }
+
+    #endregion
+
+    #region Time Manipulation
 
     public void SpeedTime()
     {
-        if (!isTimeBypassed)
-        {
-            timeScale = (timeScale + timeSpeedIncrease) * (1 + timeSpeedIncrease);
-        }
+        if (!isTimeBypassed) timeScale = (timeScale + timeSpeedIncrease) * (1 + timeSpeedIncrease);
     }
-    // Changing of game speed should scale with current game speed.
-    private void DecayTime()
+    private IEnumerator DecayTime()
     {
-        if (!isTimeBypassed)
+        while (true)
         {
-            timeScale = (timeScale - timeSpeedDecay) * (1 - timeSpeedDecay);
-        }
-    }
-    // Changing of game speed should scale with current game speed.
+            if (!isTimeBypassed) timeScale = (timeScale - timeSpeedDecay) * (1 - timeSpeedDecay);
 
-    private void SpawnEnemy()
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
+    }
+
+    #endregion
+
+    #region Difficulty Escalation
+
+    public void UpdateDifficulty(int currentPhase)
     {
-        static float RR()
+        enemySpawnrate = Mathf.Clamp(enemySpawnrate - (spawnrateDecreasePerPhase * currentPhase), minEnemySpawnrate, Mathf.Infinity);
+        currentEnemyCurrency = enemyCurrencyPerPhase * currentPhase;
+
+        int localEnemyCurrency = currentEnemyCurrency;
+        foreach (enemyEntry entry in enemies)
         {
-            float x = 0f;
-            while (x == 0)
+            // If (localEnemyCurrency < entry.enemyCapPrice) we will get a 0, as they're both int.
+            entry.enemyCap = (localEnemyCurrency / entry.enemyCapPrice) * entry.enemyCapPerPrice;
+            int affordable = localEnemyCurrency / entry.enemyPrice;
+            int enemiesPurchased = Mathf.Min(entry.enemyCap, affordable);
+            localEnemyCurrency -= enemiesPurchased * entry.enemyPrice;
+            entry.instancesToSpawn = enemiesPurchased;
+        }
+    }
+
+    private IEnumerator SpawnEnemy() // spawns based on cap
+    {
+        while (true)
+        {
+            if (currentPhase != lastComputedPhase)
             {
-                x = Random.Range(-1f, 1f);
+                lastComputedPhase = currentPhase;
+                UpdateDifficulty(currentPhase);
             }
 
-            return x;
+            static float RR()
+            {
+                float x = 0f;
+                while (x == 0) x = Random.Range(-1f, 1f);
+                return x;
+            }
+            Vector3 offset = new Vector3(RR(), RR(), 0).normalized * Random.Range(20f, 40f);
+
+            foreach (enemyEntry entry in enemies)
+            {
+                if (entry.instancesToSpawn <= entry.numberOfInstances) continue;
+
+                GameObject toBeSpawned = GetFromPool(entry.enemyId);
+                if (toBeSpawned == null)
+                {
+                    toBeSpawned = entry.enemyPrefab;
+                    GameObject spawnedEnemy = Instantiate(toBeSpawned, GameUtils.instance.playerPosition + offset, Quaternion.identity);
+                    spawnedEnemy.GetComponent<EnemyController>().id = entry.enemyId;
+                }
+                else
+                {
+                    toBeSpawned.SetActive(true);
+                    EnemyController controller = toBeSpawned.GetComponent<EnemyController>();
+                    controller.health = controller.maxHealth;
+                    toBeSpawned.transform.position = (GameUtils.instance.playerPosition + offset);
+                }
+                entry.numberOfInstances++;
+            }
+
+            yield return new WaitForSecondsRealtime(enemySpawnrate);
         }
-        Vector3 offset = new Vector3(RR(), RR(), 0).normalized * Random.Range(20f, 40f);
-
-        Object toBeSpawned;
-        if (Random.Range(0, 2) == 1) toBeSpawned = enemy;
-        else toBeSpawned = rangedEnemy;
-
-        Instantiate(toBeSpawned, GameUtils.instance.playerPosition + offset, Quaternion.identity);
-
     }
+
+    #endregion
 
     // Triggering game over is something global so it'll be fired from here
     public void TriggerGameOver()
     {
-        instance.isTimeBypassed = true;
+        isTimeBypassed = true;
         Time.timeScale = 0;
 
         HUD.ShowLossMenu();

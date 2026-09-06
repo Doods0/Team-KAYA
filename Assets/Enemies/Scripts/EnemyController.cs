@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public float speed;
     public int damage;
     public int health;
+    public int maxHealth;
 
     [Header("Sounds")]
     public AudioClip hurt;
@@ -16,6 +17,7 @@ public class EnemyController : MonoBehaviour
 
     [HideInInspector] public Rigidbody2D rigidbody;
     [HideInInspector] public Vector2 knockbackVelocity;
+    [HideInInspector] public string id;
 
     public virtual void Awake() => rigidbody = GetComponent<Rigidbody2D>();
 
@@ -47,7 +49,9 @@ public class EnemyController : MonoBehaviour
             GameUtils.instance.audioSource.PlayOneShot(death, Random.Range(.75f, 1.25f));
 
             GameManager.instance.SpeedTime();
-            Destroy(gameObject); // To be replaced by enemy pooling
+            GameManager.instance.AddInPool(id, gameObject);
+            gameObject.SetActive(false);
+
         } else GameUtils.instance.audioSource.PlayOneShot(hurt, Random.Range(.75f, 1.25f));
 
 
