@@ -23,13 +23,8 @@ public class EnemyController : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
-
-        Vector2 playerPosition = (Vector2)GameUtils.instance.playerPosition;
-        Vector2 position = rigidbody.position;
-        Vector2 moveDirection = (playerPosition - position).normalized;
-
-        rigidbody.linearVelocity = moveDirection * speed + knockbackVelocity;
+        rigidbody.linearVelocity = ToPlayer().normalized * speed;
+        ReactToKnockback();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -52,8 +47,23 @@ public class EnemyController : MonoBehaviour
             GameManager.instance.AddInPool(id, gameObject);
             gameObject.SetActive(false);
 
-        } else GameUtils.instance.audioSource.PlayOneShot(hurt, Random.Range(.75f, 1.25f));
+        }
+        else GameUtils.instance.audioSource.PlayOneShot(hurt, Random.Range(.75f, 1.25f));
+    }
 
+    // If more functions like this are created,
+    // group them in a big function called: "EnemyBehaviour" or something.
+    public void ReactToKnockback()
+    {
+        knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
+        rigidbody.linearVelocity += knockbackVelocity;
+    }
 
+    public Vector2 ToPlayer()
+    {
+        Vector2 playerPosition = (Vector2)GameUtils.instance.playerPosition;
+        Vector2 position = rigidbody.position;
+
+        return playerPosition - position;
     }
 }

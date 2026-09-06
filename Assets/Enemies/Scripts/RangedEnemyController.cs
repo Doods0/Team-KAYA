@@ -18,12 +18,7 @@ public class RangedEnemyController : EnemyController
 
     public override void FixedUpdate()
     {
-        knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
-
-        Vector3 playerPosition = GameUtils.instance.playerTransform.position;
-        Vector3 position = transform.position;
-
-        float distanceFromPlayer = (playerPosition - position).magnitude;
+        float distanceFromPlayer = ToPlayer().magnitude;
 
         // Only start aiming when we're in the preferred range.
         if (distanceFromPlayer >= preferredRange * 0.9
@@ -36,7 +31,7 @@ public class RangedEnemyController : EnemyController
             lockedOnPlayer = false;
         }
 
-        Vector3 moveVector = (playerPosition - position).normalized * Time.deltaTime;
+        Vector3 moveVector = ToPlayer().normalized;
 
         if (!lockedOnPlayer)
         {
@@ -75,7 +70,8 @@ public class RangedEnemyController : EnemyController
         // Stop moving while in the preferred range.
         else moveVector *= 0;
 
-        rigidbody.linearVelocityX = moveVector.x + knockbackVelocity.x;
-        rigidbody.linearVelocityY = moveVector.y + knockbackVelocity.x;
+        rigidbody.linearVelocity = moveVector;
+
+        ReactToKnockback();
     }
 }
