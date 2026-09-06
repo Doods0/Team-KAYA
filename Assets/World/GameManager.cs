@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -76,6 +75,8 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DecayTime());
     }
 
+    #region Resource Pooling
+
     public void AddInPool(string id, GameObject obj)
     {
         if (resourcePool.TryGetValue(id, out List<GameObject> objs))
@@ -90,6 +91,8 @@ public class GameManager : MonoBehaviour
         enemies.Find(entry => entry.enemyId == id).numberOfInstances--;
     }
 
+    
+
     public GameObject GetFromPool(string id)
     {
         if (resourcePool.TryGetValue(id, out List<GameObject> objs) && objs.Count > 0)
@@ -101,6 +104,28 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
+    #endregion
+
+    #region Time Manipulation
+
+    public void SpeedTime()
+    {
+        if (!isTimeBypassed) timeScale = (timeScale + timeSpeedIncrease) * (1 + timeSpeedIncrease);
+    }
+    private IEnumerator DecayTime()
+    {
+        while (true)
+        {
+            if (!isTimeBypassed) timeScale = (timeScale - timeSpeedDecay) * (1 - timeSpeedDecay);
+
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
+    }
+
+    #endregion
+
+    #region Difficulty Escalation
+
     public void UpdateDifficulty(int currentPhase)
     {
         enemySpawnrate = Mathf.Clamp(enemySpawnrate - (spawnrateDecreasePerPhase * currentPhase), minEnemySpawnrate, Mathf.Infinity);
@@ -109,31 +134,12 @@ public class GameManager : MonoBehaviour
         int localEnemyCurrency = currentEnemyCurrency;
         foreach (enemyEntry entry in enemies)
         {
+            // If (localEnemyCurrency < entry.enemyCapPrice) we will get a 0, as they're both int.
             entry.enemyCap = (localEnemyCurrency / entry.enemyCapPrice) * entry.enemyCapPerPrice;
             int affordable = localEnemyCurrency / entry.enemyPrice;
             int enemiesPurchased = Mathf.Min(entry.enemyCap, affordable);
             localEnemyCurrency -= enemiesPurchased * entry.enemyPrice;
             entry.instancesToSpawn = enemiesPurchased;
-        }
-    }
-
-    public void SpeedTime()
-    {
-        if (!isTimeBypassed)
-        {
-            timeScale = (timeScale + timeSpeedIncrease) * (1 + timeSpeedIncrease);
-        }
-    }
-    private IEnumerator DecayTime()
-    {
-        while (true)
-        {
-            if (!isTimeBypassed)
-            {
-                timeScale = (timeScale - timeSpeedDecay) * (1 - timeSpeedDecay);
-            }
-
-            yield return new WaitForSecondsRealtime(0.1f);
         }
     }
 
@@ -150,11 +156,7 @@ public class GameManager : MonoBehaviour
             static float RR()
             {
                 float x = 0f;
-                while (x == 0)
-                {
-                    x = Random.Range(-1f, 1f);
-                }
-
+                while (x == 0) { x = Random.Range(-1f, 1f); }
                 return x;
             }
             Vector3 offset = new Vector3(RR(), RR(), 0).normalized * Random.Range(20f, 40f);
@@ -183,6 +185,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(enemySpawnrate);
         }
     }
+
+    #endregion
 
     // Triggering game over is something global so it'll be fired from here
     public void TriggerGameOver()
