@@ -88,6 +88,7 @@ public class PlayerAnimator : EntityAnimator
         {
             yield return new WaitForSecondsRealtime(animations[nextAnimIndex].length * (1 / weaponAnimator.speed));
 
+            weaponAnimator.speed = GameManager.instance.timeScale;
             weaponAnimator.Play("Empty", layer: 0, normalizedTime: 0f);
         }
 
@@ -111,10 +112,10 @@ public class PlayerAnimator : EntityAnimator
         trailRenderer.emitting = true;
 
         float elapsed = 0f;
-        while (elapsed < duration)
+        while (elapsed < duration * GameManager.instance.timeScale)
         {
             elapsed += Time.deltaTime;
-            float linearT = elapsed / duration;
+            float linearT = elapsed / (duration * GameManager.instance.timeScale);
             float easedT = EaseOutQuart(linearT);
 
             float currentAngle = Mathf.Lerp(startAngle, endAngle, easedT);

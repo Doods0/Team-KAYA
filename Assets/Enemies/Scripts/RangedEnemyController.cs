@@ -70,7 +70,7 @@ public class RangedEnemyController : EnemyController
         // Stop moving while in the preferred range.
         else moveVector *= 0;
 
-        rigidbody.linearVelocity = moveVector;
+        rigidbody.linearVelocity = moveVector * GameManager.instance.timeScale;
 
         ReactToKnockback();
     }

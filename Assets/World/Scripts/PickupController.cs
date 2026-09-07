@@ -40,11 +40,11 @@ public class PickupController : MonoBehaviour
         if (type is PickupType.Point) stats.points++;
         else if (type is PickupType.SpeedUp)
         {
-            GameManager.instance.timeScale += stats.speedupDropInterval;
+            GameManager.instance.runtimeScale += stats.speedupDropInterval;
         }
         else if (type is PickupType.SlowDown)
         {
-            GameManager.instance.timeScale -= stats.slowdownDropInterval;
+            GameManager.instance.runtimeScale -= stats.slowdownDropInterval;
         }
         else if (type is PickupType.Shop) stats.shopDrops++;
     }

@@ -119,7 +119,7 @@ public class PlayerStats : MonoBehaviour
 
         // Pause game
         GameManager.instance.isTimeBypassed = true;
-        Time.timeScale = 0;
+        GameManager.instance.timeScale = 0;
         isImmune = true;
 
         GameUtils.instance.audioSource.PlayOneShot(shockwave);
@@ -127,24 +127,24 @@ public class PlayerStats : MonoBehaviour
         List<Collider2D> hitsBuffer = new List<Collider2D>();
         int hitCount = Physics2D.OverlapCircle(transform.position, damageImpactRange, enemyFilter, hitsBuffer);
 
-        // Iterate through nearby enemies
-        for (int i = 0; i < hitCount; i++)
-        {
-            Collider2D col = hitsBuffer[i];
-
-            if (col.TryGetComponent<EnemyController>(out EnemyController controller))
-            {
-                Vector2 direction = (controller.rigidbody.transform.position - transform.position).normalized;
-
-                controller.ApplyKnockback(direction * knockbackOnDamaged);
-            }
-        }
-
         IEnumerator ResumeGameAfterDelay()
         {
             yield return new WaitForSecondsRealtime(damageImpactTime);
 
             GameManager.instance.isTimeBypassed = false;
+
+            // Iterate through nearby enemies
+            for (int i = 0; i < hitCount; i++)
+            {
+                Collider2D col = hitsBuffer[i];
+
+                if (col.TryGetComponent<EnemyController>(out EnemyController controller))
+                {
+                    Vector2 direction = (controller.rigidbody.transform.position - transform.position).normalized;
+
+                    controller.ApplyKnockback(direction * knockbackOnDamaged);
+                }
+            }
 
             yield return new WaitForSecondsRealtime(cooldownOnDamaged);
 

@@ -17,11 +17,11 @@ public class RusherEnemy : EnemyController
         }
 
         if (rushing) rigidbody.linearVelocity *= 1 + acceleration / 1000;
-        else if (rigidbody.linearVelocity.magnitude > speed * 1.1)
+        else if (rigidbody.linearVelocity.magnitude > speed * 1.1 * GameManager.instance.timeScale)
         {
             rigidbody.linearVelocity /= 1 + acceleration / 100;
         }
-        else rigidbody.linearVelocity = ToPlayer().normalized * speed;
+        else rigidbody.linearVelocity = ToPlayer().normalized * speed * GameManager.instance.timeScale;
 
 
         ReactToKnockback();
