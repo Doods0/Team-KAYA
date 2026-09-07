@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         if (xMovementDir != 0 || yMovementDir != 0) Animator.state = EntityState.Walking;
         else Animator.state = EntityState.Idle;
 
-        Animator.flipCharacter(xMovementDir);
+        Animator.FlipCharacter(xMovementDir);
     }
 
     private void FixedUpdate()

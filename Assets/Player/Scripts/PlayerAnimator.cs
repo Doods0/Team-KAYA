@@ -1,7 +1,6 @@
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.U2D;
 
 public class PlayerAnimator : EntityAnimator
 {
