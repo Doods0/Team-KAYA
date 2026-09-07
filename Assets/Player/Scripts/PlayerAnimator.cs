@@ -91,7 +91,6 @@ public class PlayerAnimator : EntityAnimator
         StartCoroutine(stopAnimation());
     }
 
-    // had a liiiiitle assist from claude (okay he kinda wrote the whole thing i was tired af)
     public IEnumerator PlaySlashTrail(Transform pivot, float radius, float angleDegrees, float duration)
     {
         Vector3 frozenForward = pivot.right;
@@ -103,8 +102,9 @@ public class PlayerAnimator : EntityAnimator
         Vector3 startDir = Quaternion.Euler(0, 0, startAngle) * frozenForward;
         trailTip.position = origin + startDir * radius;
 
-        trailTip.gameObject.SetActive(true);
+        trailRenderer.widthMultiplier = radius;
         trailRenderer.Clear();
+        trailTip.gameObject.SetActive(true);
         trailRenderer.emitting = true;
 
         float elapsed = 0f;
@@ -117,7 +117,7 @@ public class PlayerAnimator : EntityAnimator
             float currentAngle = Mathf.Lerp(startAngle, endAngle, easedT);
 
             Vector3 dir = Quaternion.Euler(0, 0, currentAngle) * frozenForward;
-            trailTip.position = origin + dir * radius;
+            trailTip.position = origin + dir * (1.5f * radius / 2);
 
             yield return null;
         }
