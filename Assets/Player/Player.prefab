@@ -218,8 +218,12 @@ MonoBehaviour:
   cooldownOnDamaged: 2
   health: 5
   maxHealth: 5
-  pickupRange: 4
   isImmune: 0
+  pickupRange: 4
+  shopDrops: 0
+  points: 0
+  speedupDropInterval: 0.2
+  slowdownDropInterval: 0.2
   damageImpactTime: 0.5
   damageImpactRange: 61.11
   animator: {fileID: 2219050965675229364}
@@ -655,6 +659,7 @@ MonoBehaviour:
   concealedWeapon: {fileID: 8567604481415240613}
   trailTip: {fileID: 7496077784685174461}
   trailRenderer: {fileID: 400010840093474553}
+  trailLifetime: 0.08
 --- !u!95 &8409257162083559834
 Animator:
   serializedVersion: 7

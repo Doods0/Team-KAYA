@@ -188,3 +188,5 @@ MonoBehaviour:
   timeToCharge: 2
   bulletSpeed: 5
   bullet: {fileID: 5350934001960373574, guid: bd80ef2cd15cdcb578fd78c43358838d, type: 3}
+  bulletId: bomb
+  bulletTexture: {fileID: -47154726313258108, guid: bcae1cd329d66080e8b3ffac66e22086, type: 3}

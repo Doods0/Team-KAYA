@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5655487989693651059}
   - component: {fileID: 3503189360756786184}
-  - component: {fileID: 3481820251134814648}
-  - component: {fileID: 1390385622900824595}
+  - component: {fileID: 936523448251002282}
+  - component: {fileID: 2924825452697551542}
   - component: {fileID: 2066237759703416532}
   m_Layer: 7
-  m_Name: EnemyBullet
+  m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!114 &3481820251134814648
+--- !u!114 &936523448251002282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,16 +104,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5350934001960373574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92e2349916d983bc695d49a9a0108735, type: 3}
+  m_Script: {fileID: 11500000, guid: 2091420863bd02346b97a5f144c7277d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  moveDirection: {x: 0, y: 0, z: 0}
-  speed: 100
+  m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  speed: 0
   damage: 0
+  lifetime: 0
+  isEnemy: 0
   torque: 0
-  explosion: {fileID: 8300000, guid: 8b6a54679bb8fc3469a8e7c9c1ba08c3, type: 3}
---- !u!70 &1390385622900824595
-CapsuleCollider2D:
+  spins: 0
+  renderer: {fileID: 3503189360756786184}
+  moveDirection: {x: 0, y: 0, z: 0}
+  id: 
+--- !u!58 &2924825452697551542
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -146,9 +150,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.08869171, y: -0.022550821}
-  m_Size: {x: 2.4018192, y: 5.191729}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 3.645
 --- !u!50 &2066237759703416532
 Rigidbody2D:
   serializedVersion: 5

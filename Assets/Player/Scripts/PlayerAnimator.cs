@@ -12,6 +12,7 @@ public class PlayerAnimator : EntityAnimator
     [Header("Trail")]
     [SerializeField] private Transform trailTip;
     [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private float trailLifetime = 0.08f;
 
     private int nextAnimIndex = -1;
 
@@ -72,6 +73,7 @@ public class PlayerAnimator : EntityAnimator
         nextAnimIndex++;
         if (nextAnimIndex >= animations.Length) nextAnimIndex = 0;
         AnimationClip selectedAnim = animations[nextAnimIndex];
+        weaponAnimator.speed = GameManager.instance.timeScale;
         weaponAnimator.Play(selectedAnim.name, layer: 0, normalizedTime: 0f);
         int audioIndex = UnityEngine.Random.Range(0, audio.Length);
 
@@ -88,7 +90,6 @@ public class PlayerAnimator : EntityAnimator
         {
             yield return new WaitForSecondsRealtime(animations[nextAnimIndex].length * (1 / weaponAnimator.speed));
 
-            weaponAnimator.speed = GameManager.instance.timeScale;
             weaponAnimator.Play("Empty", layer: 0, normalizedTime: 0f);
         }
 
@@ -107,15 +108,17 @@ public class PlayerAnimator : EntityAnimator
         trailTip.position = origin + startDir * radius;
 
         trailRenderer.widthMultiplier = radius;
+        trailRenderer.time = math.clamp(trailLifetime * (1 / GameManager.instance.timeScale), trailLifetime, math.INFINITY);
         trailRenderer.Clear();
         trailTip.gameObject.SetActive(true);
         trailRenderer.emitting = true;
 
         float elapsed = 0f;
-        while (elapsed < duration * GameManager.instance.timeScale)
+        float currentDuration = math.clamp(duration * (1 / GameManager.instance.timeScale), duration, math.INFINITY);
+        while (elapsed < currentDuration)
         {
             elapsed += Time.deltaTime;
-            float linearT = elapsed / (duration * GameManager.instance.timeScale);
+            float linearT = elapsed / currentDuration;
             float easedT = EaseOutQuart(linearT);
 
             float currentAngle = Mathf.Lerp(startAngle, endAngle, easedT);
@@ -130,5 +133,5 @@ public class PlayerAnimator : EntityAnimator
         trailTip.gameObject.SetActive(false);
     }
 
-    private float EaseOutQuart(float t) => 1f - Mathf.Pow(1f - t, 4);
+    private float EaseOutQuart(float t) => (1f - Mathf.Pow(1f - t, 4));
 }

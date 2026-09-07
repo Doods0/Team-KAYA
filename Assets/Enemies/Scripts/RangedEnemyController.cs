@@ -11,6 +11,8 @@ public class RangedEnemyController : EnemyController
     [SerializeField] private float timeToCharge;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Object bullet;
+    [SerializeField] private string bulletId;
+    [SerializeField] private Sprite bulletTexture;
 
     bool lockedOnPlayer = false;
     // Used to "charge up" shots.
@@ -47,10 +49,16 @@ public class RangedEnemyController : EnemyController
             {
                 timeSpentCharging = 0;
 
-                Object bulletInstance = Instantiate(bullet,
-                    transform.position,
-                    Quaternion.identity);
-                EnemyBullet bulletScript = bulletInstance.GetComponent<EnemyBullet>();
+                Object bulletInstance = GameManager.instance.GetFromPool(bulletId);
+
+                if (bulletInstance is null)
+                {
+                    bulletInstance = Instantiate(bullet,
+                        transform.position,
+                        Quaternion.identity);
+                }
+
+                ProjectileController bulletScript = bulletInstance.GetComponent<ProjectileController>();
                 if (bulletScript == null)
                 {
                     print("EnemyBullet script not found");
@@ -61,6 +69,9 @@ public class RangedEnemyController : EnemyController
                 bulletScript.damage = rangedDamage;
                 bulletScript.moveDirection = moveVector.normalized;
                 bulletScript.torque = Random.Range(-10, 11);
+                bulletScript.id = bulletId;
+                bulletScript.renderer.sprite = bulletTexture;
+                bulletScript.isEnemy = true;
             }
         }
 
