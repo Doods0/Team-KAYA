@@ -92,7 +92,7 @@ public class PlayerStats : MonoBehaviour
             else cooldown = lightWeapon.Throw();
         }
 
-        animator.TriggerWeaponAnimation(weaponInUse, otherWeapon);
+        animator.TriggerWeaponAnimation(weaponInUse, otherWeapon, isThrowMode);
         currentCooldown = cooldown;
     }
 

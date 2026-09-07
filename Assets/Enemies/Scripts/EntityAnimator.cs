@@ -27,10 +27,10 @@ public class EntityAnimator : MonoBehaviour
         var currentRule = rulesDictionary[state];
         if (currentRule == null)  return;
 
-        changeAnimation(currentRule.track_hash, currentRule.track, currentRule.fade);
+        ChangeAnimation(currentRule.track_hash, currentRule.fade);
     }
 
-    public void changeAnimation(int animation_hash, AnimationClip track, float fade = 0f)
+    public void ChangeAnimation(int animation_hash, float fade = 0f)
     {
         if (currentAnimation != animation_hash)
         {
@@ -39,7 +39,7 @@ public class EntityAnimator : MonoBehaviour
         }
     }
 
-    public void flipCharacter(int direction)
+    public void FlipCharacter(int direction)
     {
         if (direction == 0) return;
         transform.localScale = new Vector3(direction, 1, 1);
