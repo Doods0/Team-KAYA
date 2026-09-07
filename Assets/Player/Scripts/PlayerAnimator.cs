@@ -56,7 +56,7 @@ public class PlayerAnimator : EntityAnimator
 
         AnimationClip[] animations;
         AudioClip[] audio;
-
+        bool canPlaySlashTrail = false;
         if (isThrow && weaponInUse is LightWeaponSO lightWeapon)
         {
             animations = lightWeapon.throwAnimations;
@@ -67,6 +67,7 @@ public class PlayerAnimator : EntityAnimator
         {
             animations = weaponInUse.slashAnimations;
             audio = weaponInUse.slashSounds;
+            canPlaySlashTrail = true;
         }
 
         nextAnimIndex++;
@@ -77,9 +78,12 @@ public class PlayerAnimator : EntityAnimator
 
         GameUtils.instance.audioSource.PlayOneShot(audio[audioIndex]);
 
-        StartCoroutine(
-            PlaySlashTrail(weaponPivot, weaponInUse.slashRadius, weaponInUse.slashAngle, selectedAnim.length
-            ));
+        if (canPlaySlashTrail)
+        {
+            StartCoroutine(
+                PlaySlashTrail(weaponPivot, weaponInUse.slashRadius, weaponInUse.slashAngle, selectedAnim.length
+                ));
+        }
 
         IEnumerator stopAnimation()
         {
