@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class enemyEntry
+public class EnemyEntry
 {
     public GameObject enemyPrefab;
     public string enemyId;
@@ -24,11 +24,11 @@ public class GameManager : MonoBehaviour
     [Header("Stats")]
     public float timeSpeedDecay;
     public float timeSpeedIncrease;
-    
 
     [Header("Placeholder")]
     public GameObject enemy;
     public GameObject rangedEnemy;
+    public GameObject rusherEnemy;
     public HUDManager HUD;
 
     [Header("Settings")] // These are constants
@@ -44,17 +44,17 @@ public class GameManager : MonoBehaviour
     // Use to set up timescale externally and manually
     // AKA to be able to use Time.timeScale without this script overriding it
     // It pauses the time decay and time speeding too
-    
+
     public bool isTimeBypassed = false;
     public float timeScale = 1f;
-    
+
     public float timePassed = 0;
     private int currentPhase;
     private int lastComputedPhase = -1;
     private int currentEnemyCurrency;
 
-    public List<enemyEntry> enemies = new List<enemyEntry>();
-    private Dictionary<string, List<GameObject>> resourcePool = new Dictionary<string, List<GameObject>>();
+    public List<EnemyEntry> enemies = new();
+    private readonly Dictionary<string, List<GameObject>> resourcePool = new();
 
     private void Update()
     {
@@ -90,8 +90,6 @@ public class GameManager : MonoBehaviour
         }
         enemies.Find(entry => entry.enemyId == id).numberOfInstances--;
     }
-
-    
 
     public GameObject GetFromPool(string id)
     {
@@ -132,10 +130,10 @@ public class GameManager : MonoBehaviour
         currentEnemyCurrency = enemyCurrencyPerPhase * currentPhase;
 
         int localEnemyCurrency = currentEnemyCurrency;
-        foreach (enemyEntry entry in enemies)
+        foreach (EnemyEntry entry in enemies)
         {
             // If (localEnemyCurrency < entry.enemyCapPrice) we will get a 0, as they're both int.
-            entry.enemyCap = (localEnemyCurrency / entry.enemyCapPrice) * entry.enemyCapPerPrice;
+            entry.enemyCap = localEnemyCurrency / entry.enemyCapPrice * entry.enemyCapPerPrice;
             int affordable = localEnemyCurrency / entry.enemyPrice;
             int enemiesPurchased = Mathf.Min(entry.enemyCap, affordable);
             localEnemyCurrency -= enemiesPurchased * entry.enemyPrice;
@@ -161,7 +159,7 @@ public class GameManager : MonoBehaviour
             }
             Vector3 offset = new Vector3(RR(), RR(), 0).normalized * Random.Range(20f, 40f);
 
-            foreach (enemyEntry entry in enemies)
+            foreach (EnemyEntry entry in enemies)
             {
                 if (entry.instancesToSpawn <= entry.numberOfInstances) continue;
 
@@ -177,7 +175,7 @@ public class GameManager : MonoBehaviour
                     toBeSpawned.SetActive(true);
                     EnemyController controller = toBeSpawned.GetComponent<EnemyController>();
                     controller.health = controller.maxHealth;
-                    toBeSpawned.transform.position = (GameUtils.instance.playerPosition + offset);
+                    toBeSpawned.transform.position = GameUtils.instance.playerPosition + offset;
                 }
                 entry.numberOfInstances++;
             }
