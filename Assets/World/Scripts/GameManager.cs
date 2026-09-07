@@ -26,9 +26,6 @@ public class GameManager : MonoBehaviour
     public float timeSpeedIncrease;
 
     [Header("Placeholder")]
-    public GameObject enemy;
-    public GameObject rangedEnemy;
-    public GameObject rusherEnemy;
     public HUDManager HUD;
 
     [Header("Settings")] // These are constants
@@ -88,7 +85,10 @@ public class GameManager : MonoBehaviour
             resourcePool[id] = new List<GameObject>();
             resourcePool[id].Add(obj);
         }
-        enemies.Find(entry => entry.enemyId == id).numberOfInstances--;
+        EnemyEntry enemy = enemies.Find(entry => entry.enemyId == id);
+
+        if (!(enemy is null)) enemy.numberOfInstances--;
+        
     }
 
     public GameObject GetFromPool(string id)

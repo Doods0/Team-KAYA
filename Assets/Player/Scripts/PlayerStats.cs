@@ -26,12 +26,19 @@ public class PlayerStats : MonoBehaviour
     public LightWeaponSO lightWeapon;
 
     [Header("Stats")]
+    [Header("Physical")]
     public float walkspeed;
     public float knockbackOnDamaged;
     public float cooldownOnDamaged;
     public int health;
     public int maxHealth;
     public bool isImmune = false;
+    [Header("Economy")]
+    public float pickupRange;
+    public int shopDrops;
+    public int points;
+    public float speedupDropInterval;
+    public float slowdownDropInterval;
 
     [Header("Settings")]
     [SerializeField] private float damageImpactTime;
