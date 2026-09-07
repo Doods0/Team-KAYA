@@ -9,10 +9,14 @@ public class WeaponSO : ScriptableObject
     public float concealedGripOffset;
 
     [Header("Slash")]
+    [Header("Stats")]
     public float slashDamage;
     public float slashCooldown;
     public float slashRadius;
     public float slashAngle;
+    [Header("Animations and Sounds")]
+    public AnimationClip[] slashAnimations; // need to exist already in the AnimationController
+    public AudioClip[] slashSounds;
 
     // Function must return a float (Cooldown value)
     // code slashing here as it's common between both types

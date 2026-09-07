@@ -27,10 +27,10 @@ public class EntityAnimator : MonoBehaviour
         var currentRule = rulesDictionary[state];
         if (currentRule == null)  return;
 
-        changeAnimation(currentRule.track_hash, currentRule.track, currentRule.fade);
+        changeAnimation(currentRule.track_hash, currentRule.fade);
     }
 
-    public void changeAnimation(int animation_hash, AnimationClip track, float fade = 0f)
+    public void changeAnimation(int animation_hash, float fade = 0f)
     {
         if (currentAnimation != animation_hash)
         {

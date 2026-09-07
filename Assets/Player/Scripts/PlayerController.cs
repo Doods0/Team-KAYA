@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     private InputAction toggleThrowAction;
     #endregion
 
-    [Header("Sounds (yes, I know they shouldn't be in this script. Sorry")]
+    [Header("Sounds")] // We'll put them here because they're movement afterall
     public AudioClip walk1;
     public AudioClip walk2;
     public AudioClip walk3;

@@ -12,12 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a3f266d7c3a12d498fa5985343c7a06, type: 3}
   m_Name: Placeholder Light
   m_EditorClassIdentifier: Assembly-CSharp::LightWeaponSO
-  texture: {fileID: 0}
-  inUseGripOffset: 0
-  concealedGripOffset: 0
+  texture: {fileID: 7550000489848552289, guid: 4d400f839312c294386ae9d9a9b7c2e4, type: 3}
+  inUseGripOffset: 0.14
+  concealedGripOffset: 0.78
   slashDamage: 1.5
   slashCooldown: 0.5
-  slashRadius: 6
+  slashRadius: 1.27
   slashAngle: 90
+  slashAnimations:
+  - {fileID: 7400000, guid: b339d50496d0e23449af73c2fbb0565a, type: 2}
+  - {fileID: 7400000, guid: d161b72ba71b3044b8fc18107ff21705, type: 2}
+  slashSounds:
+  - {fileID: 8300000, guid: 26c32ab8ba3bd3b41a1e2c26f3440dd5, type: 3}
   throwDamage: 0
   throwCooldown: 0
+  throwAnimations:
+  - {fileID: 7400000, guid: 05b145d3a990ba24c88482d8b1ad7089, type: 2}
+  throwSounds:
+  - {fileID: 8300000, guid: 50ef081dcedf87b48a650574a72c9f27, type: 3}

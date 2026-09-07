@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e38b0a757f550439d79494ac0b19f2, type: 3}
   m_Name: Placeholder Heavy
   m_EditorClassIdentifier: Assembly-CSharp::HeavyWeaponSO
-  texture: {fileID: 0}
+  texture: {fileID: 8841724203012461337, guid: 29f22b0017cb9894b837c41fc5c13406, type: 3}
   inUseGripOffset: 0
   concealedGripOffset: 0
   slashDamage: 3.6
   slashCooldown: 1
-  slashRadius: 12
+  slashRadius: 5.1
   slashAngle: 128.99
+  slashAnimations:
+  - {fileID: 7400000, guid: b339d50496d0e23449af73c2fbb0565a, type: 2}
+  - {fileID: 7400000, guid: d161b72ba71b3044b8fc18107ff21705, type: 2}
+  slashSounds:
+  - {fileID: 8300000, guid: 26c32ab8ba3bd3b41a1e2c26f3440dd5, type: 3}
