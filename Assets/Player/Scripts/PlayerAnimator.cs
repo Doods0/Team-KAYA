@@ -133,5 +133,5 @@ public class PlayerAnimator : EntityAnimator
         trailTip.gameObject.SetActive(false);
     }
 
-    private float EaseOutQuart(float t) => (1f - Mathf.Pow(1f - t, 4));
+    private float EaseOutQuart(float t) => 1f - Mathf.Pow(1f - t, 4);
 }
