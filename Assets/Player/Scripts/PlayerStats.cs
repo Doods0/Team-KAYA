@@ -124,7 +124,7 @@ public class PlayerStats : MonoBehaviour
 
         GameUtils.instance.audioSource.PlayOneShot(shockwave);
 
-        List<Collider2D> hitsBuffer = new List<Collider2D>();
+        List<Collider2D> hitsBuffer = new();
         int hitCount = Physics2D.OverlapCircle(transform.position, damageImpactRange, enemyFilter, hitsBuffer);
 
         IEnumerator ResumeGameAfterDelay()
