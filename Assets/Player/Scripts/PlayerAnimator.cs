@@ -114,7 +114,7 @@ public class PlayerAnimator : EntityAnimator
         trailRenderer.emitting = true;
 
         float elapsed = 0f;
-        float currentDuration = math.clamp(duration * (1 / GameManager.instance.timeScale), duration, math.INFINITY);
+        float currentDuration = math.clamp(duration * 1 / GameManager.instance.timeScale, duration, math.INFINITY);
         while (elapsed < currentDuration)
         {
             elapsed += Time.deltaTime;
