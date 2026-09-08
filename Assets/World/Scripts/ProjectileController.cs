@@ -38,7 +38,7 @@ public class ProjectileController : MonoBehaviour
     void FixedUpdate()
     {
         // Replace with a lifetime property
-
+        if ((GameUtils.instance.playerPosition - transform.position).magnitude > 40) Despawn();
         
     }
 
@@ -60,6 +60,11 @@ public class ProjectileController : MonoBehaviour
             enemy.TakeDamage(damage);
         }
 
+        Despawn();
+    }
+    
+    void Despawn()
+    {
         GameManager.instance.AddInPool(id, gameObject);
         gameObject.SetActive(false);
     }
