@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            resourcePool[id] = new List<GameObject>();
+            resourcePool[id] = new();
             resourcePool[id].Add(obj);
         }
         EnemyEntry enemy = enemies.Find(entry => entry.enemyId == id);
