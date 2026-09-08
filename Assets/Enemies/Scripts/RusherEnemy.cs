@@ -1,5 +1,8 @@
+using UnityEngine;
+
 public class RusherEnemy : EnemyController
 {
+    [Header("Rusher Enemy")]
     public float startRushRange;
     public float endRushRange;
     public float acceleration;
@@ -13,7 +16,7 @@ public class RusherEnemy : EnemyController
         else if (distanceToPlayer <= startRushRange && !rushing)
         {
             rushing = true;
-            rigidbody.linearVelocity = ToPlayer().normalized * speed;
+            rigidbody.linearVelocity = ToPlayer().normalized * ScaledSpeed();
         }
 
         if (rushing) rigidbody.linearVelocity *= 1 + acceleration / 1000;
@@ -21,7 +24,7 @@ public class RusherEnemy : EnemyController
         {
             rigidbody.linearVelocity /= 1 + acceleration / 100;
         }
-        else rigidbody.linearVelocity = ToPlayer().normalized * speed * GameManager.instance.timeScale;
+        else rigidbody.linearVelocity = ToPlayer().normalized * ScaledSpeed();
 
 
         ReactToKnockback();

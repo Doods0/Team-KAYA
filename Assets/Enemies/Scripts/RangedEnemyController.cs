@@ -1,18 +1,21 @@
-using Unity.VisualScripting;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class RangedEnemyController : EnemyController
 {
+    [Header("Ranged Enemy")]
     [SerializeField] private float speedWhileAiming;
     [SerializeField] private int rangedDamage;
     [SerializeField] private float range;
     [SerializeField] private float preferredRange;
     [SerializeField] private float minimumRange;
     [SerializeField] private float timeToCharge;
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private Object bullet;
-    [SerializeField] private string bulletId;
+    [Header("Bullet")]
+    [SerializeField] private GameObject bullet;
     [SerializeField] private Sprite bulletTexture;
+    [SerializeField] private string bulletId;
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float bulletLifetime;
 
     bool lockedOnPlayer = false;
     // Used to "charge up" shots.
@@ -45,18 +48,17 @@ public class RangedEnemyController : EnemyController
 
             timeSpentCharging += Time.deltaTime;
 
-            if (timeSpentCharging >= timeToCharge)
+            if (timeSpentCharging >= timeToCharge / GameManager.instance.timeScale)
             {
                 timeSpentCharging = 0;
 
-                Object bulletInstance = GameManager.instance.GetFromPool(bulletId);
+                GameObject bulletInstance = GameManager.instance.GetFromPool(bulletId);
 
-                if (bulletInstance is null)
-                {
-                    bulletInstance = Instantiate(bullet,
-                        transform.position,
-                        Quaternion.identity);
-                }
+                if (!bulletInstance) bulletInstance = Instantiate(bullet);
+
+                bulletInstance.SetActive(true);
+                bulletInstance.transform.position = transform.position;
+                bulletInstance.transform.rotation = quaternion.identity;
 
                 ProjectileController bulletScript = bulletInstance.GetComponent<ProjectileController>();
                 if (bulletScript == null)
@@ -68,10 +70,10 @@ public class RangedEnemyController : EnemyController
                 bulletScript.speed = bulletSpeed;
                 bulletScript.damage = rangedDamage;
                 bulletScript.moveDirection = moveVector.normalized;
-                bulletScript.torque = Random.Range(-10, 11);
                 bulletScript.id = bulletId;
                 bulletScript.renderer.sprite = bulletTexture;
                 bulletScript.isEnemy = true;
+                bulletScript.lifetime = bulletLifetime;
             }
         }
 

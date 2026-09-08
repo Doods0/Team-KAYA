@@ -22,7 +22,8 @@ public class ProjectileController : MonoBehaviour
     public Vector3 moveDirection;
     public string id;
 
-    Rigidbody2D rigidBody;
+    private Rigidbody2D rigidBody;
+    private float lifetimeCounter;
 
     void Start()
     {
@@ -30,20 +31,22 @@ public class ProjectileController : MonoBehaviour
 
         moveDirection.Normalize();
 
-        rigidBody.linearVelocityX = moveDirection.x * speed * GameManager.instance.timeScale;
-        rigidBody.linearVelocityY = moveDirection.y * speed * GameManager.instance.timeScale;
         if (spins) rigidBody.AddTorque(torque);
     }
 
-    void FixedUpdate()
+    private void Update() => lifetimeCounter += Time.deltaTime;
+
+    private void FixedUpdate()
     {
-        // Replace with a lifetime property
-        if ((GameUtils.instance.playerPosition - transform.position).magnitude > 40) Despawn();
-        
+        // now the projectile can be coded to follow!
+        rigidBody.linearVelocityX = moveDirection.x * speed * GameManager.instance.timeScale;
+        rigidBody.linearVelocityY = moveDirection.y * speed * GameManager.instance.timeScale;
+
+        if (lifetimeCounter >= lifetime / GameManager.instance.timeScale) Despawn();
     }
 
 
-    void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (isEnemy)
         {
@@ -63,9 +66,10 @@ public class ProjectileController : MonoBehaviour
         Despawn();
     }
     
-    void Despawn()
+    private void Despawn()
     {
         GameManager.instance.AddInPool(id, gameObject);
+        lifetimeCounter = 0;
         gameObject.SetActive(false);
     }
 }
