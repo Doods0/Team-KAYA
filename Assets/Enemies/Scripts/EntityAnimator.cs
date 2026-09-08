@@ -27,6 +27,7 @@ public class EntityAnimator : MonoBehaviour
         var currentRule = rulesDictionary[state];
         if (currentRule == null)  return;
 
+        animator.speed = GameManager.instance.timeScale;
         ChangeAnimation(currentRule.track_hash, currentRule.fade);
     }
 

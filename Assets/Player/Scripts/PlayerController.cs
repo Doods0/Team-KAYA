@@ -97,8 +97,8 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        rb.linearVelocityX = xMovementDir * gearHandler.walkspeed;
-        rb.linearVelocityY = yMovementDir * gearHandler.walkspeed;
+        rb.linearVelocityX = xMovementDir * gearHandler.walkspeed * GameManager.instance.timeScale;
+        rb.linearVelocityY = yMovementDir * gearHandler.walkspeed * GameManager.instance.timeScale;
     }
 
     AudioClip RandomFootstepClip()

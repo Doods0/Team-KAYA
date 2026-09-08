@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        rigidbody.linearVelocity = ToPlayer().normalized * speed;
+        rigidbody.linearVelocity = ToPlayer().normalized * ScaledSpeed();
         ReactToKnockback();
     }
 
@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour
     public void ReactToKnockback()
     {
         knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
-        rigidbody.linearVelocity += knockbackVelocity;
+        rigidbody.linearVelocity += knockbackVelocity * GameManager.instance.timeScale;
     }
 
     public Vector2 ToPlayer()
@@ -65,5 +65,10 @@ public class EnemyController : MonoBehaviour
         Vector2 position = rigidbody.position;
 
         return playerPosition - position;
+    }
+
+    public float ScaledSpeed()
+    {
+        return speed * GameManager.instance.timeScale;
     }
 }

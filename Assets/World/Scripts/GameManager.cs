@@ -26,9 +26,6 @@ public class GameManager : MonoBehaviour
     public float timeSpeedIncrease;
 
     [Header("Placeholder")]
-    public GameObject enemy;
-    public GameObject rangedEnemy;
-    public GameObject rusherEnemy;
     public HUDManager HUD;
 
     [Header("Settings")] // These are constants
@@ -46,7 +43,8 @@ public class GameManager : MonoBehaviour
     // It pauses the time decay and time speeding too
 
     public bool isTimeBypassed = false;
-    public float timeScale = 1f;
+    public float runtimeScale = 1f;
+    public float timeScale;
 
     public float timePassed = 0;
     private int currentPhase;
@@ -58,13 +56,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (timeScale <= 0.2) TriggerGameOver();
-        if (!isTimeBypassed) Time.timeScale = timeScale;
+        if (runtimeScale <= 0.2) TriggerGameOver();
+        if (!isTimeBypassed) timeScale = runtimeScale;
 
         timePassed = Time.realtimeSinceStartup;
         currentPhase = ((int)timePassed / timeTillNextPhase) + 1;
 
-        HUD.UpdateUI(timeScale, timePassed);
+        HUD.UpdateUI(runtimeScale, timePassed);
     }
 
     private void Awake()
@@ -85,10 +83,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            resourcePool[id] = new List<GameObject>();
+            resourcePool[id] = new();
             resourcePool[id].Add(obj);
         }
-        enemies.Find(entry => entry.enemyId == id).numberOfInstances--;
+        EnemyEntry enemy = enemies.Find(entry => entry.enemyId == id);
+
+        if (enemy is not null) enemy.numberOfInstances--;
+        
     }
 
     public GameObject GetFromPool(string id)
@@ -108,13 +109,13 @@ public class GameManager : MonoBehaviour
 
     public void SpeedTime()
     {
-        if (!isTimeBypassed) timeScale = (timeScale + timeSpeedIncrease) * (1 + timeSpeedIncrease);
+        if (!isTimeBypassed) runtimeScale = (runtimeScale + timeSpeedIncrease) * (1 + timeSpeedIncrease);
     }
     private IEnumerator DecayTime()
     {
         while (true)
         {
-            if (!isTimeBypassed) timeScale = (timeScale - timeSpeedDecay) * (1 - timeSpeedDecay);
+            if (!isTimeBypassed) runtimeScale = (runtimeScale - timeSpeedDecay) * (1 - timeSpeedDecay);
 
             yield return new WaitForSecondsRealtime(0.1f);
         }

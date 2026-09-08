@@ -12,6 +12,7 @@ public class PlayerAnimator : EntityAnimator
     [Header("Trail")]
     [SerializeField] private Transform trailTip;
     [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private float trailLifetime = 0.08f;
 
     private int nextAnimIndex = -1;
 
@@ -72,6 +73,7 @@ public class PlayerAnimator : EntityAnimator
         nextAnimIndex++;
         if (nextAnimIndex >= animations.Length) nextAnimIndex = 0;
         AnimationClip selectedAnim = animations[nextAnimIndex];
+        weaponAnimator.speed = GameManager.instance.timeScale;
         weaponAnimator.Play(selectedAnim.name, layer: 0, normalizedTime: 0f);
         int audioIndex = UnityEngine.Random.Range(0, audio.Length);
 
@@ -106,15 +108,17 @@ public class PlayerAnimator : EntityAnimator
         trailTip.position = origin + startDir * radius;
 
         trailRenderer.widthMultiplier = radius;
+        trailRenderer.time = math.clamp(trailLifetime * 1 / GameManager.instance.timeScale, trailLifetime, math.INFINITY);
         trailRenderer.Clear();
         trailTip.gameObject.SetActive(true);
         trailRenderer.emitting = true;
 
         float elapsed = 0f;
-        while (elapsed < duration)
+        float currentDuration = math.clamp(duration * 1 / GameManager.instance.timeScale, duration, math.INFINITY);
+        while (elapsed < currentDuration)
         {
             elapsed += Time.deltaTime;
-            float linearT = elapsed / duration;
+            float linearT = elapsed / currentDuration;
             float easedT = EaseOutQuart(linearT);
 
             float currentAngle = Mathf.Lerp(startAngle, endAngle, easedT);
