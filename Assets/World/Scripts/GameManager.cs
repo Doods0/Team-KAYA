@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
         }
         EnemyEntry enemy = enemies.Find(entry => entry.enemyId == id);
 
-        if (!(enemy is null)) enemy.numberOfInstances--;
+        if (enemy is not null) enemy.numberOfInstances--;
         
     }
 
