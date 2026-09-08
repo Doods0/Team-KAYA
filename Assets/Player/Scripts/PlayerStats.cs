@@ -105,7 +105,7 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int damageTaken)
     {
-        if (isImmune) return;
+        if (isImmune || damageTaken == 0) return;
 
         health = Mathf.Clamp(health - damageTaken, 0, maxHealth);
 
