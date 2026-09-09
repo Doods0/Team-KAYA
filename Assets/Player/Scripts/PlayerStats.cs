@@ -153,5 +153,4 @@ public class PlayerStats : MonoBehaviour
 
         StartCoroutine(ResumeGameAfterDelay());
     }
-
 }

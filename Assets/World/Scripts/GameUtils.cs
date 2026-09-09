@@ -8,6 +8,7 @@ public class GameUtils : MonoBehaviour
     [Header("General")]
     public Camera camera;
     public LayerMask enemyLayer;
+    public LayerMask playerLayer;
     public AudioSource audioSource;
 
     [Header("Player")]
