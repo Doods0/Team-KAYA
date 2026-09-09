@@ -1187,6 +1187,15 @@ MonoBehaviour:
   timeScale: 1
   timePassed: 0
   enemies:
+  - enemyPrefab: {fileID: 4792525644256836739, guid: 320bd0dcdf575b0bdaa3e78df49f3734, type: 3}
+    enemyId: exploder_enemy
+    enemyPrice: 4
+    enemyCapPrice: 90
+    enemyCapPerPrice: 10
+    enemyPriority: 1
+    enemyCap: 0
+    instancesToSpawn: 0
+    numberOfInstances: 0
   - enemyPrefab: {fileID: 8169525927119518209, guid: f234a219850b7bdfa88b516bf5601712, type: 3}
     enemyId: enemy_rusher
     enemyPrice: 3
@@ -1245,6 +1254,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
   audioSource: {fileID: 1080491174}
   playerStats: {fileID: 0}
   playerTransform: {fileID: 1812880721}
@@ -1537,6 +1549,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 191575832}
     - target: {fileID: 4507063332803190897, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
+    - target: {fileID: 4507063332803190897, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
       propertyPath: m_UIInputModule
       value: 
       objectReference: {fileID: 140307260}
@@ -1545,8 +1561,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1917053155}
     - target: {fileID: 6505086626376703030, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
+      propertyPath: isImmune
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505086626376703030, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
       propertyPath: walkspeed
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237837159346735188, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
