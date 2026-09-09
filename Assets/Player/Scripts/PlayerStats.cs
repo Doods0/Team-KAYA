@@ -74,7 +74,7 @@ public class PlayerStats : MonoBehaviour
 
     public void Attack(bool withHeavy, bool isThrowMode)
     {
-        if (currentCooldown > 0) return;
+        if (currentCooldown > 0 || GameManager.instance.timeScale == 0) return;
 
         WeaponSO weaponInUse;
         WeaponSO otherWeapon;
@@ -138,7 +138,7 @@ public class PlayerStats : MonoBehaviour
             {
                 Collider2D col = hitsBuffer[i];
 
-                if (col.TryGetComponent<EnemyController>(out EnemyController controller))
+                if (col.TryGetComponent(out EnemyController controller))
                 {
                     Vector2 direction = (controller.rigidbody.transform.position - transform.position).normalized;
 
