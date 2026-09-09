@@ -45,14 +45,16 @@ public class EnemyController : MonoBehaviour
 
             GameManager.instance.SpeedTime();
             GameManager.instance.AddInPool(id, gameObject);
-            gameObject.SetActive(false);
+            handleLoot();
 
+            gameObject.SetActive(false);
         }
         else GameUtils.instance.audioSource.PlayOneShot(hurt, Random.Range(.75f, 1.25f));
     }
 
     // If more functions like this are created,
     // group them in a big function called: "EnemyBehaviour" or something.
+
     public void ReactToKnockback()
     {
         knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
@@ -70,5 +72,60 @@ public class EnemyController : MonoBehaviour
     public float ScaledSpeed()
     {
         return speed * GameManager.instance.timeScale;
+    }
+
+    private void handleLoot()
+    {
+        float chanceOfSpecial = Random.value;
+
+        if (chanceOfSpecial < GameManager.instance.chanceOfPickup)
+        {
+            PickupChance pickupToSpawn = new();
+
+            float totalWeight = 0f;
+            foreach (var item in GameManager.instance.specialPickups)
+            {
+                totalWeight += item.weight;
+            }
+
+            // Roll between 0 and total weight
+            float roll = Random.Range(0f, totalWeight);
+
+            foreach (var item in GameManager.instance.specialPickups)
+            {
+                if (roll < item.weight)
+                {
+                    pickupToSpawn = item; // Found our item!
+                    break;
+                }
+                roll -= item.weight;
+            }
+
+            GameObject pickupObj = GameManager.instance.GetFromPool(pickupToSpawn.id);
+
+            if (pickupObj == null) pickupObj = Instantiate(pickupToSpawn.pickup);
+
+            PickupController controller = pickupObj.GetComponent<PickupController>();
+            controller.poolId = pickupToSpawn.id;
+            controller.pickupStartPos = transform.position;
+
+            pickupObj.SetActive(true);
+            pickupObj.transform.position = transform.position;
+            pickupObj.transform.rotation = Quaternion.identity;
+        }
+        else
+        {
+            GameObject pickupObj = GameManager.instance.GetFromPool(GameManager.instance.pointPickupId);
+
+            if (pickupObj == null) pickupObj = Instantiate(GameManager.instance.pointPickup);
+
+            PickupController controller = pickupObj.GetComponent<PickupController>();
+            controller.poolId = GameManager.instance.pointPickupId;
+            controller.pickupStartPos = transform.position;
+
+            pickupObj.SetActive(true);
+            pickupObj.transform.position = transform.position;
+            pickupObj.transform.rotation = Quaternion.identity;
+        }
     }
 }

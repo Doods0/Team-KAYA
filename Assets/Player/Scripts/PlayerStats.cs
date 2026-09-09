@@ -19,6 +19,16 @@ public class LocalWeaponsData
 }
 #endregion
 
+#region Pickups
+[Serializable]
+public struct PickupChance
+{
+    public GameObject pickup;
+    public int weight;
+    public string id;
+}
+#endregion
+
 public class PlayerStats : MonoBehaviour
 {
     [Header("Inventory")]
@@ -28,21 +38,21 @@ public class PlayerStats : MonoBehaviour
     [Header("Stats")]
     [Header("Physical")]
     public float walkspeed;
-    public float knockbackOnDamaged;
-    public float cooldownOnDamaged;
+    public float knockbackOnShockwave;
+    public float cooldownOnShockwave;
     public int health;
     public int maxHealth;
     public bool isImmune = false;
     [Header("Economy")]
     public float pickupRange;
-    public int shopDrops;
+    public bool hasShopAccess;
     public int points;
     public float speedupDropInterval;
     public float slowdownDropInterval;
 
     [Header("Settings")]
-    [SerializeField] private float damageImpactTime;
-    [SerializeField] private float damageImpactRange;
+    [SerializeField] private float shockwaveTime;
+    [SerializeField] private float shockwaveRange;
 
     [Header("Utils")]
     [SerializeField] private PlayerAnimator animator;
@@ -92,15 +102,27 @@ public class PlayerStats : MonoBehaviour
 
         float cooldown;
 
-        if (withHeavy) cooldown = heavyWeapon.Slash(localWeaponsData);
+        if (withHeavy)
+        {
+            cooldown = heavyWeapon.slashCooldown;
+            heavyWeapon.Slash(localWeaponsData);
+        }
         else
         {
-            if (!isThrowMode) cooldown = lightWeapon.Slash(localWeaponsData);
-            else cooldown = lightWeapon.Throw();
+            if (!isThrowMode)
+            {
+                cooldown = heavyWeapon.slashCooldown;
+                lightWeapon.Slash(localWeaponsData);
+            }
+            else
+            {
+                cooldown = lightWeapon.throwCooldown;
+                lightWeapon.Throw();
+            }
         }
 
-        animator.TriggerWeaponAnimation(weaponInUse, otherWeapon, isThrowMode);
         currentCooldown = cooldown;
+        animator.TriggerWeaponAnimation(weaponInUse, otherWeapon, isThrowMode);
     }
 
     public void TakeDamage(int damageTaken)
@@ -125,11 +147,11 @@ public class PlayerStats : MonoBehaviour
         GameUtils.instance.audioSource.PlayOneShot(shockwave);
 
         List<Collider2D> hitsBuffer = new();
-        int hitCount = Physics2D.OverlapCircle(transform.position, damageImpactRange, enemyFilter, hitsBuffer);
+        int hitCount = Physics2D.OverlapCircle(transform.position, shockwaveRange, enemyFilter, hitsBuffer);
 
         IEnumerator ResumeGameAfterDelay()
         {
-            yield return new WaitForSecondsRealtime(damageImpactTime);
+            yield return new WaitForSecondsRealtime(shockwaveTime);
 
             GameManager.instance.isTimeBypassed = false;
 
@@ -142,11 +164,11 @@ public class PlayerStats : MonoBehaviour
                 {
                     Vector2 direction = (controller.rigidbody.transform.position - transform.position).normalized;
 
-                    controller.ApplyKnockback(direction * knockbackOnDamaged);
+                    controller.ApplyKnockback(direction * knockbackOnShockwave);
                 }
             }
 
-            yield return new WaitForSecondsRealtime(cooldownOnDamaged);
+            yield return new WaitForSecondsRealtime(cooldownOnShockwave);
 
             isImmune = false;
         }

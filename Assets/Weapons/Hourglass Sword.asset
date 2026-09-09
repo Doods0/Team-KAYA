@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e38b0a757f550439d79494ac0b19f2, type: 3}
-  m_Name: Placeholder Heavy
+  m_Name: Hourglass Sword
   m_EditorClassIdentifier: Assembly-CSharp::HeavyWeaponSO
   texture: {fileID: 8841724203012461337, guid: 29f22b0017cb9894b837c41fc5c13406, type: 3}
   inUseGripOffset: 0
   concealedGripOffset: 0
-  slashDamage: 3.6
-  slashCooldown: 1
+  slashDamage: 4
+  slashKnockback: 9.34
+  slashCooldown: 0.7
   slashRadius: 5.1
   slashAngle: 128.99
   slashAnimations:

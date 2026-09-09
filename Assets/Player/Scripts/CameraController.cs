@@ -1,0 +1,122 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class CameraController : MonoBehaviour
+{
+    [SerializeField] private RectTransform crosshair;
+    [SerializeField] private Camera camera;
+    [SerializeField] private float lookaheadAmount;
+    [SerializeField] private float autoAimRange;
+    public static bool isAutoAim = false;
+
+    public static Vector3 cursorWorldPosition;
+    public static Vector3 cursorDirectionVector;
+
+    private Transform lockedAt;
+    private Collider2D[] enemyDetectorBuffer = new Collider2D[32];
+    private ContactFilter2D enemyFilter;
+
+    private void Awake()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+
+        enemyFilter = new ContactFilter2D
+        {
+            layerMask = GameUtils.instance.enemyLayer,
+            useLayerMask = true,
+            useTriggers = false
+        };
+
+        StartCoroutine(UpdateAutoAim());
+    }
+
+    private void Update()
+    {
+        GameUtils utils = GameUtils.instance;
+        Vector3 playerPos = utils.playerPosition;
+
+        Vector2 mouseScreenPos = new();
+        Vector2 mouseDirectionVector = new();
+        Vector2 cameraLockOffset = new();
+
+        if (!isAutoAim)
+        {
+            mouseScreenPos = Mouse.current.position.ReadValue();
+            cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
+
+            mouseDirectionVector = (cursorWorldPosition - playerPos);
+
+            cameraLockOffset = new(playerPos.x, playerPos.y + 0.5f);
+            Vector2 lookaheadShift = new(mouseDirectionVector.x, mouseDirectionVector.y);
+            cameraLockOffset += lookaheadShift * lookaheadAmount;
+
+            crosshair.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (lockedAt == null || !lockedAt.gameObject.activeInHierarchy)
+            {
+                mouseScreenPos = new (1,0);
+                cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
+
+                mouseDirectionVector = (cursorWorldPosition - playerPos);
+
+                cameraLockOffset = playerPos + new Vector3(0, 0.5f, 0);
+                crosshair.gameObject.SetActive(false);
+            }
+            else
+            {
+                mouseScreenPos = camera.WorldToScreenPoint(lockedAt.position);
+                cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
+
+                mouseDirectionVector = (cursorWorldPosition - playerPos);
+
+                cameraLockOffset = playerPos + new Vector3(0, 0.5f, 0);
+                crosshair.gameObject.SetActive(true);
+            }
+        }
+        
+        cursorDirectionVector = mouseDirectionVector.normalized;
+
+        float cameraZ = camera.transform.position.z;
+        camera.transform.position =  new(cameraLockOffset.x, cameraLockOffset.y, cameraZ);
+        crosshair.position = new(mouseScreenPos.x, mouseScreenPos.y);
+    }
+
+    public IEnumerator UpdateAutoAim()
+    {
+        while (true)
+        {
+            if (isAutoAim) GetNearestEnemy();
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
+    }
+
+    public void GetNearestEnemy()
+    {
+        GameUtils utils = GameUtils.instance;
+        Vector2 playerPos = utils.playerPosition;
+
+        int count = Physics2D.OverlapCircle(playerPos, autoAimRange, enemyFilter, enemyDetectorBuffer);
+        if (count == 0) return;
+
+        Collider2D nearest = null;
+        float nearestSqrDist = float.MaxValue;
+
+        for (int i = 0; i < count; i++)
+        {
+            Collider2D col = enemyDetectorBuffer[i];
+            float sqrDist = ((Vector2)col.transform.position - playerPos).sqrMagnitude;
+            if (sqrDist < nearestSqrDist)
+            {
+                nearestSqrDist = sqrDist;
+                nearest = col;
+            }
+        }
+
+        if (nearest == null) return;
+        lockedAt = nearest.transform;
+    }
+}

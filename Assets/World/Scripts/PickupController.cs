@@ -7,13 +7,12 @@ public class PickupController : MonoBehaviour
     public string poolId;
     public PickupType type;
 
-    private Vector3 pickupStartPos;
+    [HideInInspector] public Vector3 pickupStartPos; // needs to be assigned by the spawner
     private float pickupElapsed;
     private const float pickupDuration = 0.5f;
 
     private void OnEnable()
     {
-        pickupStartPos = transform.position;
         pickupElapsed = 0f;
     }
 
@@ -33,8 +32,6 @@ public class PickupController : MonoBehaviour
 
         GameManager.instance.AddInPool(poolId, gameObject);
 
-        gameObject.SetActive(false);
-
         PlayerStats stats = GameUtils.instance.playerStats;
 
         if (type is PickupType.Point) stats.points++;
@@ -46,6 +43,8 @@ public class PickupController : MonoBehaviour
         {
             GameManager.instance.runtimeScale -= stats.slowdownDropInterval;
         }
-        else if (type is PickupType.Shop) stats.shopDrops++;
+        else if (type is PickupType.Shop) stats.hasShopAccess = true;
+
+        gameObject.SetActive(false);
     }
 }

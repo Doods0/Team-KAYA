@@ -36,6 +36,12 @@ public class GameManager : MonoBehaviour
     [Header("Phase")]
     public int timeTillNextPhase;
     public int enemyCurrencyPerPhase;
+    [Header("Pickups")]
+    public float chanceOfPickup;
+    public GameObject pointPickup;
+    public string pointPickupId;
+    public PickupChance[] specialPickups;
+
 
     [Header("Session")]
     // Use to set up timescale externally and manually
