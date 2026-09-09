@@ -62,6 +62,8 @@ MonoBehaviour:
   walk2: {fileID: 8300000, guid: 2c603a7a70b50f77fbb4f077fcc83653, type: 3}
   walk3: {fileID: 8300000, guid: 7b9094a8a93549f74adbbc2760247eb5, type: 3}
   timeBetweenFootsteps: 0.35
+  knockbackDecayRate: 8
+  knockbackVelocity: {x: 0, y: 0}
 --- !u!114 &6505086626376703030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +216,7 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Main
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 2915533957740974916}
 --- !u!82 &1945180068451491645
 AudioSource:
   m_ObjectHideFlags: 0

@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     public float timeBetweenFootsteps;
     float footstepTimer;
 
+    [Header("Settings")]
+    public float knockbackDecayRate = 4f;
+    [HideInInspector] public Vector2 knockbackVelocity;
+
     private int xMovementDir;
     private int yMovementDir;
     private bool isThrowMode = false;
@@ -102,7 +106,15 @@ public class PlayerController : MonoBehaviour
 
         rb.linearVelocityX = xMovementDir * gearHandler.walkspeed * GameManager.instance.timeScale;
         rb.linearVelocityY = yMovementDir * gearHandler.walkspeed * GameManager.instance.timeScale;
+
+        if (GameManager.instance.timeScale != 0)
+        {
+            knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
+        }
+        rb.linearVelocity += knockbackVelocity * GameManager.instance.timeScale;
     }
+
+    public void ApplyKnockback(Vector2 impulse) => knockbackVelocity += impulse;
 
     AudioClip RandomFootstepClip()
     {

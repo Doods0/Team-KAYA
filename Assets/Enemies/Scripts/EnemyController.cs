@@ -34,9 +34,9 @@ public class EnemyController : MonoBehaviour
         stats.TakeDamage(damage);
     }
 
-    public void ApplyKnockback(Vector2 impulse) => knockbackVelocity += impulse;
+    public virtual void ApplyKnockback(Vector2 impulse) => knockbackVelocity += impulse;
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)
@@ -57,7 +57,10 @@ public class EnemyController : MonoBehaviour
 
     public void ReactToKnockback()
     {
-        knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
+        if (GameManager.instance.timeScale != 0)
+        {
+            knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
+        }
         rigidbody.linearVelocity += knockbackVelocity * GameManager.instance.timeScale;
     }
 
