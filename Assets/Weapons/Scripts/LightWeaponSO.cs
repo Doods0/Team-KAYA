@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 // To create a special light weapon, please inherit from this SO
 
@@ -36,7 +35,7 @@ public class LightWeaponSO : WeaponSO
         GameManager manager = GameManager.instance;
 
         GameObject proj = GameManager.instance.GetFromPool(projectileId);
-        if (proj == null) proj = Instantiate(projectile);
+        if (!proj) proj = Instantiate(projectile);
 
         proj.SetActive(true);
         proj.transform.position = currentPos;

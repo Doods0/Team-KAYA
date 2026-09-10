@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
     public string pointPickupId;
     public PickupChance[] specialPickups;
 
-
     [Header("Session")]
     // Use to set up timescale externally and manually
     // AKA to be able to use Time.timeScale without this script overriding it
@@ -91,7 +90,8 @@ public class GameManager : MonoBehaviour
         {
             resourcePool[id] = new();
             resourcePool[id].Add(obj);
-        }
+        if (!resourcePool.TryGetValue(id, out List<GameObject> objs)) resourcePool[id] = new();
+        resourcePool[id].Add(obj);
         EnemyEntry enemy = enemies.Find(entry => entry.enemyId == id);
 
         if (enemy is not null) enemy.numberOfInstances--;

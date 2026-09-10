@@ -18,8 +18,5 @@ public class GameUtils : MonoBehaviour
     private void Awake() => instance = this;
     private void Update() => UpdatePlayerData();
 
-    private void UpdatePlayerData()
-    {
-        playerPosition = playerTransform.position;
-    }
+    private void UpdatePlayerData() => playerPosition = playerTransform.position;
 }
