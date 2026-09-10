@@ -252,6 +252,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55029495}
   m_CullTransparentMesh: 1
+--- !u!20 &57797932 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2915533957740974916, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
+  m_PrefabInstance: {fileID: 1199141029}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &64450448
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,11 +487,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   m_ActionId: aa71ed29-0079-4498-b47c-e36e857462b6
---- !u!20 &191575832 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 2915533957740974916, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
-  m_PrefabInstance: {fileID: 1199141029}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &322773191
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,7 +769,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 191575832}
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1250,7 +1250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca645cfe44c2bad4cbfc0ecf4d9d2204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  camera: {fileID: 191575832}
+  camera: {fileID: 57797932}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1547,7 +1547,7 @@ PrefabInstance:
     - target: {fileID: 4507063332803190897, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 191575832}
+      objectReference: {fileID: 0}
     - target: {fileID: 4507063332803190897, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
       propertyPath: m_Actions
       value: 
