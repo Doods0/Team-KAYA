@@ -59,23 +59,17 @@ public class CameraController : MonoBehaviour
             if (lockedAt == null || !lockedAt.gameObject.activeInHierarchy)
             {
                 mouseScreenPos = new (1,0);
-                cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
-
-                mouseDirectionVector = (cursorWorldPosition - playerPos);
-
-                cameraLockOffset = playerPos + new Vector3(0, 0.5f, 0);
                 crosshair.gameObject.SetActive(false);
             }
             else
             {
                 mouseScreenPos = camera.WorldToScreenPoint(lockedAt.position);
-                cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
 
-                mouseDirectionVector = (cursorWorldPosition - playerPos);
-
-                cameraLockOffset = playerPos + new Vector3(0, 0.5f, 0);
                 crosshair.gameObject.SetActive(true);
             }
+            cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
+            mouseDirectionVector = (cursorWorldPosition - playerPos);
+            cameraLockOffset = playerPos + new Vector3(0, 0.5f, 0);
         }
         
         cursorDirectionVector = mouseDirectionVector.normalized;
