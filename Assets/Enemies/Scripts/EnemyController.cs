@@ -54,7 +54,6 @@ public class EnemyController : MonoBehaviour
 
     // If more functions like this are created,
     // group them in a big function called: "EnemyBehaviour" or something.
-
     public void ReactToKnockback()
     {
         if (GameManager.instance.timeScale != 0)
