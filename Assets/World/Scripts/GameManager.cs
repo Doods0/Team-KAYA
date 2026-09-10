@@ -84,10 +84,9 @@ public class GameManager : MonoBehaviour
     {
         if (!resourcePool.TryGetValue(id, out List<GameObject> objs)) resourcePool[id] = new();
         resourcePool[id].Add(obj);
+
         EnemyEntry enemy = enemies.Find(entry => entry.enemyId == id);
-
         if (enemy is not null) enemy.numberOfInstances--;
-
     }
 
     public GameObject GetFromPool(string id)
