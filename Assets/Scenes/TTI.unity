@@ -1296,12 +1296,12 @@ MonoBehaviour:
   pointPickup: {fileID: 5796465020088066133, guid: 93e54afa90caa33428e9db949e7a5769, type: 3}
   pointPickupId: point
   specialPickups:
-  - pickup: {fileID: 3792743525299019763, guid: eb70535bcb384924490cc172c2854dc0, type: 3}
-    weight: 4
-    id: speed
   - pickup: {fileID: 5561569586672103232, guid: ba87df2c91a718c4680f2126b752496d, type: 3}
     weight: 4
     id: slow
+  - pickup: {fileID: 3792743525299019763, guid: eb70535bcb384924490cc172c2854dc0, type: 3}
+    weight: 4
+    id: speed
   - pickup: {fileID: 8040031927484897514, guid: 6b0d6ef779afabc439404fa70b867b11, type: 3}
     weight: 1
     id: shop
@@ -1358,6 +1358,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
   audioSource: {fileID: 1080491174}
   playerStats: {fileID: 1812880726}
   playerTransform: {fileID: 1812880721}
