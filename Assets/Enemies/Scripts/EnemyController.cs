@@ -45,8 +45,9 @@ public class EnemyController : MonoBehaviour
 
             GameManager.instance.SpeedTime();
             GameManager.instance.AddInPool(id, gameObject);
-            gameObject.SetActive(false);
+            handleLoot();
 
+            gameObject.SetActive(false);
         }
         else GameUtils.instance.audioSource.PlayOneShot(hurt, Random.Range(.75f, 1.25f));
     }
@@ -73,5 +74,56 @@ public class EnemyController : MonoBehaviour
     public float ScaledSpeed()
     {
         return speed * GameManager.instance.timeScale;
+    }
+
+    private void handleLoot()
+    {
+        PickupController controller;
+        GameObject pickupObj;
+        GameObject pickupObjType;
+        string poolId;
+
+        float chanceOfSpecial = Random.value;
+
+        if (chanceOfSpecial < GameManager.instance.chanceOfPickup)
+        {
+            PickupChance pickupToSpawn = new();
+
+            float totalWeight = 0f;
+            foreach (var item in GameManager.instance.specialPickups) totalWeight += item.weight;
+
+
+            // Roll between 0 and total weight
+            float roll = Random.Range(0f, totalWeight);
+
+            foreach (var item in GameManager.instance.specialPickups)
+            {
+                if (roll < item.weight)
+                {
+                    pickupToSpawn = item; // Found our item!
+                    break;
+                }
+                roll -= item.weight;
+            }
+
+            poolId = pickupToSpawn.id;
+            pickupObjType = pickupToSpawn.pickup;
+        }
+        else
+        {
+            poolId = GameManager.instance.pointPickupId;
+            pickupObjType = GameManager.instance.pointPickup;
+        }
+        pickupObj = GameManager.instance.GetFromPool(poolId);
+
+        if (!pickupObj) pickupObj = Instantiate(pickupObjType);
+
+        controller = pickupObj.GetComponent<PickupController>();
+        controller.poolId = poolId;
+        controller.pickupStartPos = transform.position;
+
+        pickupObj.SetActive(true);
+        pickupObj.transform.position = transform.position;
+        pickupObj.transform.rotation = Quaternion.identity;
     }
 }

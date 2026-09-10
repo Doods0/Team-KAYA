@@ -55,6 +55,16 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "Toggle AutoAim",
+                    "type": "Button",
+                    "id": "6dcfbe49-c6d0-4f3f-9693-966273b2ac6e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -198,6 +208,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Toggle Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83592b40-77d1-4ebf-9a1d-0d9fa49c85eb",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle AutoAim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

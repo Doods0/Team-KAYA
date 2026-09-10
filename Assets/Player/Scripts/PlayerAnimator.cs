@@ -20,7 +20,7 @@ public class PlayerAnimator : EntityAnimator
     {
         // Weapon mouse follow section
 
-        Vector2 aimDirection = GameUtils.instance.cursorWorldLocation;
+        Vector3 aimDirection = CameraController.cursorDirectionVector;
         float targetAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
         Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
@@ -115,7 +115,7 @@ public class PlayerAnimator : EntityAnimator
 
         float elapsed = 0f;
         float currentDuration = math.clamp(duration * 1 / GameManager.instance.timeScale, duration, math.INFINITY);
-        while (elapsed < currentDuration)
+        while (elapsed < currentDuration && currentDuration != math.INFINITY)
         {
             elapsed += Time.deltaTime;
             float linearT = elapsed / currentDuration;

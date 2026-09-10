@@ -1,142 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2107133777444567719
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1745433725543215890}
-  - component: {fileID: 2915533957740974916}
-  - component: {fileID: 3017849375422029257}
-  - component: {fileID: 2247710614179098420}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1745433725543215890
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2107133777444567719}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2973344048670075227}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &2915533957740974916
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2107133777444567719}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 6
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!81 &3017849375422029257
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2107133777444567719}
-  m_Enabled: 1
---- !u!114 &2247710614179098420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2107133777444567719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
-  m_Version: 2
 --- !u!1 &2515544000073562450
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +37,6 @@ Transform:
   m_Children:
   - {fileID: 8517276779835407789}
   - {fileID: 7213980122949132133}
-  - {fileID: 1745433725543215890}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2637829541062154066
@@ -195,6 +57,7 @@ MonoBehaviour:
   heavyAttackRef: {fileID: 2315012282989480615, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   lightAttackRef: {fileID: 8561477085750378441, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   toggleThrowRef: {fileID: -8354860198716426696, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
+  toggleAutoAimRef: {fileID: 577077884625866863, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   walk1: {fileID: 8300000, guid: 39da512ebf2141077a9d23696775598e, type: 3}
   walk2: {fileID: 8300000, guid: 2c603a7a70b50f77fbb4f077fcc83653, type: 3}
   walk3: {fileID: 8300000, guid: 7b9094a8a93549f74adbbc2760247eb5, type: 3}
@@ -216,18 +79,18 @@ MonoBehaviour:
   heavyWeapon: {fileID: 11400000, guid: 607cf59d278e30e49b27b6d5a60f4365, type: 2}
   lightWeapon: {fileID: 11400000, guid: 39bd6d2f19ad889459b6948e6640c6e9, type: 2}
   walkspeed: 6
-  knockbackOnDamaged: 50.32
-  cooldownOnDamaged: 2
+  knockbackOnShockwave: 25.32
+  cooldownOnShockwave: 2
   health: 5
   maxHealth: 5
   isImmune: 0
   pickupRange: 4
-  shopDrops: 0
+  hasShopAccess: 0
   points: 0
   speedupDropInterval: 0.2
   slowdownDropInterval: 0.2
-  damageImpactTime: 0.5
-  damageImpactRange: 61.11
+  shockwaveTime: 0.5
+  shockwaveRange: 6.7
   animator: {fileID: 2219050965675229364}
   HUD: {fileID: 0}
   shockwave: {fileID: 8300000, guid: 71b8700b4594ae0c092c6a5b9a790626, type: 3}

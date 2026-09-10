@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputActionReference heavyAttackRef;
     [SerializeField] private InputActionReference lightAttackRef;
     [SerializeField] private InputActionReference toggleThrowRef;
+    [SerializeField] private InputActionReference toggleAutoAimRef;
     #endregion
 
     private Rigidbody2D rb;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private InputAction heavyAttackAction;
     private InputAction lightAttackAction;
     private InputAction toggleThrowAction;
+    private InputAction toggleAutoAimAction;
     #endregion
 
     [Header("Sounds")] // We'll put them here because they're movement afterall
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
         heavyAttackAction = input.actions.FindAction(heavyAttackRef.action.id);
         lightAttackAction = input.actions.FindAction(lightAttackRef.action.id);
         toggleThrowAction = input.actions.FindAction(toggleThrowRef.action.id);
+        toggleAutoAimAction = input.actions.FindAction(toggleAutoAimRef.action.id);
         #endregion
 
     }
@@ -60,24 +63,24 @@ public class PlayerController : MonoBehaviour
     #region Action Passing
     private void OnEnable()
     {
-        heavyAttackAction.performed += HeavyAttack;
-        lightAttackAction.performed += LightAttack;
         toggleThrowAction.performed += ToggleThrow;
+        toggleAutoAimAction.performed += ToggleAutoAim;
     }
     private void OnDisable()
     {
-        heavyAttackAction.performed -= HeavyAttack;
-        lightAttackAction.performed -= LightAttack;
         toggleThrowAction.performed -= ToggleThrow;
+        toggleAutoAimAction.performed -= ToggleAutoAim;
     }
 
-    private void HeavyAttack(InputAction.CallbackContext _input) => gearHandler.Attack(true, isThrowMode);
-    private void LightAttack(InputAction.CallbackContext _input) => gearHandler.Attack(false, isThrowMode);
     private void ToggleThrow(InputAction.CallbackContext _input) => isThrowMode = !isThrowMode;
+    private void ToggleAutoAim(InputAction.CallbackContext _input) => CameraController.isAutoAim = !CameraController.isAutoAim;
     #endregion
 
     private void Update()
     {
+        if (heavyAttackAction.IsPressed()) gearHandler.Attack(true, isThrowMode);
+        if (lightAttackAction.IsPressed()) gearHandler.Attack(false, isThrowMode);
+
         // Movement values update
         xMovementDir = (int)math.sign(xMovementAction.ReadValue<float>());
         yMovementDir = (int)math.sign(yMovementAction.ReadValue<float>());

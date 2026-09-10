@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5655487989693651059}
   - component: {fileID: 3503189360756786184}
   - component: {fileID: 936523448251002282}
-  - component: {fileID: 2924825452697551542}
+  - component: {fileID: 4811916130600008651}
   - component: {fileID: 2066237759703416532}
   m_Layer: 7
-  m_Name: Projectile
+  m_Name: BOMB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.28, y: 3.31, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.41, y: 7.29}
+  m_Size: {x: 0.28125, y: 0.53125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5350934001960373574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2091420863bd02346b97a5f144c7277d, type: 3}
+  m_Script: {fileID: 11500000, guid: 75007d3c77118854faefe03654aa5bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   speed: 0
@@ -114,10 +114,10 @@ MonoBehaviour:
   torque: 0
   spins: 0
   renderer: {fileID: 3503189360756786184}
-  moveDirection: {x: 0, y: 0, z: 0}
   id: 
---- !u!58 &2924825452697551542
-CircleCollider2D:
+  moveDirection: {x: 0, y: 0, z: 0}
+--- !u!70 &4811916130600008651
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -146,12 +146,13 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3.645
+  m_Size: {x: 4.41, y: 7.29}
+  m_Direction: 0
 --- !u!50 &2066237759703416532
 Rigidbody2D:
   serializedVersion: 5
@@ -166,7 +167,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:

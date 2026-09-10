@@ -10,7 +10,8 @@ public class WeaponSO : ScriptableObject
 
     [Header("Slash")]
     [Header("Stats")]
-    public float slashDamage;
+    public int slashDamage;
+    public float slashKnockback;
     public float slashCooldown;
     public float slashRadius;
     public float slashAngle;
@@ -20,7 +21,7 @@ public class WeaponSO : ScriptableObject
 
     // Function must return a float (Cooldown value)
     // code slashing here as it's common between both types
-    public virtual float Slash(LocalWeaponsData weaponMemory)
+    public virtual void Slash(LocalWeaponsData weaponMemory)
     {
         List<Collider2D> hitBuffer = weaponMemory.hitsBuffer;
         Vector3 playerPos = GameUtils.instance.playerPosition;
@@ -33,18 +34,17 @@ public class WeaponSO : ScriptableObject
             Vector2 directionToEnemy = (hitBuffer[i].transform.position - playerPos).normalized;
 
             // Calculate angle between aim direction and enemy
-            float angle = Vector2.Angle(GameUtils.instance.cursorWorldLocation, directionToEnemy);
+            float angle = Vector2.Angle(CameraController.cursorDirectionVector, directionToEnemy);
 
-            if (angle <= slashAngle / 2f)
+            if (angle > slashAngle / 2f) continue;
+
+            // Assuming enemy controller is the health handler
+            if (hitBuffer[i].TryGetComponent<EnemyController>(out var target))
             {
-                // Assuming enemy controller is the health handler
-                if (hitBuffer[i].TryGetComponent<EnemyController>(out var target))
-                {
-                    target.TakeDamage((int)slashDamage);
-                }
+                target.TakeDamage(slashDamage);
+                Vector2 direction = (target.rigidbody.transform.position - GameUtils.instance.playerPosition).normalized;
+                target.ApplyKnockback(direction * slashKnockback);
             }
         }
-
-        return slashCooldown;
     }
 }

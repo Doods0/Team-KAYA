@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    // now EnemyBullet can be called from anywhere
-    // It must be assigned its id by the shooter
-    // It can be either pre-configured and prefabbed in terms of texture and stats
-    // Or just assign these stats from the shooter (preferred)
+    // Stats can be either assigned here or by the shooter (shooter overrides)
 
     [Header("Stats")]
     public float speed;
     public int damage;
+    public float knockback;
     public float lifetime;
     public bool isEnemy;
 
@@ -19,17 +17,15 @@ public class ProjectileController : MonoBehaviour
 
     [Header("Session")]
     public SpriteRenderer renderer;
-    public Vector3 moveDirection;
     public string id;
+    [HideInInspector] public Vector3 moveDirection;
 
     private Rigidbody2D rigidBody;
     private float lifetimeCounter;
 
-    void Start()
+    void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-
-        moveDirection.Normalize();
 
         if (spins) rigidBody.AddTorque(torque);
     }
@@ -46,7 +42,7 @@ public class ProjectileController : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (isEnemy)
         {
@@ -54,6 +50,7 @@ public class ProjectileController : MonoBehaviour
             if (playerController == null) return;
 
             playerController.TakeDamage(damage);
+            Despawn();
         }
         else
         {
@@ -61,9 +58,12 @@ public class ProjectileController : MonoBehaviour
             if (enemy == null) return;
 
             enemy.TakeDamage(damage);
-        }
 
-        Despawn();
+            Vector2 direction = (enemy.rigidbody.transform.position - GameUtils.instance.playerPosition).normalized;
+            enemy.ApplyKnockback(direction * knockback);
+
+            Despawn();
+        }
     }
     
     private void Despawn()

@@ -36,6 +36,11 @@ public class GameManager : MonoBehaviour
     [Header("Phase")]
     public int timeTillNextPhase;
     public int enemyCurrencyPerPhase;
+    [Header("Pickups")]
+    public float chanceOfPickup;
+    public GameObject pointPickup;
+    public string pointPickupId;
+    public PickupChance[] specialPickups;
 
     [Header("Session")]
     // Use to set up timescale externally and manually
@@ -77,19 +82,11 @@ public class GameManager : MonoBehaviour
 
     public void AddInPool(string id, GameObject obj)
     {
-        if (resourcePool.TryGetValue(id, out List<GameObject> objs))
-        {
-            resourcePool[id].Add(obj);
-        }
-        else
-        {
-            resourcePool[id] = new();
-            resourcePool[id].Add(obj);
-        }
-        EnemyEntry enemy = enemies.Find(entry => entry.enemyId == id);
+        if (!resourcePool.TryGetValue(id, out List<GameObject> objs)) resourcePool[id] = new();
+        resourcePool[id].Add(obj);
 
+        EnemyEntry enemy = enemies.Find(entry => entry.enemyId == id);
         if (enemy is not null) enemy.numberOfInstances--;
-        
     }
 
     public GameObject GetFromPool(string id)
