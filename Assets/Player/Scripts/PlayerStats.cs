@@ -14,7 +14,8 @@ using UnityEngine;
 public class LocalWeaponsData
 {
     public readonly List<Collider2D> hitsBuffer = new List<Collider2D>();
-    public ContactFilter2D enemyFilter = new ContactFilter2D();
+public readonly List<Collider2D> hitsBuffer = new();
+public ContactFilter2D enemyFilter = new();
     // Moved the enemy filter from here to the mono script so it's reusable for knockback
 }
 #endregion
