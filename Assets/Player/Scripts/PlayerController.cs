@@ -5,16 +5,28 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Utils")]
-    [SerializeField] PlayerAnimator Animator;
+    [SerializeField]
+    PlayerAnimator Animator;
 
     [Header("Action references")]
     #region Action References
-    [SerializeField] private InputActionReference xMovementRef;
-    [SerializeField] private InputActionReference yMovementRef;
-    [SerializeField] private InputActionReference heavyAttackRef;
-    [SerializeField] private InputActionReference lightAttackRef;
-    [SerializeField] private InputActionReference toggleThrowRef;
-    [SerializeField] private InputActionReference toggleAutoAimRef;
+    [SerializeField]
+    private InputActionReference xMovementRef;
+
+    [SerializeField]
+    private InputActionReference yMovementRef;
+
+    [SerializeField]
+    private InputActionReference heavyAttackRef;
+
+    [SerializeField]
+    private InputActionReference lightAttackRef;
+
+    [SerializeField]
+    private InputActionReference toggleThrowRef;
+
+    [SerializeField]
+    private InputActionReference toggleAutoAimRef;
     #endregion
 
     private Rigidbody2D rb;
@@ -38,7 +50,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Settings")]
     public float knockbackDecayRate = 4f;
-    [HideInInspector] public Vector2 knockbackVelocity;
+
+    [HideInInspector]
+    public Vector2 knockbackVelocity;
 
     private int xMovementDir;
     private int yMovementDir;
@@ -57,7 +71,6 @@ public class PlayerController : MonoBehaviour
         toggleThrowAction = input.actions.FindAction(toggleThrowRef.action.id);
         toggleAutoAimAction = input.actions.FindAction(toggleAutoAimRef.action.id);
         #endregion
-
     }
 
     #region Action Passing
@@ -66,6 +79,7 @@ public class PlayerController : MonoBehaviour
         toggleThrowAction.performed += ToggleThrow;
         toggleAutoAimAction.performed += ToggleAutoAim;
     }
+
     private void OnDisable()
     {
         toggleThrowAction.performed -= ToggleThrow;
@@ -73,21 +87,27 @@ public class PlayerController : MonoBehaviour
     }
 
     private void ToggleThrow(InputAction.CallbackContext _input) => isThrowMode = !isThrowMode;
-    private void ToggleAutoAim(InputAction.CallbackContext _input) => CameraController.isAutoAim = !CameraController.isAutoAim;
+
+    private void ToggleAutoAim(InputAction.CallbackContext _input) =>
+        CameraController.isAutoAim = !CameraController.isAutoAim;
     #endregion
 
     private void Update()
     {
-        if (heavyAttackAction.IsPressed()) gearHandler.Attack(true, isThrowMode);
-        if (lightAttackAction.IsPressed()) gearHandler.Attack(false, isThrowMode);
+        if (heavyAttackAction.IsPressed())
+            gearHandler.Attack(true, isThrowMode);
+        if (lightAttackAction.IsPressed())
+            gearHandler.Attack(false, isThrowMode);
 
         // Movement values update
         xMovementDir = (int)math.sign(xMovementAction.ReadValue<float>());
         yMovementDir = (int)math.sign(yMovementAction.ReadValue<float>());
 
         // Animations
-        if (xMovementDir != 0 || yMovementDir != 0) Animator.state = EntityState.Walking;
-        else Animator.state = EntityState.Idle;
+        if (xMovementDir != 0 || yMovementDir != 0)
+            Animator.state = EntityState.Walking;
+        else
+            Animator.state = EntityState.Idle;
 
         Animator.FlipCharacter(xMovementDir);
     }
@@ -99,10 +119,12 @@ public class PlayerController : MonoBehaviour
         // for movement is walking.
         if (footstepTimer > timeBetweenFootsteps && (xMovementDir != 0 || yMovementDir != 0))
         {
-            GameUtils.instance.audioSource.PlayOneShot(RandomFootstepClip(), UnityEngine.Random.Range(.25f, 0.8f));
+            GameUtils.instance.audioSource.PlayOneShot(
+                RandomFootstepClip(),
+                UnityEngine.Random.Range(.25f, 0.8f)
+            );
             footstepTimer = 0;
         }
-
 
         rb.linearVelocityX = xMovementDir * gearHandler.walkspeed * GameManager.instance.timeScale;
         rb.linearVelocityY = yMovementDir * gearHandler.walkspeed * GameManager.instance.timeScale;
@@ -120,8 +142,11 @@ public class PlayerController : MonoBehaviour
     {
         int random = UnityEngine.Random.Range(0, 3);
 
-        if (random == 0) return walk1;
-        if (random == 1) return walk2;
-        else return walk3;
+        if (random == 0)
+            return walk1;
+        if (random == 1)
+            return walk2;
+        else
+            return walk3;
     }
 }

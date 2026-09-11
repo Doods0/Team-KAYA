@@ -1,7 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EntityState { Walking, Idle }
+public enum EntityState
+{
+    Walking,
+    Idle,
+}
 
 [System.Serializable]
 public class AnimationRule
@@ -10,7 +14,8 @@ public class AnimationRule
     public AnimationClip track;
     public float fade;
 
-    [HideInInspector] public int track_hash;
+    [HideInInspector]
+    public int track_hash;
 }
 
 [CreateAssetMenu(menuName = "Visuals/AnimationRuleSO")]
@@ -22,7 +27,8 @@ public class AnimationRuleSO : ScriptableObject
     {
         foreach (AnimationRule rule in rules)
         {
-            if (rule.track == null) continue;
+            if (rule.track == null)
+                continue;
             rule.track_hash = Animator.StringToHash(rule.track.name);
         }
     }
@@ -33,7 +39,8 @@ public class AnimationRuleSO : ScriptableObject
 
         foreach (AnimationRule rule in rules)
         {
-            if (rule.track == null) continue;
+            if (rule.track == null)
+                continue;
 
             dict[rule.state] = rule;
         }

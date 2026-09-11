@@ -13,9 +13,14 @@ public class EnemyEntry
     public int enemyCapPerPrice; // how much will be purchasable if you meet the cap
     public int enemyPriority; // which will the game begin spending currency on
 
-    [HideInInspector] public int enemyCap = 0; // How many of these can we buy and spawn (CHANGE DURING RUNTIME)
-    [HideInInspector] public int instancesToSpawn;
-    [HideInInspector] public int numberOfInstances = 0; // How many of those exist now
+    [HideInInspector]
+    public int enemyCap = 0; // How many of these can we buy and spawn (CHANGE DURING RUNTIME)
+
+    [HideInInspector]
+    public int instancesToSpawn;
+
+    [HideInInspector]
+    public int numberOfInstances = 0; // How many of those exist now
 }
 
 public class GameManager : MonoBehaviour
@@ -34,9 +39,11 @@ public class GameManager : MonoBehaviour
     public float enemySpawnrate;
     public float minEnemySpawnrate;
     public float spawnrateDecreasePerPhase;
+
     [Header("Phase")]
     public int timeTillNextPhase;
     public int enemyCurrencyPerPhase;
+
     [Header("Pickups")]
     public float chanceOfPickup;
     public GameObject pointPickup;
@@ -63,11 +70,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (runtimeScale <= 0.2) TriggerGameOver();
+        if (runtimeScale <= 0.2)
+            TriggerGameOver();
         runtimeScale = Mathf.Clamp(runtimeScale, 0, maxTimeScale);
-        if (!isTimeBypassed) timeScale = runtimeScale;
+        if (!isTimeBypassed)
+            timeScale = runtimeScale;
 
-        if (timeScale != 0) timePassed += Time.deltaTime * timeScale;
+        if (timeScale != 0)
+            timePassed += Time.deltaTime * timeScale;
         currentPhase = ((int)timePassed / timeTillNextPhase) + 1;
 
         HUD.UpdateUI(runtimeScale, timePassed);
@@ -81,7 +91,6 @@ public class GameManager : MonoBehaviour
 
     private async Task StartGame()
     {
-
         isTimeBypassed = true;
         timeScale = 0;
 
@@ -97,11 +106,13 @@ public class GameManager : MonoBehaviour
 
     public void AddInPool(string id, GameObject obj)
     {
-        if (!resourcePool.TryGetValue(id, out List<GameObject> objs)) resourcePool[id] = new();
+        if (!resourcePool.TryGetValue(id, out List<GameObject> objs))
+            resourcePool[id] = new();
         resourcePool[id].Add(obj);
 
         EnemyEntry enemy = enemies.Find(entry => entry.enemyId == id);
-        if (enemy is not null) enemy.numberOfInstances--;
+        if (enemy is not null)
+            enemy.numberOfInstances--;
     }
 
     public GameObject GetFromPool(string id)
@@ -121,13 +132,16 @@ public class GameManager : MonoBehaviour
 
     public void SpeedTime()
     {
-        if (!isTimeBypassed) runtimeScale = (runtimeScale + timeSpeedIncrease) * (1 + timeSpeedIncrease);
+        if (!isTimeBypassed)
+            runtimeScale = (runtimeScale + timeSpeedIncrease) * (1 + timeSpeedIncrease);
     }
+
     private IEnumerator DecayTime()
     {
         while (true)
         {
-            if (!isTimeBypassed) runtimeScale = (runtimeScale - timeSpeedDecay) * (1 - timeSpeedDecay);
+            if (!isTimeBypassed)
+                runtimeScale = (runtimeScale - timeSpeedDecay) * (1 - timeSpeedDecay);
 
             yield return new WaitForSecondsRealtime(0.1f);
         }
@@ -139,7 +153,11 @@ public class GameManager : MonoBehaviour
 
     public void UpdateDifficulty(int currentPhase)
     {
-        enemySpawnrate = Mathf.Clamp(enemySpawnrate - (spawnrateDecreasePerPhase * currentPhase), minEnemySpawnrate, Mathf.Infinity);
+        enemySpawnrate = Mathf.Clamp(
+            enemySpawnrate - (spawnrateDecreasePerPhase * currentPhase),
+            minEnemySpawnrate,
+            Mathf.Infinity
+        );
         currentEnemyCurrency = enemyCurrencyPerPhase * currentPhase;
 
         int localEnemyCurrency = currentEnemyCurrency;
@@ -167,20 +185,26 @@ public class GameManager : MonoBehaviour
             static float RR()
             {
                 float x = 0f;
-                while (x == 0) x = Random.Range(-1f, 1f);
+                while (x == 0)
+                    x = Random.Range(-1f, 1f);
                 return x;
             }
             Vector3 offset = new Vector3(RR(), RR(), 0).normalized * Random.Range(20f, 40f);
 
             foreach (EnemyEntry entry in enemies)
             {
-                if (entry.instancesToSpawn <= entry.numberOfInstances) continue;
+                if (entry.instancesToSpawn <= entry.numberOfInstances)
+                    continue;
 
                 GameObject toBeSpawned = GetFromPool(entry.enemyId);
                 if (toBeSpawned == null)
                 {
                     toBeSpawned = entry.enemyPrefab;
-                    GameObject spawnedEnemy = Instantiate(toBeSpawned, GameUtils.instance.playerPosition + offset, Quaternion.identity);
+                    GameObject spawnedEnemy = Instantiate(
+                        toBeSpawned,
+                        GameUtils.instance.playerPosition + offset,
+                        Quaternion.identity
+                    );
                     spawnedEnemy.GetComponent<EnemyController>().id = entry.enemyId;
                 }
                 else
@@ -212,5 +236,9 @@ public class GameManager : MonoBehaviour
         HUD.PlayLossAnimations();
     }
 
-    private void OnDestroy() { if (instance == this) instance = null; }
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
+    }
 }

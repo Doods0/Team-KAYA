@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public enum UpgradeType { Once, Passive }
+public enum UpgradeType
+{
+    Once,
+    Passive,
+}
 
 public class UpgradeSO : ScriptableObject
 {
@@ -18,7 +22,6 @@ public class UpgradeSO : ScriptableObject
 // Chance of bleed effect
 // Bleed damage (every 0.5)
 
-
 // upgrades that modify a value once (whether the value itself is a rate or a constant)
 // upgrades that update a value based on another
-// upgrades that 
+// upgrades that
