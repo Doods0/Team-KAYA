@@ -18,7 +18,7 @@ MonoBehaviour:
   slashDamage: 3
   slashKnockback: 3
   slashCooldown: 0.25
-  slashRadius: 1.71
+  slashRadius: 4
   slashAngle: 90
   slashAnimations:
   - {fileID: 7400000, guid: b339d50496d0e23449af73c2fbb0565a, type: 2}
@@ -26,7 +26,7 @@ MonoBehaviour:
   slashSounds:
   - {fileID: 8300000, guid: 26c32ab8ba3bd3b41a1e2c26f3440dd5, type: 3}
   throwDamage: 2
-  throwKnockback: 2
+  throwKnockback: 4.5
   throwCooldown: 0.5
   throwAnimations:
   - {fileID: 7400000, guid: 05b145d3a990ba24c88482d8b1ad7089, type: 2}

@@ -108,8 +108,8 @@ public class PlayerAnimator : EntityAnimator
         trailTip.position = origin + startDir * radius;
 
         trailRenderer.widthMultiplier = radius;
-        trailRenderer.time = math.clamp(trailLifetime * 1 / GameManager.instance.timeScale, trailLifetime, math.INFINITY);
         trailRenderer.Clear();
+        trailRenderer.time = math.clamp(trailLifetime * 1 / GameManager.instance.timeScale, trailLifetime, math.INFINITY);
         trailTip.gameObject.SetActive(true);
         trailRenderer.emitting = true;
 

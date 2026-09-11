@@ -114,8 +114,8 @@ MonoBehaviour:
   damage: 1
   health: 10
   maxHealth: 10
-  hurt: {fileID: 8300000, guid: 3ed3f221bf006e9409d3473ece08b27c, type: 3}
-  death: {fileID: 8300000, guid: 9ca48f3703b554446b6aaae157e32fff, type: 3}
+  hurt: {fileID: 8300000, guid: a0c419e5a8d344749b348afae360ba9a, type: 3}
+  death: {fileID: 8300000, guid: f9e0009ee05595a42b6c214539339522, type: 3}
   rigidbody: {fileID: 0}
   knockbackVelocity: {x: 0, y: 0}
   id: 
