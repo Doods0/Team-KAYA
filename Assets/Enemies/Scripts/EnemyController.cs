@@ -19,7 +19,13 @@ public class EnemyController : MonoBehaviour
     [HideInInspector] public Vector2 knockbackVelocity;
     [HideInInspector] public string id;
 
-    public virtual void Awake() => rigidbody = GetComponent<Rigidbody2D>();
+    private EntityAnimator animator;
+
+    public virtual void Awake() 
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<EntityAnimator>();
+    }
 
     public virtual void FixedUpdate()
     {
@@ -67,6 +73,9 @@ public class EnemyController : MonoBehaviour
     {
         Vector2 playerPosition = (Vector2)GameUtils.instance.playerPosition;
         Vector2 position = rigidbody.position;
+
+        if ((playerPosition - position).x > 0) animator.FlipCharacter(1);
+        else animator.FlipCharacter(-1);
 
         return playerPosition - position;
     }

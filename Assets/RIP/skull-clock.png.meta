@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bcae1cd329d66080e8b3ffac66e22086
+guid: 24a8fb6b014105d82809f58f4ed24d2f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -47154726313258108
-    second: time-bomb_0
+      213: 889477550884767163
+    second: skull-clock_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: time-bomb_0
+      name: skull-clock_0
       rect:
         serializedVersion: 2
-        x: 54
-        y: 48
-        width: 441
-        height: 729
+        x: 0
+        y: 0
+        width: 627
+        height: 628
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4831e98b609785ff0800000000000000
-      internalID: -47154726313258108
+      spriteID: bb5cb20be1f085c00800000000000000
+      internalID: 889477550884767163
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      time-bomb_0: -47154726313258108
+      skull-clock_0: 889477550884767163
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

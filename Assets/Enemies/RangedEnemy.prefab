@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3428044135077549659}
   - component: {fileID: 3805801644499644129}
   - component: {fileID: 8730184749999413326}
+  - component: {fileID: 5904572050643938467}
+  - component: {fileID: 7406577622406562060}
   - component: {fileID: 3477579368819515469}
   - component: {fileID: 2396302564806409003}
   m_Layer: 3
@@ -30,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.85, y: 11.068, z: 0}
-  m_LocalScale: {x: 0.21375, y: 0.21375, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,7 +86,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8534664225753863413, guid: 38f68896d6d744c7995e2dd0e137450d, type: 3}
+  m_Sprite: {fileID: -4626783169600205179, guid: e62d2677091c1bd4eac7b2d925ffd856, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,11 +125,48 @@ MonoBehaviour:
   preferredRange: 7
   minimumRange: 3
   timeToCharge: 2
-  bullet: {fileID: 5350934001960373574, guid: 5675a864ba19e3f48bcbef1b57f11311, type: 3}
-  bulletTexture: {fileID: -47154726313258108, guid: bcae1cd329d66080e8b3ffac66e22086, type: 3}
-  bulletId: bomb
+  bullet: {fileID: 5350934001960373574, guid: 0e086c4c665346247bee794fe40917f9, type: 3}
+  bulletTexture: {fileID: 5944251188082942190, guid: 5cbd26f6f6d5ccb46aa5e11ac111e61b, type: 3}
+  bulletId: mushroompoof
   bulletSpeed: 5
   bulletLifetime: 5
+--- !u!114 &5904572050643938467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707728054247411321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07cfebd3b2195d24ab077e89d23f5fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityAnimator
+  character: {fileID: 7707728054247411321}
+  state: 0
+  ruleSO: {fileID: 11400000, guid: d39e5b00959c28b4e99cca2dfe4e94c6, type: 2}
+--- !u!95 &7406577622406562060
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707728054247411321}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: -4559924331260584354, guid: e62d2677091c1bd4eac7b2d925ffd856, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &3477579368819515469
 Rigidbody2D:
   serializedVersion: 5
@@ -189,5 +228,5 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 3.1
+  m_Offset: {x: 0, y: 0.33}
+  m_Radius: 0.3
