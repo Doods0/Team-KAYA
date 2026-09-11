@@ -87,9 +87,9 @@ public class PlayerAnimator : EntityAnimator
 
         IEnumerator stopAnimation()
         {
-            yield return new WaitForSecondsRealtime(animations[nextAnimIndex].length * (1 / weaponAnimator.speed));
-
-            weaponAnimator.Play("Empty", layer: 0, normalizedTime: 0f);
+            int animationToStop = nextAnimIndex;
+            yield return new WaitForSecondsRealtime(animations[nextAnimIndex].length);
+            if (nextAnimIndex == animationToStop) weaponAnimator.Play("Empty", layer: 0, normalizedTime: 0f);
         }
 
         StartCoroutine(stopAnimation());
