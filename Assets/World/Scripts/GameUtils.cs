@@ -18,5 +18,9 @@ public class GameUtils : MonoBehaviour
     private void Awake() => instance = this;
     private void Update() => UpdatePlayerData();
 
-    private void UpdatePlayerData() => playerPosition = playerTransform.position;
+    private void UpdatePlayerData()
+    {
+        if (playerTransform != null) playerPosition = playerTransform.position;
+        else playerPosition = Vector3.zero; // if the player was deleted or killed
+    }
 }

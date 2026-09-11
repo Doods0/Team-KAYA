@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 32e9ef73b0622f84aa4133aad25fccd0
+guid: e97e625e968a08043849111c03de3e60
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -101,7 +101,7 @@ ScriptedImporter:
     addShadowCasters: 0
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
-  platformSettingsDirtyTick: 639245881006569765
+  platformSettingsDirtyTick: 639247267512044935
   singleSpriteImportData:
   - name: 
     originalName: 
@@ -125,7 +125,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: crosshair_ranged
+  - name: Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -135,9 +135,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 9
-      height: 9
-    spriteID: 9e82956b1c0f5d8409cce0ca31dccc36
+      width: 13
+      height: 13
+    spriteID: 128042f33745fb34f871374b5c244090
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -146,7 +146,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: crosshair_melee
+  - name: Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -155,10 +155,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 21
-      width: 9
-      height: 9
-    spriteID: f285584f130f3154ca15ba5925d49bec
+      y: 25
+      width: 13
+      height: 13
+    spriteID: 38a671bf66beb8341bb7b1ddcd73e06f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -166,56 +166,40 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 21}
+    uvTransform: {x: 4, y: 25}
   spriteSheetImportData: []
   tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 3846886312
+      value0: 1407385890
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: crosshair_ranged
-    layerFlags: 3
+    name: Crosshair
+    layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: crosshair_ranged
+    - name: Crosshair_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
-        width: 9
-        height: 9
-      spriteId: 9e82956b1c0f5d8409cce0ca31dccc36
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: -1
-  - layerIndex: 1
-    uuid:
-      value0: 4080700751
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: crosshair_melee
-    layerFlags: 3
-    layerType: 0
-    blendMode: 0
-    cells:
-    - name: crosshair_melee
-      frameIndex: 0
+        width: 13
+        height: 13
+      spriteId: 128042f33745fb34f871374b5c244090
+    - name: Crosshair_Frame_1
+      frameIndex: 1
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
-        width: 9
-        height: 9
-      spriteId: f285584f130f3154ca15ba5925d49bec
+        width: 13
+        height: 13
+      spriteId: 38a671bf66beb8341bb7b1ddcd73e06f
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -261,4 +245,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   previousTextureSize: {x: 32, y: 64}
-  canvasSize: {x: 9, y: 9}
+  canvasSize: {x: 13, y: 13}
