@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
     { 
         wholeFrame.DOLocalMoveX(-2000f, 1f).SetEase(Ease.OutCubic);
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("TTI");
+        SceneManager.LoadScene("MainGame");
     }
 
     [ContextMenu("Start")]

@@ -99,5 +99,5 @@ public class HUDManager : MonoBehaviour
     public void MainMenu() => SceneManager.LoadScene("Menu");
 
     [ContextMenu("Retry")]
-    public void Retry() => SceneManager.LoadScene("TTI");
+    public void Retry() => SceneManager.LoadScene("MainGame");
 }
