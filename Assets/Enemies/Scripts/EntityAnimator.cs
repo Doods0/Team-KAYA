@@ -28,7 +28,7 @@ public class EntityAnimator : MonoBehaviour
         if (currentRule == null)  return;
 
         animator.speed = GameManager.instance.timeScale;
-        ChangeAnimation(currentRule.track_hash, currentRule.fade);
+        if (GameManager.instance.timeScale != 0) ChangeAnimation(currentRule.track_hash, currentRule.fade);
     }
 
     public void ChangeAnimation(int animation_hash, float fade = 0f)
@@ -42,7 +42,7 @@ public class EntityAnimator : MonoBehaviour
 
     public void FlipCharacter(int direction)
     {
-        if (direction == 0) return;
+        if (direction == 0 || GameManager.instance.timeScale == 0) return;
         transform.localScale = new Vector3(direction, 1, 1);
     }
 }

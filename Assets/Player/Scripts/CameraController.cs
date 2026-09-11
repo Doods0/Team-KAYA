@@ -41,42 +41,51 @@ public class CameraController : MonoBehaviour
         Vector2 mouseDirectionVector = new();
         Vector2 cameraLockOffset = new();
 
-        if (!isAutoAim)
+        if (utils.playerTransform != null)
         {
-            mouseScreenPos = Mouse.current.position.ReadValue();
-            cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
-
-            mouseDirectionVector = (cursorWorldPosition - playerPos);
-
-            cameraLockOffset = new(playerPos.x, playerPos.y + 0.5f);
-            Vector2 lookaheadShift = new(mouseDirectionVector.x, mouseDirectionVector.y);
-            cameraLockOffset += lookaheadShift * lookaheadAmount;
-
-            crosshair.gameObject.SetActive(true);
-        }
-        else
-        {
-            if (lockedAt == null || !lockedAt.gameObject.activeInHierarchy)
+            if (!isAutoAim)
             {
-                mouseScreenPos = new (1,0);
-                crosshair.gameObject.SetActive(false);
-            }
-            else
-            {
-                mouseScreenPos = camera.WorldToScreenPoint(lockedAt.position);
+                mouseScreenPos = Mouse.current.position.ReadValue();
+                cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
+
+                mouseDirectionVector = (cursorWorldPosition - playerPos);
+
+                cameraLockOffset = new(playerPos.x, playerPos.y + 0.5f);
+                Vector2 lookaheadShift = new(mouseDirectionVector.x, mouseDirectionVector.y);
+                cameraLockOffset += lookaheadShift * lookaheadAmount;
 
                 crosshair.gameObject.SetActive(true);
             }
-            cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
-            mouseDirectionVector = (cursorWorldPosition - playerPos);
-            cameraLockOffset = playerPos + new Vector3(0, 0.5f, 0);
-        }
-        
-        cursorDirectionVector = mouseDirectionVector.normalized;
+            else
+            {
+                if (lockedAt == null || !lockedAt.gameObject.activeInHierarchy)
+                {
+                    mouseScreenPos = new(1, 0);
+                    crosshair.gameObject.SetActive(false);
+                }
+                else
+                {
+                    mouseScreenPos = camera.WorldToScreenPoint(lockedAt.position);
 
-        float cameraZ = camera.transform.position.z;
-        camera.transform.position =  new(cameraLockOffset.x, cameraLockOffset.y, cameraZ);
-        crosshair.position = new(mouseScreenPos.x, mouseScreenPos.y);
+                    crosshair.gameObject.SetActive(true);
+                }
+                cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
+                mouseDirectionVector = (cursorWorldPosition - playerPos);
+                cameraLockOffset = playerPos + new Vector3(0, 0.5f, 0);
+            }
+
+            cursorDirectionVector = mouseDirectionVector.normalized;
+
+            float cameraZ = camera.transform.position.z;
+            camera.transform.position = new(cameraLockOffset.x, cameraLockOffset.y, cameraZ);
+            crosshair.position = new(mouseScreenPos.x, mouseScreenPos.y);
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            crosshair.position = Vector3.zero;
+        }
     }
 
     public IEnumerator UpdateAutoAim()

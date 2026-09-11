@@ -111,7 +111,7 @@ public class PlayerStats : MonoBehaviour
         {
             if (!isThrowMode)
             {
-                cooldown = heavyWeapon.slashCooldown;
+                cooldown = lightWeapon.slashCooldown;
                 lightWeapon.Slash(localWeaponsData);
             }
             else
@@ -132,12 +132,6 @@ public class PlayerStats : MonoBehaviour
         health = Mathf.Clamp(health - damageTaken, 0, maxHealth);
 
         HUD.UpdateHealth(health, maxHealth);
-
-        if (health <= 0)
-        {
-            GameManager.instance.TriggerGameOver();
-            return;
-        }
 
         // Pause game
         GameManager.instance.isTimeBypassed = true;
@@ -167,6 +161,12 @@ public class PlayerStats : MonoBehaviour
                     controller.ApplyKnockback(direction * knockbackOnShockwave);
                 }
             }
+
+            if (health <= 0)
+            {
+                GameManager.instance.TriggerGameOver();
+                Destroy(gameObject);
+            };
 
             yield return new WaitForSecondsRealtime(cooldownOnShockwave);
 
