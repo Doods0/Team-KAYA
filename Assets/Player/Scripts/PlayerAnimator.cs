@@ -73,7 +73,6 @@ public class PlayerAnimator : EntityAnimator
         nextAnimIndex++;
         if (nextAnimIndex >= animations.Length) nextAnimIndex = 0;
         AnimationClip selectedAnim = animations[nextAnimIndex];
-        weaponAnimator.speed = GameManager.instance.timeScale;
         weaponAnimator.Play(selectedAnim.name, layer: 0, normalizedTime: 0f);
         int audioIndex = UnityEngine.Random.Range(0, audio.Length);
 
@@ -109,12 +108,12 @@ public class PlayerAnimator : EntityAnimator
 
         trailRenderer.widthMultiplier = radius;
         trailRenderer.Clear();
-        trailRenderer.time = math.clamp(trailLifetime * 1 / GameManager.instance.timeScale, trailLifetime, math.INFINITY);
+        trailRenderer.time = trailLifetime;
         trailTip.gameObject.SetActive(true);
         trailRenderer.emitting = true;
 
         float elapsed = 0f;
-        float currentDuration = math.clamp(duration * 1 / GameManager.instance.timeScale, duration, math.INFINITY);
+        float currentDuration = duration;
         while (elapsed < currentDuration && currentDuration != math.INFINITY)
         {
             elapsed += Time.deltaTime;
