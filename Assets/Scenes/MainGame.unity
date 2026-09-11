@@ -1656,7 +1656,7 @@ MonoBehaviour:
   enemySpawnrate: 2
   minEnemySpawnrate: 0.5
   spawnrateDecreasePerPhase: 0.05
-  timeTillNextPhase: 30
+  timeTillNextPhase: 20
   enemyCurrencyPerPhase: 40
   chanceOfPickup: 0.05
   pointPickup: {fileID: 5796465020088066133, guid: 93e54afa90caa33428e9db949e7a5769, type: 3}

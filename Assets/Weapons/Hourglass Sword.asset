@@ -15,11 +15,11 @@ MonoBehaviour:
   texture: {fileID: 8841724203012461337, guid: 29f22b0017cb9894b837c41fc5c13406, type: 3}
   inUseGripOffset: 0
   concealedGripOffset: 0
-  slashDamage: 4
+  slashDamage: 5
   slashKnockback: 9.34
   slashCooldown: 0.7
-  slashRadius: 5.1
-  slashAngle: 128.99
+  slashRadius: 3.5
+  slashAngle: 110
   slashAnimations:
   - {fileID: 7400000, guid: b339d50496d0e23449af73c2fbb0565a, type: 2}
   - {fileID: 7400000, guid: d161b72ba71b3044b8fc18107ff21705, type: 2}
