@@ -133,12 +133,6 @@ public class PlayerStats : MonoBehaviour
 
         HUD.UpdateHealth(health, maxHealth);
 
-        if (health <= 0)
-        {
-            GameManager.instance.TriggerGameOver();
-            return;
-        }
-
         // Pause game
         GameManager.instance.isTimeBypassed = true;
         GameManager.instance.timeScale = 0;
@@ -167,6 +161,12 @@ public class PlayerStats : MonoBehaviour
                     controller.ApplyKnockback(direction * knockbackOnShockwave);
                 }
             }
+
+            if (health <= 0)
+            {
+                GameManager.instance.TriggerGameOver();
+                Destroy(gameObject);
+            };
 
             yield return new WaitForSecondsRealtime(cooldownOnShockwave);
 

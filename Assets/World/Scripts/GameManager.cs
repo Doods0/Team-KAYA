@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [System.Serializable]
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public bool isTimeBypassed = false;
     public float runtimeScale = 1f;
+    public float maxTimeScale;
     public float timeScale;
 
     public float timePassed = 0;
@@ -62,17 +64,30 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (runtimeScale <= 0.2) TriggerGameOver();
+        runtimeScale = Mathf.Clamp(runtimeScale, 0, maxTimeScale);
         if (!isTimeBypassed) timeScale = runtimeScale;
 
-        timePassed = Time.realtimeSinceStartup;
+        if (timeScale != 0) timePassed += Time.deltaTime * timeScale;
         currentPhase = ((int)timePassed / timeTillNextPhase) + 1;
 
         HUD.UpdateUI(runtimeScale, timePassed);
     }
 
-    private void Awake()
+    private async void Awake()
     {
         instance = this;
+        await StartGame();
+    }
+
+    private async Task StartGame()
+    {
+
+        isTimeBypassed = true;
+        timeScale = 0;
+
+        await HUD.PlayIntro();
+
+        isTimeBypassed = false;
 
         StartCoroutine(SpawnEnemy());
         StartCoroutine(DecayTime());
@@ -185,11 +200,17 @@ public class GameManager : MonoBehaviour
     #endregion
 
     // Triggering game over is something global so it'll be fired from here
-    public void TriggerGameOver()
+    public void TriggerGameOver() => StartCoroutine(OnGameOver());
+
+    public IEnumerator OnGameOver()
     {
         isTimeBypassed = true;
-        Time.timeScale = 0;
+        timeScale = 1;
 
-        HUD.ShowLossMenu();
+        yield return new WaitForSeconds(2f);
+
+        HUD.PlayLossAnimations();
     }
+
+    private void OnDestroy() { if (instance == this) instance = null; }
 }
