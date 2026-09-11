@@ -18,7 +18,9 @@ public class ProjectileController : MonoBehaviour
     [Header("Session")]
     public SpriteRenderer renderer;
     public string id;
-    [HideInInspector] public Vector3 moveDirection;
+
+    [HideInInspector]
+    public Vector3 moveDirection;
 
     private Rigidbody2D rigidBody;
     private float lifetimeCounter;
@@ -27,7 +29,8 @@ public class ProjectileController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
 
-        if (spins) rigidBody.AddTorque(torque);
+        if (spins)
+            rigidBody.AddTorque(torque);
     }
 
     private void Update() => lifetimeCounter += Time.deltaTime;
@@ -38,16 +41,17 @@ public class ProjectileController : MonoBehaviour
         rigidBody.linearVelocityX = moveDirection.x * speed * GameManager.instance.timeScale;
         rigidBody.linearVelocityY = moveDirection.y * speed * GameManager.instance.timeScale;
 
-        if (lifetimeCounter >= lifetime / GameManager.instance.timeScale) Despawn();
+        if (lifetimeCounter >= lifetime / GameManager.instance.timeScale)
+            Despawn();
     }
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (isEnemy)
         {
             PlayerStats playerController = other.gameObject.GetComponent<PlayerStats>();
-            if (playerController == null) return;
+            if (playerController == null)
+                return;
 
             playerController.TakeDamage(damage);
             Despawn();
@@ -55,17 +59,20 @@ public class ProjectileController : MonoBehaviour
         else
         {
             EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
-            if (enemy == null) return;
+            if (enemy == null)
+                return;
 
             enemy.TakeDamage(damage);
 
-            Vector2 direction = (enemy.rigidbody.transform.position - GameUtils.instance.playerPosition).normalized;
+            Vector2 direction = (
+                enemy.rigidbody.transform.position - GameUtils.instance.playerPosition
+            ).normalized;
             enemy.ApplyKnockback(direction * knockback);
 
             Despawn();
         }
     }
-    
+
     private void Despawn()
     {
         GameManager.instance.AddInPool(id, gameObject);

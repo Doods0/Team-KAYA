@@ -14,13 +14,15 @@ public class GameUtils : MonoBehaviour
     public Transform playerTransform;
     public Vector3 playerPosition;
 
-
     private void Awake() => instance = this;
+
     private void Update() => UpdatePlayerData();
 
     private void UpdatePlayerData()
     {
-        if (playerTransform != null) playerPosition = playerTransform.position;
-        else playerPosition = Vector3.zero; // if the player was deleted or killed
+        if (playerTransform != null)
+            playerPosition = playerTransform.position;
+        else
+            playerPosition = Vector3.zero; // if the player was deleted or killed
     }
 }

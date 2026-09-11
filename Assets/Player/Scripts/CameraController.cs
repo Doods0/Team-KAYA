@@ -4,10 +4,17 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private RectTransform crosshair;
-    [SerializeField] private Camera camera;
-    [SerializeField] private float lookaheadAmount;
-    [SerializeField] private float autoAimRange;
+    [SerializeField]
+    private RectTransform crosshair;
+
+    [SerializeField]
+    private Camera camera;
+
+    [SerializeField]
+    private float lookaheadAmount;
+
+    [SerializeField]
+    private float autoAimRange;
     public static bool isAutoAim = false;
 
     public static Vector3 cursorWorldPosition;
@@ -26,7 +33,7 @@ public class CameraController : MonoBehaviour
         {
             layerMask = GameUtils.instance.enemyLayer,
             useLayerMask = true,
-            useTriggers = false
+            useTriggers = false,
         };
 
         StartCoroutine(UpdateAutoAim());
@@ -92,7 +99,8 @@ public class CameraController : MonoBehaviour
     {
         while (true)
         {
-            if (isAutoAim) GetNearestEnemy();
+            if (isAutoAim)
+                GetNearestEnemy();
             yield return new WaitForSecondsRealtime(0.5f);
         }
     }
@@ -102,8 +110,14 @@ public class CameraController : MonoBehaviour
         GameUtils utils = GameUtils.instance;
         Vector2 playerPos = utils.playerPosition;
 
-        int count = Physics2D.OverlapCircle(playerPos, autoAimRange, enemyFilter, enemyDetectorBuffer);
-        if (count == 0) return;
+        int count = Physics2D.OverlapCircle(
+            playerPos,
+            autoAimRange,
+            enemyFilter,
+            enemyDetectorBuffer
+        );
+        if (count == 0)
+            return;
 
         Collider2D nearest = null;
         float nearestSqrDist = float.MaxValue;
@@ -119,7 +133,8 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        if (nearest == null) return;
+        if (nearest == null)
+            return;
         lockedAt = nearest.transform;
     }
 }
