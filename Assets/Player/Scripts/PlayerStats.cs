@@ -111,7 +111,7 @@ public class PlayerStats : MonoBehaviour
         {
             if (!isThrowMode)
             {
-                cooldown = heavyWeapon.slashCooldown;
+                cooldown = lightWeapon.slashCooldown;
                 lightWeapon.Slash(localWeaponsData);
             }
             else

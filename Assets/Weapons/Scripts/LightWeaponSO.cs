@@ -32,8 +32,6 @@ public class LightWeaponSO : WeaponSO
         float angleToDirection = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         // PROJECTILE MUST FACE UP IN ART
 
-        GameManager manager = GameManager.instance;
-
         GameObject proj = GameManager.instance.GetFromPool(projectileId);
         if (!proj) proj = Instantiate(projectile);
 
