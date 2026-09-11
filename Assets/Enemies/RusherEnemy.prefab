@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6110143124762924741}
   - component: {fileID: 1124013303504955397}
   - component: {fileID: 227240343008403127}
+  - component: {fileID: 4883562858673129351}
   m_Layer: 3
   m_Name: RusherEnemy
   m_TagString: Untagged
@@ -61,7 +62,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 98d1d8ae6eaff474a9cc9575666bb1b9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -183,3 +184,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &4883562858673129351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169525927119518209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07cfebd3b2195d24ab077e89d23f5fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityAnimator
+  character: {fileID: 8169525927119518209}
+  flashMaterial: {fileID: 2100000, guid: 98d1d8ae6eaff474a9cc9575666bb1b9, type: 2}
+  state: 0
+  ruleSO: {fileID: 0}

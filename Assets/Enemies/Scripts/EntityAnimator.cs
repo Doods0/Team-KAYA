@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class EntityAnimator : MonoBehaviour
@@ -13,12 +15,14 @@ public class EntityAnimator : MonoBehaviour
     private Dictionary<EntityState, AnimationRule> rulesDictionary;
 
     private Animator animator;
+    private SpriteRenderer renderer;
     private int currentAnimation;
 
     private void Awake()
     {
         animator = character.GetComponent<Animator>();
         rulesDictionary = ruleSO.generateDictionary();
+        renderer = character.GetComponent<SpriteRenderer>();
     }
 
     public virtual void Update()
@@ -45,4 +49,15 @@ public class EntityAnimator : MonoBehaviour
         if (direction == 0 || GameManager.instance.timeScale == 0) return;
         transform.localScale = new Vector3(direction, 1, 1);
     }
+
+    public void OnDamageTaken(float duration = 0.1f) => StartCoroutine(DamageEffects(duration));
+
+    private IEnumerator DamageEffects(float duration = 0.1f)
+    {
+        renderer.material.SetFloat("_FlashAmount", 1) ;
+        yield return new WaitForSeconds(duration);
+        renderer.material.SetFloat("_FlashAmount", 0);
+    }
+
+    private void OnDisable() => renderer.material.SetFloat("_FlashAmount", 0);
 }
