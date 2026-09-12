@@ -33,12 +33,17 @@ public class PlayerController : MonoBehaviour
     public AudioClip walk1;
     public AudioClip walk2;
     public AudioClip walk3;
+    public AudioClip switchToMeleeSound;
+    public AudioClip switchToThrowSound;
     public float timeBetweenFootsteps;
     float footstepTimer;
 
     [Header("Settings")]
     public float knockbackDecayRate = 4f;
     [HideInInspector] public Vector2 knockbackVelocity;
+
+    [Header("Utils")]
+    [SerializeField] private CameraController cameraUtil;
 
     private int xMovementDir;
     private int yMovementDir;
@@ -72,8 +77,14 @@ public class PlayerController : MonoBehaviour
         toggleAutoAimAction.performed -= ToggleAutoAim;
     }
 
-    private void ToggleThrow(InputAction.CallbackContext _input) => isThrowMode = !isThrowMode;
-    private void ToggleAutoAim(InputAction.CallbackContext _input) => CameraController.isAutoAim = !CameraController.isAutoAim;
+    private void ToggleThrow(InputAction.CallbackContext _input) 
+    {
+        isThrowMode = !isThrowMode;
+        cameraUtil.SwapCrosshair(isThrowMode);
+        if (isThrowMode) GameUtils.instance.audioSource.PlayOneShot(switchToThrowSound);
+        else GameUtils.instance.audioSource.PlayOneShot(switchToMeleeSound);
+    } 
+    private void ToggleAutoAim(InputAction.CallbackContext _input) => cameraUtil.isAutoAim = !cameraUtil.isAutoAim;
     #endregion
 
     private void Update()

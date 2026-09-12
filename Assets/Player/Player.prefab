@@ -61,9 +61,12 @@ MonoBehaviour:
   walk1: {fileID: 8300000, guid: 39da512ebf2141077a9d23696775598e, type: 3}
   walk2: {fileID: 8300000, guid: 2c603a7a70b50f77fbb4f077fcc83653, type: 3}
   walk3: {fileID: 8300000, guid: 7b9094a8a93549f74adbbc2760247eb5, type: 3}
+  switchToMeleeSound: {fileID: 8300000, guid: 997af90d4effa5840a0ce5865f056c36, type: 3}
+  switchToThrowSound: {fileID: 8300000, guid: 225504465186d7f42bb378e4531f12f0, type: 3}
   timeBetweenFootsteps: 0.35
   knockbackDecayRate: 8
   knockbackVelocity: {x: 0, y: 0}
+  cameraUtil: {fileID: 0}
 --- !u!114 &6505086626376703030
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,20 +1,26 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField] private RectTransform crosshair;
+    [SerializeField] private Image crosshairImage;
     [SerializeField] private Camera camera;
     [SerializeField] private float lookaheadAmount;
     [SerializeField] private float autoAimRange;
-    public static bool isAutoAim = false;
+    [Header("Cursor Images")]
+    [SerializeField] private Sprite meleeCrosshair;
+    [SerializeField] private Sprite throwCrosshair;
+    [HideInInspector] public bool isAutoAim = false;
 
     public static Vector3 cursorWorldPosition;
     public static Vector3 cursorDirectionVector;
 
     private Transform lockedAt;
-    private Collider2D[] enemyDetectorBuffer = new Collider2D[32];
+    private readonly Collider2D[] enemyDetectorBuffer = new Collider2D[32];
     private ContactFilter2D enemyFilter;
 
     private void Awake()
@@ -39,7 +45,9 @@ public class CameraController : MonoBehaviour
 
         Vector2 mouseScreenPos = new();
         Vector2 mouseDirectionVector = new();
-        Vector2 cameraLockOffset = new();
+Vector2 mouseScreenPos;
+Vector2 mouseDirectionVector;
+Vector2 cameraLockOffset;
 
         if (utils.playerTransform != null)
         {
@@ -48,7 +56,7 @@ public class CameraController : MonoBehaviour
                 mouseScreenPos = Mouse.current.position.ReadValue();
                 cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
 
-                mouseDirectionVector = (cursorWorldPosition - playerPos);
+                mouseDirectionVector = cursorWorldPosition - playerPos;
 
                 cameraLockOffset = new(playerPos.x, playerPos.y + 0.5f);
                 Vector2 lookaheadShift = new(mouseDirectionVector.x, mouseDirectionVector.y);
@@ -70,7 +78,7 @@ public class CameraController : MonoBehaviour
                     crosshair.gameObject.SetActive(true);
                 }
                 cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
-                mouseDirectionVector = (cursorWorldPosition - playerPos);
+                mouseDirectionVector = cursorWorldPosition - playerPos;
                 cameraLockOffset = playerPos + new Vector3(0, 0.5f, 0);
             }
 
@@ -121,5 +129,11 @@ public class CameraController : MonoBehaviour
 
         if (nearest == null) return;
         lockedAt = nearest.transform;
+    }
+
+    public void SwapCrosshair(bool isThrowMode)
+    {
+        if (isThrowMode) crosshairImage.sprite = throwCrosshair;
+        else crosshairImage.sprite = meleeCrosshair;
     }
 }

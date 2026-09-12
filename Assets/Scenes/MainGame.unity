@@ -1841,6 +1841,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2637829541062154066, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
+      propertyPath: cameraUtil
+      value: 
+      objectReference: {fileID: 1969356967}
     - target: {fileID: 2973344048670075227, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2448,9 +2452,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AimController
   crosshair: {fileID: 531986188}
+  crosshairImage: {fileID: 531986189}
   camera: {fileID: 269142786}
   lookaheadAmount: 0.05
   autoAimRange: 10
+  meleeCrosshair: {fileID: -806107828946582602, guid: e97e625e968a08043849111c03de3e60, type: 3}
+  throwCrosshair: {fileID: 4960667078735979598, guid: e97e625e968a08043849111c03de3e60, type: 3}
+  isAutoAim: 0
 --- !u!4 &1969356968
 Transform:
   m_ObjectHideFlags: 0
