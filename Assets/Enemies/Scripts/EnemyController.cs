@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
 
             GameManager.instance.SpeedTime();
             GameManager.instance.AddInPool(id, gameObject);
-            handleLoot();
+            HandleLoot();
 
             gameObject.SetActive(false);
         }
