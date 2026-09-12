@@ -1,22 +1,29 @@
+using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DG.Tweening;
 using UnityEngine.UI;
-using System.Collections;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private Image backgroundImage;
-    [SerializeField] private RectTransform title;
-    [SerializeField] private RectTransform buttons;
-    [SerializeField] private RectTransform wholeFrame;
+    [SerializeField]
+    private Image backgroundImage;
+
+    [SerializeField]
+    private RectTransform title;
+
+    [SerializeField]
+    private RectTransform buttons;
+
+    [SerializeField]
+    private RectTransform wholeFrame;
 
     private void Awake() => PlayIntroAnimations();
 
     private void PlayIntroAnimations()
     {
         backgroundImage.color = Color.black;
-        buttons.localPosition = new(0,-550f,0);
+        buttons.localPosition = new(0, -550f, 0);
         title.localPosition = new(0, 700f, 0);
 
         Sequence menuSequence = DOTween.Sequence();
@@ -28,8 +35,8 @@ public class MainMenu : MonoBehaviour
         menuSequence.Append(buttons.DOLocalMove(Vector3.zero, 0.8f).SetEase(Ease.OutCubic));
     }
 
-    private IEnumerator PlayStartAnimation() 
-    { 
+    private IEnumerator PlayStartAnimation()
+    {
         wholeFrame.DOLocalMoveX(-2000f, 1f).SetEase(Ease.OutCubic);
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("MainGame");
@@ -40,5 +47,4 @@ public class MainMenu : MonoBehaviour
 
     [ContextMenu("Quit")]
     public void endGame() => Application.Quit();
-
 }

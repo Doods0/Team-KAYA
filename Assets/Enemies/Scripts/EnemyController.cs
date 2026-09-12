@@ -15,13 +15,18 @@ public class EnemyController : MonoBehaviour
     public AudioClip hurt;
     public AudioClip death;
 
-    [HideInInspector] public Rigidbody2D rigidbody;
-    [HideInInspector] public Vector2 knockbackVelocity;
-    [HideInInspector] public string id;
+    [HideInInspector]
+    public Rigidbody2D rigidbody;
+
+    [HideInInspector]
+    public Vector2 knockbackVelocity;
+
+    [HideInInspector]
+    public string id;
 
     private EntityAnimator animator;
 
-    public virtual void Awake() 
+    public virtual void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<EntityAnimator>();
@@ -36,7 +41,8 @@ public class EnemyController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         PlayerStats stats = other.gameObject.GetComponent<PlayerStats>();
-        if (stats == null) return;
+        if (stats == null)
+            return;
         stats.TakeDamage(damage);
     }
 
@@ -56,7 +62,8 @@ public class EnemyController : MonoBehaviour
 
             gameObject.SetActive(false);
         }
-        else GameUtils.instance.audioSource.PlayOneShot(hurt, Random.Range(.75f, 1.25f));
+        else
+            GameUtils.instance.audioSource.PlayOneShot(hurt, Random.Range(.75f, 1.25f));
     }
 
     // If more functions like this are created,
@@ -75,8 +82,10 @@ public class EnemyController : MonoBehaviour
         Vector2 playerPosition = (Vector2)GameUtils.instance.playerPosition;
         Vector2 position = rigidbody.position;
 
-        if ((playerPosition - position).x > 0) animator.FlipCharacter(1);
-        else animator.FlipCharacter(-1);
+        if ((playerPosition - position).x > 0)
+            animator.FlipCharacter(1);
+        else
+            animator.FlipCharacter(-1);
 
         return playerPosition - position;
     }
@@ -100,8 +109,8 @@ public class EnemyController : MonoBehaviour
             PickupChance pickupToSpawn = new();
 
             float totalWeight = 0f;
-            foreach (var item in GameManager.instance.specialPickups) totalWeight += item.weight;
-
+            foreach (var item in GameManager.instance.specialPickups)
+                totalWeight += item.weight;
 
             // Roll between 0 and total weight
             float roll = Random.Range(0f, totalWeight);
@@ -126,7 +135,8 @@ public class EnemyController : MonoBehaviour
         }
         pickupObj = GameManager.instance.GetFromPool(poolId);
 
-        if (!pickupObj) pickupObj = Instantiate(pickupObjType);
+        if (!pickupObj)
+            pickupObj = Instantiate(pickupObjType);
 
         controller = pickupObj.GetComponent<PickupController>();
         controller.poolId = poolId;

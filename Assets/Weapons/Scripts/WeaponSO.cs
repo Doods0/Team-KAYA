@@ -15,6 +15,7 @@ public class WeaponSO : ScriptableObject
     public float slashCooldown;
     public float slashRadius;
     public float slashAngle;
+
     [Header("Animations and Sounds")]
     public AnimationClip[] slashAnimations; // need to exist already in the AnimationController
     public AudioClip[] slashSounds;
@@ -27,7 +28,12 @@ public class WeaponSO : ScriptableObject
         Vector3 playerPos = GameUtils.instance.playerPosition;
 
         hitBuffer.Clear();
-        int count = Physics2D.OverlapCircle(playerPos, slashRadius, weaponMemory.enemyFilter, hitBuffer);
+        int count = Physics2D.OverlapCircle(
+            playerPos,
+            slashRadius,
+            weaponMemory.enemyFilter,
+            hitBuffer
+        );
 
         for (int i = 0; i < count; i++)
         {
@@ -36,13 +42,16 @@ public class WeaponSO : ScriptableObject
             // Calculate angle between aim direction and enemy
             float angle = Vector2.Angle(CameraController.cursorDirectionVector, directionToEnemy);
 
-            if (angle > slashAngle / 2f) continue;
+            if (angle > slashAngle / 2f)
+                continue;
 
             // Assuming enemy controller is the health handler
             if (hitBuffer[i].TryGetComponent<EnemyController>(out var target))
             {
                 target.TakeDamage(slashDamage);
-                Vector2 direction = (target.rigidbody.transform.position - GameUtils.instance.playerPosition).normalized;
+                Vector2 direction = (
+                    target.rigidbody.transform.position - GameUtils.instance.playerPosition
+                ).normalized;
                 target.ApplyKnockback(direction * slashKnockback);
             }
         }

@@ -4,20 +4,42 @@ using UnityEngine;
 public class RangedEnemyController : EnemyController
 {
     [Header("Ranged Enemy")]
-    [SerializeField] private float speedWhileAiming;
-    [SerializeField] private int rangedDamage;
-    [SerializeField] private float range;
-    [SerializeField] private float preferredRange;
-    [SerializeField] private float minimumRange;
-    [SerializeField] private float timeToCharge;
+    [SerializeField]
+    private float speedWhileAiming;
+
+    [SerializeField]
+    private int rangedDamage;
+
+    [SerializeField]
+    private float range;
+
+    [SerializeField]
+    private float preferredRange;
+
+    [SerializeField]
+    private float minimumRange;
+
+    [SerializeField]
+    private float timeToCharge;
+
     [Header("Bullet")]
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private Sprite bulletTexture;
-    [SerializeField] private string bulletId;
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private float bulletLifetime;
+    [SerializeField]
+    private GameObject bullet;
+
+    [SerializeField]
+    private Sprite bulletTexture;
+
+    [SerializeField]
+    private string bulletId;
+
+    [SerializeField]
+    private float bulletSpeed;
+
+    [SerializeField]
+    private float bulletLifetime;
 
     bool lockedOnPlayer = false;
+
     // Used to "charge up" shots.
     float timeSpentCharging = 0;
 
@@ -26,8 +48,10 @@ public class RangedEnemyController : EnemyController
         float distanceFromPlayer = ToPlayer().magnitude;
 
         // Only start aiming when we're in the preferred range.
-        if (distanceFromPlayer >= preferredRange * 0.9
-            && distanceFromPlayer <= preferredRange * 1.1)
+        if (
+            distanceFromPlayer >= preferredRange * 0.9
+            && distanceFromPlayer <= preferredRange * 1.1
+        )
         {
             lockedOnPlayer = true;
         }
@@ -43,7 +67,9 @@ public class RangedEnemyController : EnemyController
             moveVector *= speed;
 
             timeSpentCharging = 0;
-        } else {
+        }
+        else
+        {
             moveVector *= speedWhileAiming;
 
             timeSpentCharging += Time.deltaTime;
@@ -54,13 +80,15 @@ public class RangedEnemyController : EnemyController
 
                 GameObject bulletInstance = GameManager.instance.GetFromPool(bulletId);
 
-                if (!bulletInstance) bulletInstance = Instantiate(bullet);
+                if (!bulletInstance)
+                    bulletInstance = Instantiate(bullet);
 
                 bulletInstance.SetActive(true);
                 bulletInstance.transform.position = transform.position;
                 bulletInstance.transform.rotation = quaternion.identity;
 
-                ProjectileController bulletScript = bulletInstance.GetComponent<ProjectileController>();
+                ProjectileController bulletScript =
+                    bulletInstance.GetComponent<ProjectileController>();
                 if (bulletScript == null)
                 {
                     print("EnemyBullet script not found");
@@ -79,9 +107,11 @@ public class RangedEnemyController : EnemyController
 
         if (distanceFromPlayer > preferredRange * 1.1f) { }
         // Moving backwards to remain the preferred range.
-        else if (distanceFromPlayer < preferredRange * .9f) moveVector *= -1;
+        else if (distanceFromPlayer < preferredRange * .9f)
+            moveVector *= -1;
         // Stop moving while in the preferred range.
-        else moveVector *= 0;
+        else
+            moveVector *= 0;
 
         rigidbody.linearVelocity = moveVector * GameManager.instance.timeScale;
 

@@ -6,15 +6,30 @@ using UnityEngine.UI;
 public class CameraController : MonoBehaviour
 {
     [Header("General")]
-    [SerializeField] private RectTransform crosshair;
-    [SerializeField] private Image crosshairImage;
-    [SerializeField] private Camera camera;
-    [SerializeField] private float lookaheadAmount;
-    [SerializeField] private float autoAimRange;
+    [SerializeField]
+    private RectTransform crosshair;
+
+    [SerializeField]
+    private Image crosshairImage;
+
+    [SerializeField]
+    private Camera camera;
+
+    [SerializeField]
+    private float lookaheadAmount;
+
+    [SerializeField]
+    private float autoAimRange;
+
     [Header("Cursor Images")]
-    [SerializeField] private Sprite meleeCrosshair;
-    [SerializeField] private Sprite throwCrosshair;
-    [HideInInspector] public bool isAutoAim = false;
+    [SerializeField]
+    private Sprite meleeCrosshair;
+
+    [SerializeField]
+    private Sprite throwCrosshair;
+
+    [HideInInspector]
+    public bool isAutoAim = false;
 
     public static Vector3 cursorWorldPosition;
     public static Vector3 cursorDirectionVector;
@@ -32,7 +47,7 @@ public class CameraController : MonoBehaviour
         {
             layerMask = GameUtils.instance.enemyLayer,
             useLayerMask = true,
-            useTriggers = false
+            useTriggers = false,
         };
 
         StartCoroutine(UpdateAutoAim());
@@ -98,7 +113,8 @@ public class CameraController : MonoBehaviour
     {
         while (true)
         {
-            if (isAutoAim) GetNearestEnemy();
+            if (isAutoAim)
+                GetNearestEnemy();
             yield return new WaitForSecondsRealtime(0.5f);
         }
     }
@@ -108,8 +124,14 @@ public class CameraController : MonoBehaviour
         GameUtils utils = GameUtils.instance;
         Vector2 playerPos = utils.playerPosition;
 
-        int count = Physics2D.OverlapCircle(playerPos, autoAimRange, enemyFilter, enemyDetectorBuffer);
-        if (count == 0) return;
+        int count = Physics2D.OverlapCircle(
+            playerPos,
+            autoAimRange,
+            enemyFilter,
+            enemyDetectorBuffer
+        );
+        if (count == 0)
+            return;
 
         Collider2D nearest = null;
         float nearestSqrDist = float.MaxValue;
@@ -125,13 +147,16 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        if (nearest == null) return;
+        if (nearest == null)
+            return;
         lockedAt = nearest.transform;
     }
 
     public void SwapCrosshair(bool isThrowMode)
     {
-        if (isThrowMode) crosshairImage.sprite = throwCrosshair;
-        else crosshairImage.sprite = meleeCrosshair;
+        if (isThrowMode)
+            crosshairImage.sprite = throwCrosshair;
+        else
+            crosshairImage.sprite = meleeCrosshair;
     }
 }

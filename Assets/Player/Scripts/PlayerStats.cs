@@ -43,6 +43,7 @@ public class PlayerStats : MonoBehaviour
     public int health;
     public int maxHealth;
     public bool isImmune = false;
+
     [Header("Economy")]
     public float pickupRange;
     public bool hasShopAccess;
@@ -51,22 +52,33 @@ public class PlayerStats : MonoBehaviour
     public float slowdownDropInterval;
 
     [Header("Settings")]
-    [SerializeField] private float shockwaveTime;
-    [SerializeField] private float shockwaveRange;
+    [SerializeField]
+    private float shockwaveTime;
+
+    [SerializeField]
+    private float shockwaveRange;
 
     [Header("Utils")]
-    [SerializeField] private PlayerAnimator animator;
-    [SerializeField] private HUDManager HUD;
+    [SerializeField]
+    private PlayerAnimator animator;
+
+    [SerializeField]
+    private HUDManager HUD;
 
     [Header("Sounds")]
     public AudioClip damageSound;
     public AudioClip shockwaveSound;
 
-    [HideInInspector] public LocalWeaponsData localWeaponsData;
-    [HideInInspector] public ContactFilter2D enemyFilter;
+    [HideInInspector]
+    public LocalWeaponsData localWeaponsData;
+
+    [HideInInspector]
+    public ContactFilter2D enemyFilter;
 
     private float currentCooldown;
+
     private void Update() => currentCooldown = Mathf.Max(0f, currentCooldown - Time.deltaTime);
+
     // Or fixedDeltaTime? should it change according to time speed?
 
     private void Awake()
@@ -77,7 +89,7 @@ public class PlayerStats : MonoBehaviour
         {
             layerMask = GameUtils.instance.enemyLayer,
             useLayerMask = true,
-            useTriggers = false
+            useTriggers = false,
         };
 
         localWeaponsData.enemyFilter = enemyFilter;
@@ -85,7 +97,8 @@ public class PlayerStats : MonoBehaviour
 
     public void Attack(bool withHeavy, bool isThrowMode)
     {
-        if (currentCooldown > 0 || GameManager.instance.timeScale == 0) return;
+        if (currentCooldown > 0 || GameManager.instance.timeScale == 0)
+            return;
 
         WeaponSO weaponInUse;
         WeaponSO otherWeapon;
@@ -128,7 +141,8 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int damageTaken)
     {
-        if (isImmune || damageTaken == 0) return;
+        if (isImmune || damageTaken == 0)
+            return;
 
         health = Mathf.Clamp(health - damageTaken, 0, maxHealth);
         animator.OnDamageTaken(shockwaveTime);
@@ -143,7 +157,12 @@ public class PlayerStats : MonoBehaviour
         GameUtils.instance.audioSource.PlayOneShot(damageSound);
 
         List<Collider2D> hitsBuffer = new();
-        int hitCount = Physics2D.OverlapCircle(transform.position, shockwaveRange, enemyFilter, hitsBuffer);
+        int hitCount = Physics2D.OverlapCircle(
+            transform.position,
+            shockwaveRange,
+            enemyFilter,
+            hitsBuffer
+        );
 
         IEnumerator ResumeGameAfterDelay()
         {
@@ -158,7 +177,9 @@ public class PlayerStats : MonoBehaviour
 
                 if (col.TryGetComponent(out EnemyController controller))
                 {
-                    Vector2 direction = (controller.rigidbody.transform.position - transform.position).normalized;
+                    Vector2 direction = (
+                        controller.rigidbody.transform.position - transform.position
+                    ).normalized;
 
                     controller.ApplyKnockback(direction * knockbackOnShockwave);
                 }
@@ -170,7 +191,8 @@ public class PlayerStats : MonoBehaviour
             {
                 GameManager.instance.TriggerGameOver();
                 Destroy(gameObject);
-            };
+            }
+            ;
 
             yield return new WaitForSecondsRealtime(cooldownOnShockwave);
 

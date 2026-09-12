@@ -5,4 +5,3 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Weapons/Basic Heavy Weapon")]
 public class HeavyWeaponSO : WeaponSO { } // Empty for now as there are no unique stats to heavy weapons
 // Although empty, it's meant to visually and systematically separate both types of SOs
-

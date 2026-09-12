@@ -1,6 +1,6 @@
-using DG.Tweening;
 using System.Collections;
 using System.Threading.Tasks;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,21 +10,42 @@ using UnityEngine.UI;
 public class HUDManager : MonoBehaviour
 {
     [Header("Loading")]
-    [SerializeField] private Image loadingTransition;
-    [SerializeField] private RectTransform timeOmeterMove;
-    [SerializeField] private RectTransform timerMove;
-    [SerializeField] private RectTransform healthBarMove;
+    [SerializeField]
+    private Image loadingTransition;
+
+    [SerializeField]
+    private RectTransform timeOmeterMove;
+
+    [SerializeField]
+    private RectTransform timerMove;
+
+    [SerializeField]
+    private RectTransform healthBarMove;
+
     [Header("Menus")]
-    [SerializeField] private GameObject lossMenu;
+    [SerializeField]
+    private GameObject lossMenu;
+
     [Header("Data")]
-    [SerializeField] private TextMeshProUGUI timePassedText;
+    [SerializeField]
+    private TextMeshProUGUI timePassedText;
+
     [Header("Health")]
-    [SerializeField] private GameObject healthBar;
-    [SerializeField] private GameObject healthFull;
-    [SerializeField] private GameObject healthEmpty;
+    [SerializeField]
+    private GameObject healthBar;
+
+    [SerializeField]
+    private GameObject healthFull;
+
+    [SerializeField]
+    private GameObject healthEmpty;
+
     [Header("TimeOMeter")]
-    [SerializeField] private RectTransform meterPin;
-    [SerializeField] private RectTransform tickerPin;
+    [SerializeField]
+    private RectTransform meterPin;
+
+    [SerializeField]
+    private RectTransform tickerPin;
 
     public void UpdateUI(float timeScale, float timePassed)
     {
@@ -37,11 +58,14 @@ public class HUDManager : MonoBehaviour
 
         UpdateTimeOMeter(timeScale, GameManager.instance.maxTimeScale);
     }
+
     public void UpdateHealth(int health, int maxHealth)
     {
-        foreach (Transform icon in healthBar.transform) Destroy(icon.gameObject);
+        foreach (Transform icon in healthBar.transform)
+            Destroy(icon.gameObject);
 
-        for (int i = 0; i < health; i++) Instantiate(healthFull, healthBar.transform);
+        for (int i = 0; i < health; i++)
+            Instantiate(healthFull, healthBar.transform);
 
         for (int i = 0; i < maxHealth - health; i++)
         {
@@ -57,7 +81,7 @@ public class HUDManager : MonoBehaviour
 
         meterPin.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
-    
+
     public IEnumerator HandleTickerMovement()
     {
         while (true)
@@ -66,10 +90,11 @@ public class HUDManager : MonoBehaviour
             if (timeScale != 0)
             {
                 Vector3 targetRotation = new(0, 0, tickerPin.rotation.eulerAngles.z - 20f);
-                tickerPin.DOLocalRotate(targetRotation, 0.1f).SetEase(Ease.OutBack,3.5f);
+                tickerPin.DOLocalRotate(targetRotation, 0.1f).SetEase(Ease.OutBack, 3.5f);
                 yield return new WaitForSeconds(1 / GameManager.instance.timeScale);
             }
-            else yield return null;
+            else
+                yield return null;
         }
     }
 

@@ -5,11 +5,14 @@ using UnityEngine;
 public class EntityAnimator : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private GameObject character;
+    [SerializeField]
+    private GameObject character;
 
     [Header("Animations")]
     public EntityState state;
-    [SerializeField] private AnimationRuleSO ruleSO;
+
+    [SerializeField]
+    private AnimationRuleSO ruleSO;
 
     private Dictionary<EntityState, AnimationRule> rulesDictionary;
 
@@ -28,10 +31,12 @@ public class EntityAnimator : MonoBehaviour
     {
         // Animations section
         var currentRule = rulesDictionary[state];
-        if (currentRule == null)  return;
+        if (currentRule == null)
+            return;
 
         animator.speed = GameManager.instance.timeScale;
-        if (GameManager.instance.timeScale != 0) ChangeAnimation(currentRule.track_hash, currentRule.fade);
+        if (GameManager.instance.timeScale != 0)
+            ChangeAnimation(currentRule.track_hash, currentRule.fade);
     }
 
     public void ChangeAnimation(int animation_hash, float fade = 0f)
@@ -45,7 +50,8 @@ public class EntityAnimator : MonoBehaviour
 
     public void FlipCharacter(int direction)
     {
-        if (direction == 0 || GameManager.instance.timeScale == 0) return;
+        if (direction == 0 || GameManager.instance.timeScale == 0)
+            return;
         transform.localScale = new Vector3(direction, 1, 1);
     }
 
@@ -53,7 +59,7 @@ public class EntityAnimator : MonoBehaviour
 
     private IEnumerator DamageEffects(float duration = 0.1f)
     {
-        renderer.material.SetFloat("_FlashAmount", 1) ;
+        renderer.material.SetFloat("_FlashAmount", 1);
         yield return new WaitForSeconds(duration);
         renderer.material.SetFloat("_FlashAmount", 0);
     }

@@ -24,7 +24,6 @@ public class LightWeaponSO : WeaponSO
     public int projectileSpeed;
     public float projectileSize;
 
-
     public virtual void Throw()
     {
         Vector3 currentPos = GameUtils.instance.playerPosition;
@@ -33,7 +32,8 @@ public class LightWeaponSO : WeaponSO
         // PROJECTILE MUST FACE UP IN ART
 
         GameObject proj = GameManager.instance.GetFromPool(projectileId);
-        if (!proj) proj = Instantiate(projectile);
+        if (!proj)
+            proj = Instantiate(projectile);
 
         proj.SetActive(true);
         proj.transform.position = currentPos;

@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class ExploderEnemyController : EnemyController
 {
@@ -18,10 +18,13 @@ public class ExploderEnemyController : EnemyController
     {
         rigidbody.linearVelocity = ToPlayer().normalized * ScaledSpeed();
 
-        if (ToPlayer().magnitude <= startTickingRange) StartTicking();
-        if (ticking) timeSpentTicking += Time.deltaTime * GameManager.instance.timeScale;
+        if (ToPlayer().magnitude <= startTickingRange)
+            StartTicking();
+        if (ticking)
+            timeSpentTicking += Time.deltaTime * GameManager.instance.timeScale;
 
-        if (timeSpentTicking > timeToExplode) Explode();
+        if (timeSpentTicking > timeToExplode)
+            Explode();
     }
 
     public override void ApplyKnockback(Vector2 impulse)
@@ -35,12 +38,14 @@ public class ExploderEnemyController : EnemyController
     {
         base.TakeDamage(damage);
 
-        if (health <= 0) Explode();
+        if (health <= 0)
+            Explode();
     }
 
     void StartTicking()
     {
-        if (ticking) return;
+        if (ticking)
+            return;
 
         ticking = true;
         timeSpentTicking = 0f;
@@ -55,7 +60,12 @@ public class ExploderEnemyController : EnemyController
         };
 
         List<Collider2D> hitsBuffer = new();
-        int hitCount = Physics2D.OverlapCircle(transform.position, explosionRange, filter, hitsBuffer);
+        int hitCount = Physics2D.OverlapCircle(
+            transform.position,
+            explosionRange,
+            filter,
+            hitsBuffer
+        );
 
         // Iterate through nearby enemies + the player.
         for (int i = 0; i < hitCount; i++)
@@ -64,12 +74,17 @@ public class ExploderEnemyController : EnemyController
 
             if (col.TryGetComponent(out EnemyController controller))
             {
-                Vector2 direction = (controller.rigidbody.transform.position - transform.position).normalized;
+                Vector2 direction = (
+                    controller.rigidbody.transform.position - transform.position
+                ).normalized;
 
                 controller.ApplyKnockback(direction * explosionKnockback);
                 controller.TakeDamage(explosionDamageToEnemies);
             }
-            else if (col.TryGetComponent(out PlayerStats playerStats) && col.TryGetComponent(out PlayerController playerController))
+            else if (
+                col.TryGetComponent(out PlayerStats playerStats)
+                && col.TryGetComponent(out PlayerController playerController)
+            )
             {
                 Vector2 direction = ToPlayer().normalized;
 

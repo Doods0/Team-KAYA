@@ -5,14 +5,27 @@ using UnityEngine;
 public class PlayerAnimator : EntityAnimator
 {
     [Header("Weapon Animations")]
-    [SerializeField] private Transform weaponPivot;
-    [SerializeField] private Animator weaponAnimator;
-    [SerializeField] private GameObject activeWeapon;
-    [SerializeField] private GameObject concealedWeapon;
+    [SerializeField]
+    private Transform weaponPivot;
+
+    [SerializeField]
+    private Animator weaponAnimator;
+
+    [SerializeField]
+    private GameObject activeWeapon;
+
+    [SerializeField]
+    private GameObject concealedWeapon;
+
     [Header("Trail")]
-    [SerializeField] private Transform trailTip;
-    [SerializeField] private TrailRenderer trailRenderer;
-    [SerializeField] private float trailLifetime = 0.08f;
+    [SerializeField]
+    private Transform trailTip;
+
+    [SerializeField]
+    private TrailRenderer trailRenderer;
+
+    [SerializeField]
+    private float trailLifetime = 0.08f;
 
     private int nextAnimIndex = -1;
 
@@ -27,8 +40,10 @@ public class PlayerAnimator : EntityAnimator
 
         weaponPivot.rotation = targetRotation;
 
-        if (math.sign(aimDirection.x) < 0) weaponPivot.transform.localScale = new Vector3(1, -1, 1);
-        else weaponPivot.transform.localScale = new Vector3(1, 1, 1);
+        if (math.sign(aimDirection.x) < 0)
+            weaponPivot.transform.localScale = new Vector3(1, -1, 1);
+        else
+            weaponPivot.transform.localScale = new Vector3(1, 1, 1);
 
         base.Update(); // Regular EntityAnimator behavior
     }
@@ -38,7 +53,11 @@ public class PlayerAnimator : EntityAnimator
     public void AlignWeapons(WeaponSO weaponInUse, WeaponSO otherWeapon)
     {
         activeWeapon.transform.localPosition = new Vector3(0, weaponInUse.inUseGripOffset, 0);
-        concealedWeapon.transform.localPosition = new Vector3(0, otherWeapon.concealedGripOffset, 0);
+        concealedWeapon.transform.localPosition = new Vector3(
+            0,
+            otherWeapon.concealedGripOffset,
+            0
+        );
     }
 
     public void SwapWeapons(WeaponSO weaponInUse, WeaponSO otherWeapon)
@@ -62,7 +81,6 @@ public class PlayerAnimator : EntityAnimator
             animations = lightWeapon.throwAnimations;
             audio = lightWeapon.throwSounds;
         }
-
         else
         {
             animations = weaponInUse.slashAnimations;
@@ -71,7 +89,8 @@ public class PlayerAnimator : EntityAnimator
         }
 
         nextAnimIndex++;
-        if (nextAnimIndex >= animations.Length) nextAnimIndex = 0;
+        if (nextAnimIndex >= animations.Length)
+            nextAnimIndex = 0;
         AnimationClip selectedAnim = animations[nextAnimIndex];
         weaponAnimator.Play(selectedAnim.name, layer: 0, normalizedTime: 0f);
         int audioIndex = UnityEngine.Random.Range(0, audio.Length);
@@ -81,21 +100,32 @@ public class PlayerAnimator : EntityAnimator
         if (canPlaySlashTrail)
         {
             StartCoroutine(
-                PlaySlashTrail(weaponPivot, weaponInUse.slashRadius, weaponInUse.slashAngle, selectedAnim.length
-                ));
+                PlaySlashTrail(
+                    weaponPivot,
+                    weaponInUse.slashRadius,
+                    weaponInUse.slashAngle,
+                    selectedAnim.length
+                )
+            );
         }
 
         IEnumerator stopAnimation()
         {
             int animationToStop = nextAnimIndex;
             yield return new WaitForSecondsRealtime(animations[nextAnimIndex].length);
-            if (nextAnimIndex == animationToStop) weaponAnimator.Play("Empty", layer: 0, normalizedTime: 0f);
+            if (nextAnimIndex == animationToStop)
+                weaponAnimator.Play("Empty", layer: 0, normalizedTime: 0f);
         }
 
         StartCoroutine(stopAnimation());
     }
 
-    public IEnumerator PlaySlashTrail(Transform pivot, float radius, float angleDegrees, float duration)
+    public IEnumerator PlaySlashTrail(
+        Transform pivot,
+        float radius,
+        float angleDegrees,
+        float duration
+    )
     {
         Vector3 frozenForward = pivot.right;
         Vector3 origin = pivot.position;
