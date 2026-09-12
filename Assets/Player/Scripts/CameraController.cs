@@ -56,7 +56,7 @@ Vector2 cameraLockOffset;
                 mouseScreenPos = Mouse.current.position.ReadValue();
                 cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
 
-                mouseDirectionVector = (cursorWorldPosition - playerPos);
+                mouseDirectionVector = cursorWorldPosition - playerPos;
 
                 cameraLockOffset = new(playerPos.x, playerPos.y + 0.5f);
                 Vector2 lookaheadShift = new(mouseDirectionVector.x, mouseDirectionVector.y);
