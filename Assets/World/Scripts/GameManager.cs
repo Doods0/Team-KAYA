@@ -211,7 +211,6 @@ public class GameManager : MonoBehaviour
         isTimeBypassed = true;
         timeScale = 1;
 
-
         yield return new WaitForSeconds(2f);
 
         HUD.PlayLossAnimations();
