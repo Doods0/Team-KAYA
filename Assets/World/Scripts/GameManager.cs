@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
     public string pointPickupId;
     public PickupChance[] specialPickups;
 
+    [Header("Sounds")]
+    public AudioClip deathSound;
+
     [Header("Session")]
     // Use to set up timescale externally and manually
     // AKA to be able to use Time.timeScale without this script overriding it
@@ -81,7 +84,6 @@ public class GameManager : MonoBehaviour
 
     private async Task StartGame()
     {
-
         isTimeBypassed = true;
         timeScale = 0;
 
@@ -204,6 +206,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator OnGameOver()
     {
+        GameUtils.instance.audioSource.PlayOneShot(deathSound);
+
         isTimeBypassed = true;
         timeScale = 1;
 

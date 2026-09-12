@@ -1671,6 +1671,7 @@ MonoBehaviour:
   - pickup: {fileID: 8040031927484897514, guid: 6b0d6ef779afabc439404fa70b867b11, type: 3}
     weight: 1
     id: shop
+  deathSound: {fileID: 8300000, guid: 87ab6b9c8730d7849a7ae50cc95ac2ad, type: 3}
   isTimeBypassed: 0
   runtimeScale: 1
   maxTimeScale: 3

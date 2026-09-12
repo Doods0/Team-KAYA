@@ -96,7 +96,9 @@ MonoBehaviour:
   shockwaveRange: 6.7
   animator: {fileID: 2219050965675229364}
   HUD: {fileID: 0}
-  shockwave: {fileID: 8300000, guid: 71b8700b4594ae0c092c6a5b9a790626, type: 3}
+  damageSound: {fileID: 8300000, guid: cc511063d5dfd6e46859dc87de41a911, type: 3}
+  shockwaveSound: {fileID: 8300000, guid: 8992c651220ae2a4b80b15b84ae77a7c, type: 3}
+  deathSound: {fileID: 0}
   localWeaponsData:
     enemyFilter:
       useTriggers: 0
