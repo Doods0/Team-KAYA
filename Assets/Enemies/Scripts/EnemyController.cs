@@ -86,7 +86,7 @@ public class EnemyController : MonoBehaviour
         return speed * GameManager.instance.timeScale;
     }
 
-    private void handleLoot()
+    private void HandleLoot()
     {
         PickupController controller;
         GameObject pickupObj;
