@@ -43,11 +43,9 @@ public class CameraController : MonoBehaviour
         GameUtils utils = GameUtils.instance;
         Vector3 playerPos = utils.playerPosition;
 
-        Vector2 mouseScreenPos = new();
-        Vector2 mouseDirectionVector = new();
-Vector2 mouseScreenPos;
-Vector2 mouseDirectionVector;
-Vector2 cameraLockOffset;
+        Vector2 mouseScreenPos;
+        Vector2 mouseDirectionVector;
+        Vector2 cameraLockOffset;
 
         if (utils.playerTransform != null)
         {
