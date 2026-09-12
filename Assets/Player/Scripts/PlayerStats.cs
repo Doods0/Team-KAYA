@@ -59,7 +59,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private HUDManager HUD;
 
     [Header("Sounds")]
-    public AudioClip shockwave;
+    public AudioClip damageSound;
+    public AudioClip shockwaveSound;
 
     [HideInInspector] public LocalWeaponsData localWeaponsData;
     [HideInInspector] public ContactFilter2D enemyFilter;
@@ -139,7 +140,7 @@ public class PlayerStats : MonoBehaviour
         GameManager.instance.timeScale = 0;
         isImmune = true;
 
-        GameUtils.instance.audioSource.PlayOneShot(shockwave);
+        GameUtils.instance.audioSource.PlayOneShot(damageSound);
 
         List<Collider2D> hitsBuffer = new();
         int hitCount = Physics2D.OverlapCircle(transform.position, shockwaveRange, enemyFilter, hitsBuffer);
@@ -162,6 +163,8 @@ public class PlayerStats : MonoBehaviour
                     controller.ApplyKnockback(direction * knockbackOnShockwave);
                 }
             }
+
+            GameUtils.instance.audioSource.PlayOneShot(shockwaveSound);
 
             if (health <= 0)
             {
