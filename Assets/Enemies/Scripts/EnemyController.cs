@@ -67,7 +67,7 @@ public class EnemyController : MonoBehaviour
         {
             knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
         }
-        rigidbody.linearVelocity += knockbackVelocity * GameManager.instance.timeScale;
+        rigidbody.linearVelocity += knockbackVelocity;
     }
 
     public Vector2 ToPlayer()
