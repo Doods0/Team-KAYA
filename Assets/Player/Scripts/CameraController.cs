@@ -1,14 +1,20 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField] private RectTransform crosshair;
+    [SerializeField] private Image crosshairImage;
     [SerializeField] private Camera camera;
     [SerializeField] private float lookaheadAmount;
     [SerializeField] private float autoAimRange;
-    public static bool isAutoAim = false;
+    [Header("Cursor Images")]
+    [SerializeField] private Sprite meleeCrosshair;
+    [SerializeField] private Sprite throwCrosshair;
+    [HideInInspector] public bool isAutoAim = false;
 
     public static Vector3 cursorWorldPosition;
     public static Vector3 cursorDirectionVector;
@@ -121,5 +127,11 @@ public class CameraController : MonoBehaviour
 
         if (nearest == null) return;
         lockedAt = nearest.transform;
+    }
+
+    public void SwapCrosshair(bool isThrowMode)
+    {
+        if (isThrowMode) crosshairImage.sprite = throwCrosshair;
+        else crosshairImage.sprite = meleeCrosshair;
     }
 }
