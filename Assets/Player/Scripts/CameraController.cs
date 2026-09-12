@@ -78,7 +78,7 @@ Vector2 cameraLockOffset;
                     crosshair.gameObject.SetActive(true);
                 }
                 cursorWorldPosition = camera.ScreenToWorldPoint(mouseScreenPos);
-                mouseDirectionVector = (cursorWorldPosition - playerPos);
+                mouseDirectionVector = cursorWorldPosition - playerPos;
                 cameraLockOffset = playerPos + new Vector3(0, 0.5f, 0);
             }
 
