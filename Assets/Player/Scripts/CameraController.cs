@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     public static Vector3 cursorDirectionVector;
 
     private Transform lockedAt;
-    private Collider2D[] enemyDetectorBuffer = new Collider2D[32];
+    private readonly Collider2D[] enemyDetectorBuffer = new Collider2D[32];
     private ContactFilter2D enemyFilter;
 
     private void Awake()
