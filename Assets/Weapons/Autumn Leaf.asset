@@ -17,9 +17,9 @@ MonoBehaviour:
   concealedGripOffset: 0.78
   slashDamage: 3
   slashKnockback: 3
-  slashCooldown: 0.35
-  slashRadius: 4
-  slashAngle: 90
+  slashCooldown: 0.3
+  slashRadius: 2
+  slashAngle: 120
   slashAnimations:
   - {fileID: 7400000, guid: b339d50496d0e23449af73c2fbb0565a, type: 2}
   - {fileID: 7400000, guid: d161b72ba71b3044b8fc18107ff21705, type: 2}
