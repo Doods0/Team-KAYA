@@ -15,19 +15,24 @@ MonoBehaviour:
   texture: {fileID: 7550000489848552289, guid: 4d400f839312c294386ae9d9a9b7c2e4, type: 3}
   inUseGripOffset: 0.14
   concealedGripOffset: 0.78
-  slashDamage: 3
-  slashKnockback: 3
-  slashCooldown: 0.3
-  slashRadius: 2
-  slashAngle: 120
+  meleeStats:
+    slashDamage: 3
+    slashKnockback: 3
+    slashCooldown: 0.3
+    slashRadius: 2
+    slashAngle: 120
   slashAnimations:
   - {fileID: 7400000, guid: b339d50496d0e23449af73c2fbb0565a, type: 2}
   - {fileID: 7400000, guid: d161b72ba71b3044b8fc18107ff21705, type: 2}
   slashSounds:
   - {fileID: 8300000, guid: 26c32ab8ba3bd3b41a1e2c26f3440dd5, type: 3}
-  throwDamage: 2
-  throwKnockback: 4.5
-  throwCooldown: 0.5
+  throwStats:
+    throwDamage: 2
+    throwKnockback: 4.5
+    throwCooldown: 0.5
+    projectileLifetime: 3
+    projectileSpeed: 34
+    projectileSize: 1
   throwAnimations:
   - {fileID: 7400000, guid: 05b145d3a990ba24c88482d8b1ad7089, type: 2}
   throwSounds:
@@ -36,6 +41,3 @@ MonoBehaviour:
   projectileTexture: {fileID: 7550000489848552289, guid: 4d400f839312c294386ae9d9a9b7c2e4, type: 3}
   projectileId: autumn_leaf
   projectileSpins: 0
-  projectileLifetime: 3
-  projectileSpeed: 34
-  projectileSize: 1
