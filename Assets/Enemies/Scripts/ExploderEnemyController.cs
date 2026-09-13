@@ -69,7 +69,7 @@ public class ExploderEnemyController : EnemyController
                 controller.ApplyKnockback(direction * explosionKnockback);
                 controller.TakeDamage(explosionDamageToEnemies);
             }
-            else if (col.TryGetComponent(out PlayerStats playerStats) && col.TryGetComponent(out PlayerController playerController))
+            else if (col.TryGetComponent(out PlayerStatsHandler playerStats) && col.TryGetComponent(out PlayerController playerController))
             {
                 Vector2 direction = ToPlayer().normalized;
 

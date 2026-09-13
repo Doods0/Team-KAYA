@@ -20,7 +20,7 @@ public class PickupController : MonoBehaviour
     {
         float mag = (GameUtils.instance.playerPosition - transform.position).magnitude;
 
-        if (mag > GameUtils.instance.playerStats.pickupRange) return;
+        if (mag > GameUtils.instance.playerStats.stats.pickupRange) return;
 
         pickupElapsed += Time.deltaTime;
         float t = Mathf.Clamp01(pickupElapsed / pickupDuration);
@@ -32,18 +32,18 @@ public class PickupController : MonoBehaviour
 
         GameManager.instance.AddInPool(poolId, gameObject);
 
-        PlayerStats stats = GameUtils.instance.playerStats;
+        PlayerStatsHandler statsHandler = GameUtils.instance.playerStats;
 
-        if (type is PickupType.Point) stats.points++;
+        if (type is PickupType.Point) statsHandler.points++;
         else if (type is PickupType.SpeedUp)
         {
-            GameManager.instance.runtimeScale += stats.speedupDropInterval / GameManager.instance.timeScale;
+            GameManager.instance.runtimeScale += statsHandler.stats.speedupDropInterval / GameManager.instance.timeScale;
         }
         else if (type is PickupType.SlowDown)
         {
-            GameManager.instance.runtimeScale -= stats.slowdownDropInterval * GameManager.instance.timeScale;
+            GameManager.instance.runtimeScale -= statsHandler.stats.slowdownDropInterval * GameManager.instance.timeScale;
         }
-        else if (type is PickupType.Shop) stats.hasShopAccess = true;
+        else if (type is PickupType.Shop) statsHandler.hasShopAccess = true;
 
         gameObject.SetActive(false);
     }
