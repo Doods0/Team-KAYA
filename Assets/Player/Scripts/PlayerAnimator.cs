@@ -81,7 +81,10 @@ public class PlayerAnimator : EntityAnimator
         if (canPlaySlashTrail)
         {
             StartCoroutine(
-                PlaySlashTrail(weaponPivot, weaponInUse.slashRadius, weaponInUse.slashAngle, selectedAnim.length
+                PlaySlashTrail(weaponPivot,
+                weaponInUse.meleeStats.slashRadius,
+                weaponInUse.meleeStats.slashAngle,
+                selectedAnim.length
                 ));
         }
 

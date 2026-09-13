@@ -17,6 +17,14 @@ public class LocalWeaponsData
     public ContactFilter2D enemyFilter = new();
     // Moved the enemy filter from here to the mono script so it's reusable for knockback
 }
+
+[Serializable]
+public class WeaponsBuffs
+{
+    public MeleeStats meleeBuffs = new();
+    public ThrowStats throwBuffs = new();
+    // Any new stats of custom weapons will have to be added here
+}
 #endregion
 
 #region Pickups
@@ -29,26 +37,34 @@ public struct PickupChance
 }
 #endregion
 
-public class PlayerStats : MonoBehaviour
+#region Player Stats
+[Serializable]
+public class PlayerStats
 {
-    [Header("Inventory")]
-    public HeavyWeaponSO heavyWeapon;
-    public LightWeaponSO lightWeapon;
-
-    [Header("Stats")]
     [Header("Physical")]
     public float walkspeed;
     public float knockbackOnShockwave;
     public float cooldownOnShockwave;
     public int health;
     public int maxHealth;
-    public bool isImmune = false;
     [Header("Economy")]
     public float pickupRange;
-    public bool hasShopAccess;
-    public int points;
     public float speedupDropInterval;
     public float slowdownDropInterval;
+    [Header("Active Weapon Buffs")]
+    // Will be passed to all weapon types and values and will be added to values here
+    [HideInInspector] public WeaponsBuffs weaponBuffs; // Will be passed to weapons
+}
+#endregion
+
+public class PlayerStatsHandler : MonoBehaviour
+{
+    [Header("Inventory")]
+    public HeavyWeaponSO heavyWeapon;
+    public LightWeaponSO lightWeapon;
+
+    // Upgradable PlayerStats Below !!
+    public PlayerStats stats;
 
     [Header("Settings")]
     [SerializeField] private float shockwaveTime;
@@ -62,6 +78,10 @@ public class PlayerStats : MonoBehaviour
     public AudioClip damageSound;
     public AudioClip shockwaveSound;
 
+    [Header("Session")]
+    [HideInInspector] public bool isImmune = false;
+    [HideInInspector] public bool hasShopAccess;
+    [HideInInspector] public int points;
     [HideInInspector] public LocalWeaponsData localWeaponsData;
     [HideInInspector] public ContactFilter2D enemyFilter;
 
@@ -71,7 +91,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
-        HUD.UpdateHealth(health, maxHealth);
+        HUD.UpdateHealth(stats.health, stats.maxHealth);
 
         enemyFilter = new ContactFilter2D
         {
@@ -105,20 +125,20 @@ public class PlayerStats : MonoBehaviour
 
         if (withHeavy)
         {
-            cooldown = heavyWeapon.slashCooldown;
-            heavyWeapon.Slash(localWeaponsData);
+            cooldown = heavyWeapon.meleeStats.slashCooldown;
+            heavyWeapon.Slash(localWeaponsData, stats.weaponBuffs);
         }
         else
         {
             if (!isThrowMode)
             {
-                cooldown = lightWeapon.slashCooldown;
-                lightWeapon.Slash(localWeaponsData);
+                cooldown = lightWeapon.meleeStats.slashCooldown;
+                lightWeapon.Slash(localWeaponsData, stats.weaponBuffs);
             }
             else
             {
-                cooldown = lightWeapon.throwCooldown;
-                lightWeapon.Throw();
+                cooldown = lightWeapon.throwStats.throwCooldown;
+                lightWeapon.Throw(stats.weaponBuffs);
             }
         }
 
@@ -130,10 +150,10 @@ public class PlayerStats : MonoBehaviour
     {
         if (isImmune || damageTaken == 0) return;
 
-        health = Mathf.Clamp(health - damageTaken, 0, maxHealth);
+        stats.health = Mathf.Clamp(stats.health - damageTaken, 0, stats.maxHealth);
         animator.OnDamageTaken(shockwaveTime);
 
-        HUD.UpdateHealth(health, maxHealth);
+        HUD.UpdateHealth(stats.health, stats.maxHealth);
 
         // Pause game
         GameManager.instance.isTimeBypassed = true;
@@ -160,19 +180,19 @@ public class PlayerStats : MonoBehaviour
                 {
                     Vector2 direction = (controller.rigidbody.transform.position - transform.position).normalized;
 
-                    controller.ApplyKnockback(direction * knockbackOnShockwave);
+                    controller.ApplyKnockback(direction * stats.knockbackOnShockwave);
                 }
             }
 
             GameUtils.instance.audioSource.PlayOneShot(shockwaveSound);
 
-            if (health <= 0)
+            if (stats.health <= 0)
             {
                 GameManager.instance.TriggerGameOver();
                 Destroy(gameObject);
             };
 
-            yield return new WaitForSecondsRealtime(cooldownOnShockwave);
+            yield return new WaitForSecondsRealtime(stats.cooldownOnShockwave);
 
             isImmune = false;
         }
