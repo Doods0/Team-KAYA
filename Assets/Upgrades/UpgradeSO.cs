@@ -1,13 +1,26 @@
 using UnityEngine;
 
-public enum UpgradeType { Once, Passive }
-
 public class UpgradeSO : ScriptableObject
 {
-    // Meant to be inherited by each speficic type of an upgrade whether world, weapon or player to reduce noise in the inspector
+    public enum IncreaseType { Addition, Percentage }
+    public enum Frequency { Once, Update }
+    // Update would require a reference of the functional PlayerStats though
+    // And a custom function too
+    // Example : SpeedCorrespondToKnockback
+
+    // Upgrade name
+    // Upgrade texture
+    // Upgrade increase Type
+    // Upgrade frequency
+
+    // The other stats are determined by other SOs inheriting as this script won't be usable on its own
+
+    public virtual void ApplyEffect(PlayerStats activeStats = null) { }
+    // Add to it the two other detached classes representing light and heavy weapons' stats
+
 }
 
-
+// OLD COMMENTS BELOW
 // If weapon :
 
 // Type

@@ -10,7 +10,7 @@ public class GameUtils : MonoBehaviour
     public AudioSource audioSource;
 
     [Header("Player")]
-    public PlayerStats playerStats;
+    public PlayerStatsHandler playerStats;
     public Transform playerTransform;
     public Vector3 playerPosition;
 

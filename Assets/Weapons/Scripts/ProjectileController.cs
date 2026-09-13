@@ -46,7 +46,7 @@ public class ProjectileController : MonoBehaviour
     {
         if (isEnemy)
         {
-            PlayerStats playerController = other.gameObject.GetComponent<PlayerStats>();
+            PlayerStatsHandler playerController = other.gameObject.GetComponent<PlayerStatsHandler>();
             if (playerController == null) return;
 
             playerController.TakeDamage(damage);

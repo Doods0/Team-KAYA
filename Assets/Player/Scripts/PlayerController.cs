@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private PlayerInput input;
-    private PlayerStats gearHandler;
+    private PlayerStatsHandler statsHandler;
     #region Actions
     private InputAction xMovementAction;
     private InputAction yMovementAction;
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInput>();
-        gearHandler = GetComponent<PlayerStats>();
+        statsHandler = GetComponent<PlayerStatsHandler>();
         #region Action Assigning
         xMovementAction = input.actions.FindAction(xMovementRef.action.id);
         yMovementAction = input.actions.FindAction(yMovementRef.action.id);
@@ -89,8 +89,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (heavyAttackAction.IsPressed()) gearHandler.Attack(true, isThrowMode);
-        if (lightAttackAction.IsPressed()) gearHandler.Attack(false, isThrowMode);
+        if (heavyAttackAction.IsPressed()) statsHandler.Attack(true, isThrowMode);
+        if (lightAttackAction.IsPressed()) statsHandler.Attack(false, isThrowMode);
 
         // Movement values update
         xMovementDir = (int)math.sign(xMovementAction.ReadValue<float>());
@@ -115,8 +115,8 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        rb.linearVelocityX = xMovementDir * gearHandler.walkspeed * GameManager.instance.timeScale;
-        rb.linearVelocityY = yMovementDir * gearHandler.walkspeed * GameManager.instance.timeScale;
+        rb.linearVelocityX = xMovementDir * statsHandler.stats.walkspeed * GameManager.instance.timeScale;
+        rb.linearVelocityY = yMovementDir * statsHandler.stats.walkspeed * GameManager.instance.timeScale;
 
         if (GameManager.instance.timeScale != 0)
         {
