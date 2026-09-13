@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private float lookaheadAmount;
     [SerializeField] private float autoAimRange;
+    [SerializeField] private int cameraZoomResistance;
     [Header("Cursor Images")]
     [SerializeField] private Sprite meleeCrosshair;
     [SerializeField] private Sprite throwCrosshair;
@@ -19,12 +20,14 @@ public class CameraController : MonoBehaviour
     public static Vector3 cursorWorldPosition;
     public static Vector3 cursorDirectionVector;
 
+    private float cameraOriginalSize;
     private Transform lockedAt;
     private readonly Collider2D[] enemyDetectorBuffer = new Collider2D[32];
     private ContactFilter2D enemyFilter;
 
     private void Awake()
     {
+        cameraOriginalSize = camera.orthographicSize;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
 
@@ -91,6 +94,27 @@ public class CameraController : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             crosshair.position = Vector3.zero;
+        }
+
+        // The camera zooms out as the game gets faster.
+        //
+        // Every frame, we get closer to the target camera zoom by (cameraZoomResistance)% for a
+        // smooth transition.
+        float timeScale = GameManager.instance.timeScale;
+        if (timeScale > GameManager.instance.minTimeScale)
+        {
+            if (timeScale < 1)
+                camera.orthographicSize = (
+                    (cameraZoomResistance - 1) * camera.orthographicSize +
+                    // The relationship between camera zoom and game speed is half as effective
+                    // when timeScale < 1. This is because the default camera zoom is already
+                    // pretty close to the player.
+                    (cameraOriginalSize + cameraOriginalSize * GameManager.instance.timeScale) / 2)
+                    / cameraZoomResistance;
+            else
+                camera.orthographicSize = (
+                    (cameraZoomResistance - 1) * camera.orthographicSize
+                    + cameraOriginalSize * timeScale) / cameraZoomResistance;
         }
     }
 

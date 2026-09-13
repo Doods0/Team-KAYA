@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
 
     public bool isTimeBypassed = false;
     public float runtimeScale = 1f;
+    public float minTimeScale;
     public float maxTimeScale;
     public float timeScale;
 
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (runtimeScale <= 0.2) TriggerGameOver();
+        if (runtimeScale <= minTimeScale) TriggerGameOver();
         runtimeScale = Mathf.Clamp(runtimeScale, 0, maxTimeScale);
         if (!isTimeBypassed) timeScale = runtimeScale;
 
