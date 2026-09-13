@@ -2365,7 +2365,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 546d0a4dd558b604c8a662626fb5493e, type: 3}
+  m_Script: {fileID: 11500000, guid: ca819e95d9e04b94b85dbe1c34239403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GearHandler
 --- !u!1 &1917053154
