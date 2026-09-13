@@ -87,7 +87,7 @@ MonoBehaviour:
   health: 5
   maxHealth: 5
   isImmune: 0
-  pickupRange: 4
+  pickupRange: 3
   hasShopAccess: 0
   points: 0
   speedupDropInterval: 0.2
@@ -98,7 +98,6 @@ MonoBehaviour:
   HUD: {fileID: 0}
   damageSound: {fileID: 8300000, guid: cc511063d5dfd6e46859dc87de41a911, type: 3}
   shockwaveSound: {fileID: 8300000, guid: 8992c651220ae2a4b80b15b84ae77a7c, type: 3}
-  deathSound: {fileID: 0}
   localWeaponsData:
     enemyFilter:
       useTriggers: 0
