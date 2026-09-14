@@ -47,13 +47,41 @@ public class PlayerStats
     public float cooldownOnShockwave;
     public int health;
     public int maxHealth;
+
     [Header("Economy")]
     public float pickupRange;
     public float speedupDropInterval;
     public float slowdownDropInterval;
-    [Header("Active Weapon Buffs")]
-    // Will be passed to all weapon types and values and will be added to values here
-    [HideInInspector] public WeaponsBuffs weaponBuffs; // Will be passed to weapons
+
+    public static PlayerStats operator +(PlayerStats a, PlayerStats b)
+    {
+        return new PlayerStats
+        {
+            walkspeed = a.walkspeed + b.walkspeed,
+            knockbackOnShockwave = a.knockbackOnShockwave + b.knockbackOnShockwave,
+            cooldownOnShockwave = a.cooldownOnShockwave + b.cooldownOnShockwave,
+            health = a.health + b.health,
+            maxHealth = a.maxHealth + b.maxHealth,
+            pickupRange = a.pickupRange + b.pickupRange,
+            speedupDropInterval = a.speedupDropInterval + b.speedupDropInterval,
+            slowdownDropInterval = a.slowdownDropInterval + b.slowdownDropInterval
+        };
+    }
+
+    public static PlayerStats operator *(PlayerStats a, PlayerStats b)
+    {
+        return new PlayerStats
+        {
+            walkspeed = a.walkspeed * (1f + b.walkspeed),
+            knockbackOnShockwave = a.knockbackOnShockwave * (1f + b.knockbackOnShockwave),
+            cooldownOnShockwave = a.cooldownOnShockwave * (1f + b.cooldownOnShockwave),
+            health = (int)(a.health * (1f + b.health)), // Cast back to int
+            maxHealth = (int)(a.maxHealth * (1f + b.maxHealth)), // Cast back to int
+            pickupRange = a.pickupRange * (1f + b.pickupRange),
+            speedupDropInterval = a.speedupDropInterval * (1f + b.speedupDropInterval),
+            slowdownDropInterval = a.slowdownDropInterval * (1f + b.slowdownDropInterval)
+        };
+    }
 }
 #endregion
 
@@ -83,6 +111,9 @@ public class PlayerStatsHandler : MonoBehaviour
     [HideInInspector] public bool hasShopAccess;
     [HideInInspector] public int points;
     [HideInInspector] public LocalWeaponsData localWeaponsData;
+    // Will be passed to all weapon types and values and will be added to values here (the one below)
+    [HideInInspector] public WeaponsBuffs weaponBuffs;
+    [HideInInspector] public List<UpgradeSO> upgrades;
     [HideInInspector] public ContactFilter2D enemyFilter;
 
     private float currentCooldown;
@@ -101,6 +132,15 @@ public class PlayerStatsHandler : MonoBehaviour
         };
 
         localWeaponsData.enemyFilter = enemyFilter;
+    }
+
+    public void UpdateAllStats() // Run it after shopping, and run other "once" upgrades inside the shop upon purchase
+    {
+        foreach (UpgradeSO upgrade in upgrades)
+        {
+            if (upgrade.frequency != Frequency.Update) return;
+            upgrade.ApplyEffect(stats, weaponBuffs);
+        }
     }
 
     public void Attack(bool withHeavy, bool isThrowMode)
@@ -126,19 +166,19 @@ public class PlayerStatsHandler : MonoBehaviour
         if (withHeavy)
         {
             cooldown = heavyWeapon.meleeStats.slashCooldown;
-            heavyWeapon.Slash(localWeaponsData, stats.weaponBuffs);
+            heavyWeapon.Slash(localWeaponsData, weaponBuffs);
         }
         else
         {
             if (!isThrowMode)
             {
                 cooldown = lightWeapon.meleeStats.slashCooldown;
-                lightWeapon.Slash(localWeaponsData, stats.weaponBuffs);
+                lightWeapon.Slash(localWeaponsData, weaponBuffs);
             }
             else
             {
                 cooldown = lightWeapon.throwStats.throwCooldown;
-                lightWeapon.Throw(stats.weaponBuffs);
+                lightWeapon.Throw(weaponBuffs);
             }
         }
 
