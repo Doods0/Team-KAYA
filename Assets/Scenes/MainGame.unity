@@ -1674,6 +1674,7 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 87ab6b9c8730d7849a7ae50cc95ac2ad, type: 3}
   isTimeBypassed: 0
   runtimeScale: 1
+  minTimeScale: 0.2
   maxTimeScale: 3
   timeScale: 0
   timePassed: 0
@@ -2457,6 +2458,7 @@ MonoBehaviour:
   camera: {fileID: 269142786}
   lookaheadAmount: 0.05
   autoAimRange: 10
+  cameraZoomResistance: 200
   meleeCrosshair: {fileID: -806107828946582602, guid: e97e625e968a08043849111c03de3e60, type: 3}
   throwCrosshair: {fileID: 4960667078735979598, guid: e97e625e968a08043849111c03de3e60, type: 3}
   isAutoAim: 0
