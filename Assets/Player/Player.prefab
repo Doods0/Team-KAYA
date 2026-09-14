@@ -81,6 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GearHandler
   heavyWeapon: {fileID: 11400000, guid: 607cf59d278e30e49b27b6d5a60f4365, type: 2}
   lightWeapon: {fileID: 11400000, guid: 39bd6d2f19ad889459b6948e6640c6e9, type: 2}
+  
   stats:
     walkspeed: 6
     knockbackOnShockwave: 25.32
@@ -104,15 +105,17 @@ MonoBehaviour:
         projectileLifetime: 0
         projectileSpeed: 0
         projectileSize: 0
+  isImmune: 0
+  hasShopAccess: 0
+  points: 0
+  speedupDropInterval: 0.2
+  slowdownDropInterval: 0.2
   shockwaveTime: 0.5
   shockwaveRange: 6.7
   animator: {fileID: 2219050965675229364}
   HUD: {fileID: 0}
   damageSound: {fileID: 8300000, guid: cc511063d5dfd6e46859dc87de41a911, type: 3}
   shockwaveSound: {fileID: 8300000, guid: 8992c651220ae2a4b80b15b84ae77a7c, type: 3}
-  isImmune: 0
-  hasShopAccess: 0
-  points: 0
   localWeaponsData:
     enemyFilter:
       useTriggers: 0
