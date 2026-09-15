@@ -43,7 +43,7 @@ public class PickupController : MonoBehaviour
         {
             GameManager.instance.runtimeScale -= stats.stats.slowdownDropInterval * GameManager.instance.timeScale;
         }
-        else if (type is PickupType.Shop) stats.hasShopAccess = true;
+        else if (type is PickupType.Shop) stats.AssignShopTriggerPoint();
 
         gameObject.SetActive(false);
     }

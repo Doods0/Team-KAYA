@@ -28,8 +28,6 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         cameraOriginalSize = camera.orthographicSize;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
 
         enemyFilter = new ContactFilter2D
         {
@@ -50,8 +48,17 @@ public class CameraController : MonoBehaviour
         Vector2 mouseDirectionVector;
         Vector2 cameraLockOffset;
 
-        if (utils.playerTransform != null)
+        if (utils.playerTransform == null || GameManager.instance.isGamePaused)
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            crosshair.position = Vector3.zero;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Confined;
+
             if (!isAutoAim)
             {
                 mouseScreenPos = Mouse.current.position.ReadValue();
@@ -88,12 +95,6 @@ public class CameraController : MonoBehaviour
             float cameraZ = camera.transform.position.z;
             camera.transform.position = new(cameraLockOffset.x, cameraLockOffset.y, cameraZ);
             crosshair.position = new(mouseScreenPos.x, mouseScreenPos.y);
-        }
-        else
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            crosshair.position = Vector3.zero;
         }
 
         // The camera zooms out as the game gets faster.

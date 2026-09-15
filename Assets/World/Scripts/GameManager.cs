@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public float timeSpeedDecay;
     public float timeSpeedIncrease;
 
-    [Header("Placeholder")]
+    [Header("Components")]
     public HUDManager HUD;
 
     [Header("Settings")] // These are constants
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     // Use to set up timescale externally and manually
     // AKA to be able to use Time.timeScale without this script overriding it
     // It pauses the time decay and time speeding too
-
+    public bool isGamePaused = false;
     public bool isTimeBypassed = false;
     public float runtimeScale = 1f;
     public float minTimeScale;
@@ -209,6 +209,7 @@ public class GameManager : MonoBehaviour
     {
         GameUtils.instance.audioSource.PlayOneShot(deathSound);
 
+        isGamePaused = true;
         isTimeBypassed = true;
         timeScale = 1;
 
