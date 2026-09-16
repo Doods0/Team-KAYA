@@ -10,14 +10,18 @@ public class PickupController : MonoBehaviour
     [HideInInspector] public Vector3 pickupStartPos; // needs to be assigned by the spawner
     private float pickupElapsed;
     private const float pickupDuration = 0.5f;
+    private TrailRenderer trail;
 
     private void OnEnable()
     {
         pickupElapsed = 0f;
     }
 
+    private void Awake() => trail = GetComponent<TrailRenderer>();
+
     private void Update()
     {
+        trail.emitting = true;
         float mag = (GameUtils.instance.playerPosition - transform.position).magnitude;
 
         if (mag > GameUtils.instance.playerStats.stats.pickupRange) return;
@@ -46,5 +50,6 @@ public class PickupController : MonoBehaviour
         else if (type is PickupType.Shop) stats.AssignShopTriggerPoint();
 
         gameObject.SetActive(false);
+        trail.emitting = false;
     }
 }
