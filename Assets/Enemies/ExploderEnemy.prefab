@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityAnimator
   character: {fileID: 4792525644256836739}
-  flashMaterial: {fileID: 2100000, guid: 98d1d8ae6eaff474a9cc9575666bb1b9, type: 2}
   state: 0
   ruleSO: {fileID: 0}
+  damageParticle: {fileID: 2418114647592808732, guid: 1e08affe901afb240a55a74667e3924c, type: 3}
+  damageParticleId: damageP

@@ -10,6 +10,8 @@ public class EntityAnimator : MonoBehaviour
     [Header("Animations")]
     public EntityState state;
     [SerializeField] private AnimationRuleSO ruleSO;
+    [SerializeField] private GameObject damageParticle;
+    [SerializeField] private string damageParticleId;
 
     private Dictionary<EntityState, AnimationRule> rulesDictionary;
 
@@ -54,6 +56,18 @@ public class EntityAnimator : MonoBehaviour
     private IEnumerator DamageEffects(float duration = 0.1f)
     {
         renderer.material.SetFloat("_FlashAmount", 1) ;
+
+        if (damageParticle != null)
+        {
+            GameObject particle = GameManager.instance.GetFromPool(damageParticleId);
+            if (particle == null) particle = Instantiate(damageParticle);
+            else particle.SetActive(true);
+            particle.transform.position = transform.position;
+            particle.transform.rotation = Quaternion.identity;
+            ParticleDriver driver = particle.GetComponent<ParticleDriver>();
+            driver.id = damageParticleId;
+        }
+
         yield return new WaitForSeconds(duration);
         renderer.material.SetFloat("_FlashAmount", 0);
     }
