@@ -84,6 +84,15 @@ public class HUDManager : MonoBehaviour
         shopTriggerX.localPosition = origin + dir * 165;
     }
 
+    public void CollectPoint()
+    {
+        pointsText.DOKill();
+        pointsText.transform.DOScale(1.5f, 0).OnComplete(() => 
+        {
+            pointsText.transform.DOScale(1, 0.2f).SetEase(Ease.OutCubic);
+        });
+    }
+
     public IEnumerator HandleTickerMovement()
     {
         while (true)

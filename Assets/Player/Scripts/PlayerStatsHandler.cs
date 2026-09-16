@@ -97,15 +97,21 @@ public class PlayerStatsHandler : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float shockwaveTime;
     [SerializeField] private float shockwaveRange;
-    private readonly float shopTriggerBuffer = 0.1f;
+    private readonly float shopTriggerBuffer = 0.2f;
 
     [Header("Utils")]
     public PlayerAnimator animator;
     [SerializeField] private HUDManager HUD;
 
     [Header("Sounds")]
+    [Header("Damage")]
     public AudioClip damageSound;
     public AudioClip shockwaveSound;
+    [Header("Pickups")]
+    public AudioClip pointSound;
+    public AudioClip speedupSound;
+    public AudioClip slowdownSound;
+    public AudioClip shopSound;
 
     [Header("Session")]
     [HideInInspector] public bool isImmune = false;
@@ -244,6 +250,31 @@ public class PlayerStatsHandler : MonoBehaviour
         }
 
         StartCoroutine(ResumeGameAfterDelay());
+    }
+
+    public void CollectPickup(PickupType type)
+    {
+        if (type is PickupType.Point)
+        {
+            points++;
+            HUD.CollectPoint();
+            GameUtils.instance.audioSource.PlayOneShot(pointSound);
+        }
+        else if (type is PickupType.SpeedUp)
+        {
+            GameManager.instance.runtimeScale += stats.speedupDropInterval / GameManager.instance.timeScale;
+            GameUtils.instance.audioSource.PlayOneShot(speedupSound);
+        }
+        else if (type is PickupType.SlowDown)
+        {
+            GameManager.instance.runtimeScale -= stats.slowdownDropInterval * GameManager.instance.timeScale;
+            GameUtils.instance.audioSource.PlayOneShot(slowdownSound);
+        }
+        else if (type is PickupType.Shop)
+        {
+            AssignShopTriggerPoint();
+            GameUtils.instance.audioSource.PlayOneShot(shopSound);
+        }
     }
 
     public void AssignShopTriggerPoint()

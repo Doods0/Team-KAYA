@@ -32,18 +32,7 @@ public class PickupController : MonoBehaviour
 
         GameManager.instance.AddInPool(poolId, gameObject);
 
-        PlayerStatsHandler stats = GameUtils.instance.playerStats;
-
-        if (type is PickupType.Point) stats.points++;
-        else if (type is PickupType.SpeedUp)
-        {
-            GameManager.instance.runtimeScale += stats.stats.speedupDropInterval / GameManager.instance.timeScale;
-        }
-        else if (type is PickupType.SlowDown)
-        {
-            GameManager.instance.runtimeScale -= stats.stats.slowdownDropInterval * GameManager.instance.timeScale;
-        }
-        else if (type is PickupType.Shop) stats.AssignShopTriggerPoint();
+        GameUtils.instance.playerStats.CollectPickup(type);
 
         gameObject.SetActive(false);
     }
