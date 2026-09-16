@@ -9,9 +9,8 @@ public class DamageNumberDriver : MonoBehaviour
     private Color textColor;
 
     [Header("Settings")]
-    public float moveSpeed = 1.5f;
-    public float fadeSpeed = 2f;
-    public float lifetime = 1f;
+    private readonly float moveSpeed = 1.5f;
+    private readonly float fadeSpeed = 0.5f;
 
     private void Awake()
     {
