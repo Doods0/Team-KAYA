@@ -97,7 +97,7 @@ public class PlayerStatsHandler : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float shockwaveTime;
     [SerializeField] private float shockwaveRange;
-    [SerializeField] private float shopTriggerBuffer; // about 0.1 or less
+    private readonly float shopTriggerBuffer = 0.1f;
 
     [Header("Utils")]
     public PlayerAnimator animator;
