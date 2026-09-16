@@ -5,8 +5,9 @@ using UnityEngine.EventSystems;
 public class ShopUIHandler : MonoBehaviour
 {
     // Meant to pass purchase attempts and color out non-purchasable items in shop
-    // Data is taken from ShopHandler after every shop encounter so the same data is passed to other UI elements to...
-    // display the next purchasable element on player's HUD
+
+    // Data is taken from ShopHandler after every shop encounter so the same data is passed to
+    // other UI elements to display the next purchasable element on player's HUD
 
     [SerializeField] private ShopHandler shopUtil;
     [SerializeField] private HUDManager hudUtil;
