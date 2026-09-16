@@ -250,7 +250,9 @@ public class PlayerStatsHandler : MonoBehaviour
     {
         if (currentShopTriggerPoint != Mathf.Infinity) return;
 
-        float shopTriggerPoint = UnityEngine.Random.Range(GameManager.instance.minTimeScale + 0.4f, GameManager.instance.maxTimeScale - 0.4f);
+        float shopTriggerPoint = UnityEngine.Random.Range(
+            GameManager.instance.minTimeScale + shopTriggerBuffer,
+            GameManager.instance.maxTimeScale - shopTriggerBuffer);
         currentShopTriggerPoint = shopTriggerPoint;
 
         HUD.AssignShopTriggerPoint(currentShopTriggerPoint);
