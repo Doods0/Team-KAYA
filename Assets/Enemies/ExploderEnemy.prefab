@@ -207,3 +207,5 @@ MonoBehaviour:
   ruleSO: {fileID: 0}
   damageParticle: {fileID: 2418114647592808732, guid: 1e08affe901afb240a55a74667e3924c, type: 3}
   damageParticleId: damageP
+  damageNumberParticle: {fileID: 7880580348193083010, guid: c5ee371c416ca834ea4eceaa655c1744, type: 3}
+  damageNumberParticleId: damageN

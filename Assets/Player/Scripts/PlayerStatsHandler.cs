@@ -195,7 +195,7 @@ public class PlayerStatsHandler : MonoBehaviour
         if (isImmune || damageTaken == 0) return;
 
         stats.health = Mathf.Clamp(stats.health - damageTaken, 0, stats.maxHealth);
-        animator.OnDamageTaken(shockwaveTime);
+        animator.OnDamageTaken(damageTaken ,shockwaveTime);
 
         HUD.UpdateHealth(stats.health, stats.maxHealth);
 

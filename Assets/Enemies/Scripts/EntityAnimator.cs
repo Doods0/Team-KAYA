@@ -10,8 +10,11 @@ public class EntityAnimator : MonoBehaviour
     [Header("Animations")]
     public EntityState state;
     [SerializeField] private AnimationRuleSO ruleSO;
+    [Header("Particles")]
     [SerializeField] private GameObject damageParticle;
     [SerializeField] private string damageParticleId;
+    [SerializeField] private GameObject damageNumberParticle;
+    [SerializeField] private string damageNumberParticleId;
 
     private Dictionary<EntityState, AnimationRule> rulesDictionary;
 
@@ -51,11 +54,11 @@ public class EntityAnimator : MonoBehaviour
         transform.localScale = new Vector3(direction, 1, 1);
     }
 
-    public void OnDamageTaken(float duration = 0.1f) => StartCoroutine(DamageEffects(duration));
+    public void OnDamageTaken(int damageAmount, float duration = 0.1f) => StartCoroutine(DamageEffects(damageAmount, duration));
 
-    private IEnumerator DamageEffects(float duration = 0.1f)
+    private IEnumerator DamageEffects(int damageAmount, float duration = 0.1f)
     {
-        renderer.material.SetFloat("_FlashAmount", 1) ;
+        renderer.material.SetFloat("_FlashAmount", 1);
 
         if (damageParticle != null)
         {
@@ -66,6 +69,18 @@ public class EntityAnimator : MonoBehaviour
             particle.transform.rotation = Quaternion.identity;
             ParticleDriver driver = particle.GetComponent<ParticleDriver>();
             driver.id = damageParticleId;
+        }
+
+        if (damageNumberParticle != null)
+        {
+            GameObject particle = GameManager.instance.GetFromPool(damageNumberParticleId);
+            if (particle == null) particle = Instantiate(damageNumberParticle);
+            else particle.SetActive(true);
+            particle.transform.position = transform.position;
+            particle.transform.rotation = Quaternion.identity;
+            DamageNumberDriver driver = particle.GetComponent<DamageNumberDriver>();
+            driver.id = damageNumberParticleId;
+            driver.Setup(damageAmount);
         }
 
         yield return new WaitForSeconds(duration);

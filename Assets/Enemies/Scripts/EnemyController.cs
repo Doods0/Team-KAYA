@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         health -= damage;
-        animator.OnDamageTaken();
+        animator.OnDamageTaken(damage);
         if (health <= 0)
         {
             GameUtils.instance.audioSource.PlayOneShot(death, Random.Range(.75f, 1.25f));
