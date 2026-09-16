@@ -92,11 +92,14 @@ MonoBehaviour:
     slowdownDropInterval: 0.2
   shockwaveTime: 0.5
   shockwaveRange: 6.7
-  shopTriggerBuffer: 0.1
   animator: {fileID: 2219050965675229364}
   HUD: {fileID: 0}
   damageSound: {fileID: 8300000, guid: cc511063d5dfd6e46859dc87de41a911, type: 3}
   shockwaveSound: {fileID: 8300000, guid: 8992c651220ae2a4b80b15b84ae77a7c, type: 3}
+  pointSound: {fileID: 8300000, guid: d7476251a1f7d3a44841f70829623dee, type: 3}
+  speedupSound: {fileID: 8300000, guid: c16351d67a9ff364492285444c4718e5, type: 3}
+  slowdownSound: {fileID: 8300000, guid: 4c48b394ef4a13c438b338c9302b2c54, type: 3}
+  shopSound: {fileID: 8300000, guid: 3a65c5ef2b15c51439b01e4bbb99e7c3, type: 3}
   isImmune: 0
   points: 0
   localWeaponsData:
