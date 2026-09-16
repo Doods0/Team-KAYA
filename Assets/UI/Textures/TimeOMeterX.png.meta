@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3e0f15214f9ed14498e2c3ea8423959f
+guid: 470320e9647477045ba39bef31cf6086
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7465285121325552477
-    second: Button Background Highlighted_0
+      213: 3138221192215036341
+    second: TimeOMeterX_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Button Background Highlighted_0
+      name: TimeOMeterX_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 5
+        height: 5
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 6, y: 6, z: 6, w: 6}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3aca1642cbaf56890800000000000000
-      internalID: -7465285121325552477
+      spriteID: 5b1849c1c833d8b20800000000000000
+      internalID: 3138221192215036341
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: dce5bc8b17c387449b01b81f7064993f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Button Background Highlighted_0: -7465285121325552477
+      TimeOMeterX_0: 3138221192215036341
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Upgrades/Basic Player Upgrade")]
+[CreateAssetMenu(menuName ="Upgrades/Basic Addition Upgrade")]
 public class BasicAdditionUpgrade : UpgradeSO // WHY UPGRADE A WEAPON VIA NUMBER AND NOT PERCENTAGE??????
     /// MAKE A SEPARATE UPGRADE FOR WEAPONS
 {

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4b5813540d0ef544792a98d90ed01ef4
+guid: 940a4a6c3987c0c489de47038aaa973e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1557013538026691241
-    second: UI_0
+      213: -5187328584398200255
+    second: Point Icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_0
+      name: Point Icon
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 6, y: 6, z: 6, w: 6}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 755e173cf60646ae0800000000000000
-      internalID: -1557013538026691241
+      spriteID: 14227b9d228e208b0800000000000000
+      internalID: -5187328584398200255
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 93e2f6c010145b241a91f05ca4f3bf7c
+    spriteID: 1700f07bc4412ef4392ce868ea599cfc
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UI_0: -1557013538026691241
+      Point Icon: -5187328584398200255
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -12,8 +12,6 @@ public class UpgradeSO : ScriptableObject
     // ApplyEffect just takes the active playerStats and links two values with each other or something idk
 
     [Header("Basic Data")]
-    public string title;
-    public string description;
     public Sprite icon;
     public PlayerStatsIncreaseType increaseType;
     public Frequency frequency;

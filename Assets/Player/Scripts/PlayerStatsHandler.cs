@@ -97,9 +97,10 @@ public class PlayerStatsHandler : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float shockwaveTime;
     [SerializeField] private float shockwaveRange;
+    private readonly float shopTriggerBuffer = 0.1f;
 
     [Header("Utils")]
-    [SerializeField] private PlayerAnimator animator;
+    public PlayerAnimator animator;
     [SerializeField] private HUDManager HUD;
 
     [Header("Sounds")]
@@ -108,7 +109,6 @@ public class PlayerStatsHandler : MonoBehaviour
 
     [Header("Session")]
     [HideInInspector] public bool isImmune = false;
-    [HideInInspector] public bool hasShopAccess;
     [HideInInspector] public int points;
     [HideInInspector] public LocalWeaponsData localWeaponsData;
     // Will be passed to all weapon types and values and will be added to values here (the one below)
@@ -116,9 +116,13 @@ public class PlayerStatsHandler : MonoBehaviour
     [HideInInspector] public List<UpgradeSO> upgrades;
     [HideInInspector] public ContactFilter2D enemyFilter;
 
+    private float currentShopTriggerPoint = Mathf.Infinity;
     private float currentCooldown;
-    private void Update() => currentCooldown = Mathf.Max(0f, currentCooldown - Time.deltaTime);
-    // Or fixedDeltaTime? should it change according to time speed?
+    private void Update() 
+    {
+        currentCooldown = Mathf.Max(0f, currentCooldown - Time.deltaTime);
+        if (Math.Abs(GameManager.instance.timeScale - currentShopTriggerPoint) <= shopTriggerBuffer) TriggerShop();
+    }
 
     private void Awake()
     {
@@ -134,7 +138,7 @@ public class PlayerStatsHandler : MonoBehaviour
         localWeaponsData.enemyFilter = enemyFilter;
     }
 
-    public void UpdateAllStats() // Run it after shopping, and run other "once" upgrades inside the shop upon purchase
+    public void UpdateAllStats() // Run it all the time, and for "once" upgrades, run those upon purchase 
     {
         foreach (UpgradeSO upgrade in upgrades)
         {
@@ -209,6 +213,8 @@ public class PlayerStatsHandler : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(shockwaveTime);
 
+            while (GameManager.instance.isGamePaused) yield return null;
+
             GameManager.instance.isTimeBypassed = false;
 
             // Iterate through nearby enemies
@@ -239,4 +245,31 @@ public class PlayerStatsHandler : MonoBehaviour
 
         StartCoroutine(ResumeGameAfterDelay());
     }
+
+    public void AssignShopTriggerPoint()
+    {
+        if (currentShopTriggerPoint != Mathf.Infinity) return;
+
+        float shopTriggerPoint = UnityEngine.Random.Range(
+            GameManager.instance.minTimeScale + shopTriggerBuffer,
+            GameManager.instance.maxTimeScale - shopTriggerBuffer);
+        currentShopTriggerPoint = shopTriggerPoint;
+
+        HUD.AssignShopTriggerPoint(currentShopTriggerPoint);
+    }
+
+    private void TriggerShop()
+    {
+        GameManager.instance.isGamePaused = true;
+        GameManager.instance.isTimeBypassed = true;
+        GameManager.instance.timeScale = 0;
+        GameManager.instance.runtimeScale = 1;
+
+        // Play some shop sound idk
+
+        StartCoroutine(HUD.ShowShopMenu());
+        currentShopTriggerPoint = Mathf.Infinity;
+        HUD.AssignShopTriggerPoint(currentShopTriggerPoint); // if infinity, hide the shop point completely
+    }
+
 }
