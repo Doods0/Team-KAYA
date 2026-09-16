@@ -38,7 +38,6 @@ public class HUDManager : MonoBehaviour
         int seconds = totalSeconds % 60;
 
         timePassedText.text = $"{minutes:D2}:{seconds:D2}";
-        pointsText.text = GameUtils.instance.playerStats.points.ToString();
 
         UpdateTimeOMeter(timeScale, GameManager.instance.minTimeScale, GameManager.instance.maxTimeScale);
     }
@@ -87,6 +86,7 @@ public class HUDManager : MonoBehaviour
     public void CollectPoint()
     {
         pointsText.DOKill();
+        pointsText.text = GameUtils.instance.playerStats.points.ToString();
         pointsText.transform.DOScale(1.5f, 0).OnComplete(() => 
         {
             pointsText.transform.DOScale(1, 0.2f).SetEase(Ease.OutCubic);
@@ -115,6 +115,7 @@ public class HUDManager : MonoBehaviour
         timerMove.DOLocalMoveY(720, 0);
         healthBarMove.DOLocalMoveY(650, 0);
         pointsCounterMove.DOLocalMoveY(720,0);
+        pointsText.text = "0";
 
         Sequence introSequence = DOTween.Sequence();
 
