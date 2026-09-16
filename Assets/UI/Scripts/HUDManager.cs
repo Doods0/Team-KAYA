@@ -56,7 +56,7 @@ public class HUDManager : MonoBehaviour
     public void UpdateTimeOMeter(float timeScale, float minTimeScale, float maxTimeScale)
     {
         float clampedValue = Mathf.Clamp(timeScale, minTimeScale, maxTimeScale);
-        float t = clampedValue / maxTimeScale;
+        float t = clampedValue / (maxTimeScale - minTimeScale);
         float angle = Mathf.Lerp(90f, 0f, t);
 
         meterPin.transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -71,13 +71,13 @@ public class HUDManager : MonoBehaviour
         }
 
         // using ticker pin position as a reference to the center point
-        Vector3 frozenForward = tickerPin.right;
+        Vector3 frozenForward = new(0,1,0);
         Vector3 origin = tickerPin.localPosition;
 
         GameManager manager = GameManager.instance;
 
         float clampedValue = Mathf.Clamp(interval, manager.minTimeScale, manager.maxTimeScale);
-        float t = clampedValue / manager.maxTimeScale;
+        float t = clampedValue / (manager.maxTimeScale - manager.minTimeScale);
         float angle = Mathf.Lerp(90f, 0f, t);
 
         Vector3 dir = Quaternion.Euler(0, 0, angle) * frozenForward;
