@@ -23,12 +23,16 @@ public class PlayerAnimator : EntityAnimator
         Vector3 aimDirection = CameraController.cursorDirectionVector;
         float targetAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
-        Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
+        Vector2 cursorPosition = CameraController.cursorWorldPosition;
+        Vector2 playerPosition = GameUtils.instance.playerPosition;
+        if ((cursorPosition - playerPosition).magnitude > 0.1)
+        {
+            Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
+            weaponPivot.rotation = Quaternion.Lerp(weaponPivot.rotation, targetRotation, 0.2f);
+        }
 
-        weaponPivot.rotation = targetRotation;
-
-        if (math.sign(aimDirection.x) < 0) weaponPivot.transform.localScale = new Vector3(1, -1, 1);
-        else weaponPivot.transform.localScale = new Vector3(1, 1, 1);
+        if (aimDirection.x < -.1) weaponPivot.transform.localScale = new Vector3(1, -1, 1);
+        else if (aimDirection.x > .1) weaponPivot.transform.localScale = new Vector3(1, 1, 1);
 
         base.Update(); // Regular EntityAnimator behavior
     }
