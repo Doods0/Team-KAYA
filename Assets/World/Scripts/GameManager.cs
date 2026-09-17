@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Components")]
     public HUDManager HUD;
+    public Camera camera;
 
     [Header("Settings")] // These are constants
     [Header("Enemy Spawnrate")]
@@ -173,7 +174,7 @@ public class GameManager : MonoBehaviour
                 while (x == 0) x = Random.Range(-1f, 1f);
                 return x;
             }
-            Vector3 offset = new Vector3(RR(), RR(), 0).normalized * Random.Range(20f, 40f);
+            Vector3 offset = new Vector3(RR(), RR(), 0).normalized * 11 / 6 * camera.orthographicSize * 1.2f;
 
             foreach (EnemyEntry entry in enemies)
             {

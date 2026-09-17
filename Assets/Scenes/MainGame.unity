@@ -3722,6 +3722,7 @@ MonoBehaviour:
   timeSpeedDecay: 0.001
   timeSpeedIncrease: 0.02
   HUD: {fileID: 1917053155}
+  camera: {fileID: 269142786}
   enemySpawnrate: 2
   minEnemySpawnrate: 0.5
   spawnrateDecreasePerPhase: 0.05
