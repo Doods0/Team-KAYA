@@ -3751,7 +3751,7 @@ MonoBehaviour:
   timePassed: 0
   enemies:
   - enemyPrefab: {fileID: 8169525927119518209, guid: f234a219850b7bdfa88b516bf5601712, type: 3}
-    enemyId: enemy
+    enemyId: enemy_rusher
     enemyPrice: 4
     enemyCapPrice: 300
     enemyCapPerPrice: 10
@@ -3760,7 +3760,7 @@ MonoBehaviour:
     instancesToSpawn: 0
     numberOfInstances: 0
   - enemyPrefab: {fileID: 4792525644256836739, guid: 320bd0dcdf575b0bdaa3e78df49f3734, type: 3}
-    enemyId: enemy
+    enemyId: enemy_exploder
     enemyPrice: 10
     enemyCapPrice: 220
     enemyCapPerPrice: 10
