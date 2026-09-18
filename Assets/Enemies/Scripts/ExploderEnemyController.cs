@@ -12,6 +12,7 @@ public class ExploderEnemyController : EnemyController
     public float explosionKnockback;
     public float speedWhileTicking;
     float timeSpentTicking = 0f;
+    bool isExploding = false;
 
     private ExploderEnemyAnimator explosionAnimator;
 
@@ -44,7 +45,7 @@ public class ExploderEnemyController : EnemyController
 
     public override void TakeDamage(int damage)
     {
-        if (health - damage <= 0) Explode();
+        if (health - damage <= 0 && !isExploding) Explode();
         base.TakeDamage(damage);
     }
 
@@ -60,6 +61,7 @@ public class ExploderEnemyController : EnemyController
 
     void Explode()
     {
+        isExploding = true;
         timeSpentTicking = 0;
         ticking = false;
         explosionAnimator.Explode();
