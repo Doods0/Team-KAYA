@@ -4970,8 +4970,8 @@ MonoBehaviour:
   timeToExplode: 3
   explosionDamageToEnemies: 5
   explosionDamageToPlayer: 1
-  explosionRange: 6
-  startTickingRange: 5
+  explosionRange: 3
+  startTickingRange: 2
   explosionKnockback: 30
   speedWhileTicking: 1
 --- !u!114 &6212145394141096836
