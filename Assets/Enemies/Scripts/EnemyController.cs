@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector] public Vector2 knockbackVelocity;
     [HideInInspector] public string id;
 
-    private EntityAnimator animator;
+    public EntityAnimator animator;
 
     public virtual void Awake() 
     {

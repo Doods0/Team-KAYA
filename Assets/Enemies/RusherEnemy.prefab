@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5338609341977125885}
   - component: {fileID: 6826043052024302717}
   - component: {fileID: 6110143124762924741}
-  - component: {fileID: 1124013303504955397}
-  - component: {fileID: 227240343008403127}
   - component: {fileID: 4883562858673129351}
+  - component: {fileID: 1712375734246991376}
+  - component: {fileID: 227240343008403127}
+  - component: {fileID: 2071171802332181978}
   m_Layer: 3
   m_Name: RusherEnemy
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.910202, y: 1.4365461, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1900923241897081594, guid: 0505f6ed5e3f0639e8a2ac62b7c61a14, type: 3}
+  m_Sprite: {fileID: 2148926137072500401, guid: 0a419df7722f4354fbd4ad76eee7c2f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -109,20 +110,89 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RusherEnemy
   knockbackDecayRate: 4
-  speed: 2
+  speed: 4
   damage: 1
   health: 1
   maxHealth: 1
-  hurt: {fileID: 8300000, guid: d890d5f26adbe3601b4e24a76fc744b8, type: 3}
-  death: {fileID: 8300000, guid: 89cd1e06b332350b9811e8c0f2816314, type: 3}
+  hurt: {fileID: 8300000, guid: aa639b5e6a9faef48be98541b8cd6837, type: 3}
+  death: {fileID: 8300000, guid: a3497b9464df13e4aae6bbacdf275910, type: 3}
   rigidbody: {fileID: 0}
   knockbackVelocity: {x: 0, y: 0}
   id: 
+  animator: {fileID: 0}
   startRushRange: 10
-  endRushRange: 20
+  endRushRange: 10
   acceleration: 20
---- !u!58 &1124013303504955397
-CircleCollider2D:
+--- !u!114 &4883562858673129351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169525927119518209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07cfebd3b2195d24ab077e89d23f5fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityAnimator
+  character: {fileID: 8169525927119518209}
+  state: 0
+  ruleSO: {fileID: 11400000, guid: c9a4c5c8e6f0a2f4db432eb6235c6975, type: 2}
+  damageParticle: {fileID: 2418114647592808732, guid: 1e08affe901afb240a55a74667e3924c, type: 3}
+  damageParticleId: damageP
+  damageNumberParticle: {fileID: 7880580348193083010, guid: c5ee371c416ca834ea4eceaa655c1744, type: 3}
+  damageNumberParticleId: damageN
+--- !u!95 &1712375734246991376
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169525927119518209}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 3021931865402824671, guid: 0a419df7722f4354fbd4ad76eee7c2f7, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!50 &227240343008403127
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169525927119518209}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 40
+  m_LinearDamping: 0
+  m_AngularDamping: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!70 &2071171802332181978
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -155,51 +225,6 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 3.33
---- !u!50 &227240343008403127
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8169525927119518209}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 40
-  m_LinearDamping: 0
-  m_AngularDamping: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &4883562858673129351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8169525927119518209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07cfebd3b2195d24ab077e89d23f5fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityAnimator
-  character: {fileID: 8169525927119518209}
-  state: 0
-  ruleSO: {fileID: 0}
-  damageParticle: {fileID: 2418114647592808732, guid: 1e08affe901afb240a55a74667e3924c, type: 3}
-  damageParticleId: damageP
-  damageNumberParticle: {fileID: 7880580348193083010, guid: c5ee371c416ca834ea4eceaa655c1744, type: 3}
-  damageNumberParticleId: damageN
+  m_Offset: {x: 0, y: 0.515625}
+  m_Size: {x: 0.75, y: 0.46875}
+  m_Direction: 1

@@ -13,7 +13,14 @@ public class ExploderEnemyController : EnemyController
     public float speedWhileTicking;
     float timeSpentTicking = 0f;
 
-    // Update is called once per frame
+    private ExploderEnemyAnimator explosionAnimator;
+
+    public override void Awake()
+    {
+        base.Awake();
+        if (animator is ExploderEnemyAnimator exploderAnim) explosionAnimator = exploderAnim;
+    }
+
     public override void FixedUpdate()
     {
         rigidbody.linearVelocity = ToPlayer().normalized * ScaledSpeed();
@@ -21,7 +28,11 @@ public class ExploderEnemyController : EnemyController
         if (ToPlayer().magnitude <= startTickingRange) StartTicking();
         if (ticking) timeSpentTicking += Time.deltaTime * GameManager.instance.timeScale;
 
-        if (timeSpentTicking > timeToExplode) Explode();
+        if (timeSpentTicking > timeToExplode)
+        {
+            Explode();
+            base.TakeDamage(maxHealth);
+        }
     }
 
     public override void ApplyKnockback(Vector2 impulse)
@@ -34,7 +45,6 @@ public class ExploderEnemyController : EnemyController
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
-
         if (health <= 0) Explode();
     }
 
@@ -42,6 +52,7 @@ public class ExploderEnemyController : EnemyController
     {
         if (ticking) return;
 
+        explosionAnimator.StartHissing();
         ticking = true;
         timeSpentTicking = 0f;
         speed = speedWhileTicking;
@@ -49,6 +60,7 @@ public class ExploderEnemyController : EnemyController
 
     void Explode()
     {
+        explosionAnimator.Explode();
         ContactFilter2D filter = new()
         {
             layerMask = GameUtils.instance.enemyLayer + GameUtils.instance.playerLayer,
@@ -77,7 +89,5 @@ public class ExploderEnemyController : EnemyController
                 playerStats.TakeDamage(explosionDamageToPlayer);
             }
         }
-
-        base.TakeDamage(maxHealth);
     }
 }
