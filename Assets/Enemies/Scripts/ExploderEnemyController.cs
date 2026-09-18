@@ -44,8 +44,8 @@ public class ExploderEnemyController : EnemyController
 
     public override void TakeDamage(int damage)
     {
+        if (health - damage <= 0) Explode();
         base.TakeDamage(damage);
-        if (health <= 0) Explode();
     }
 
     void StartTicking()
@@ -60,6 +60,8 @@ public class ExploderEnemyController : EnemyController
 
     void Explode()
     {
+        timeSpentTicking = 0;
+        ticking = false;
         explosionAnimator.Explode();
         ContactFilter2D filter = new()
         {
@@ -76,6 +78,8 @@ public class ExploderEnemyController : EnemyController
 
             if (col.TryGetComponent(out EnemyController controller))
             {
+                if (col.gameObject == gameObject) continue;
+
                 Vector2 direction = (controller.rigidbody.transform.position - transform.position).normalized;
 
                 controller.ApplyKnockback(direction * explosionKnockback);

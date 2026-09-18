@@ -3752,8 +3752,8 @@ MonoBehaviour:
   enemies:
   - enemyPrefab: {fileID: 8169525927119518209, guid: f234a219850b7bdfa88b516bf5601712, type: 3}
     enemyId: enemy_rusher
-    enemyPrice: 4
-    enemyCapPrice: 300
+    enemyPrice: 300
+    enemyCapPrice: 5
     enemyCapPerPrice: 10
     enemyPriority: 4
     enemyCap: 0
@@ -3762,7 +3762,7 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 4792525644256836739, guid: 320bd0dcdf575b0bdaa3e78df49f3734, type: 3}
     enemyId: enemy_exploder
     enemyPrice: 10
-    enemyCapPrice: 220
+    enemyCapPrice: 5
     enemyCapPerPrice: 10
     enemyPriority: 3
     enemyCap: 0
