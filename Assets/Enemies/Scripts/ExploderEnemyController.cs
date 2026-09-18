@@ -12,8 +12,16 @@ public class ExploderEnemyController : EnemyController
     public float explosionKnockback;
     public float speedWhileTicking;
     float timeSpentTicking = 0f;
+    bool isExploding = false;
 
-    // Update is called once per frame
+    private ExploderEnemyAnimator explosionAnimator;
+
+    public override void Awake()
+    {
+        base.Awake();
+        if (animator is ExploderEnemyAnimator exploderAnim) explosionAnimator = exploderAnim;
+    }
+
     public override void FixedUpdate()
     {
         rigidbody.linearVelocity = ToPlayer().normalized * ScaledSpeed();
@@ -21,7 +29,11 @@ public class ExploderEnemyController : EnemyController
         if (ToPlayer().magnitude <= startTickingRange) StartTicking();
         if (ticking) timeSpentTicking += Time.deltaTime * GameManager.instance.timeScale;
 
-        if (timeSpentTicking > timeToExplode) Explode();
+        if (timeSpentTicking > timeToExplode)
+        {
+            Explode();
+            base.TakeDamage(maxHealth);
+        }
     }
 
     public override void ApplyKnockback(Vector2 impulse)
@@ -33,15 +45,15 @@ public class ExploderEnemyController : EnemyController
 
     public override void TakeDamage(int damage)
     {
+        if (health - damage <= 0 && !isExploding) Explode();
         base.TakeDamage(damage);
-
-        if (health <= 0) Explode();
     }
 
     void StartTicking()
     {
         if (ticking) return;
 
+        explosionAnimator.StartHissing();
         ticking = true;
         timeSpentTicking = 0f;
         speed = speedWhileTicking;
@@ -49,6 +61,10 @@ public class ExploderEnemyController : EnemyController
 
     void Explode()
     {
+        isExploding = true;
+        timeSpentTicking = 0;
+        ticking = false;
+        explosionAnimator.Explode();
         ContactFilter2D filter = new()
         {
             layerMask = GameUtils.instance.enemyLayer + GameUtils.instance.playerLayer,
@@ -64,6 +80,8 @@ public class ExploderEnemyController : EnemyController
 
             if (col.TryGetComponent(out EnemyController controller))
             {
+                if (col.gameObject == gameObject) continue;
+
                 Vector2 direction = (controller.rigidbody.transform.position - transform.position).normalized;
 
                 controller.ApplyKnockback(direction * explosionKnockback);
@@ -77,7 +95,5 @@ public class ExploderEnemyController : EnemyController
                 playerStats.TakeDamage(explosionDamageToPlayer);
             }
         }
-
-        base.TakeDamage(maxHealth);
     }
 }

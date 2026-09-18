@@ -54,7 +54,10 @@ public class EntityAnimator : MonoBehaviour
         transform.localScale = new Vector3(direction, 1, 1);
     }
 
-    public void OnDamageTaken(int damageAmount, float duration = 0.1f) => StartCoroutine(DamageEffects(damageAmount, duration));
+    public void OnDamageTaken(int damageAmount, float duration = 0.1f) 
+    {
+        if (gameObject.activeSelf) StartCoroutine(DamageEffects(damageAmount, duration));
+    } 
 
     private IEnumerator DamageEffects(int damageAmount, float duration = 0.1f)
     {

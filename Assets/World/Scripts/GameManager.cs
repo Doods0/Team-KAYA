@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
                 while (x == 0) x = Random.Range(-1f, 1f);
                 return x;
             }
-            Vector3 offset = new Vector3(RR(), RR(), 0).normalized * 11 / 6 * camera.orthographicSize * 1.2f;
+            Vector3 offset = new Vector3(RR(), RR(), 0).normalized * 11 / 6 * camera.orthographicSize * Random.Range(1.5f, 2f);
 
             foreach (EnemyEntry entry in enemies)
             {
