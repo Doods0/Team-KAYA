@@ -4135,10 +4135,6 @@ PrefabInstance:
       propertyPath: HUD
       value: 
       objectReference: {fileID: 1917053155}
-    - target: {fileID: 6505086626376703030, guid: c9c592e53cbdf2672a861bed5f3b798a, type: 3}
-      propertyPath: points
-      value: 500
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4346,6 +4342,7 @@ MonoBehaviour:
   - {fileID: 247048294}
   itemName: {fileID: 1718701611}
   description: {fileID: 1305347510}
+  onSuccessfulPurchase: {fileID: 8300000, guid: b0d34b8715b2a5047ab136a595e34d43, type: 3}
 --- !u!1 &1247456696
 GameObject:
   m_ObjectHideFlags: 0

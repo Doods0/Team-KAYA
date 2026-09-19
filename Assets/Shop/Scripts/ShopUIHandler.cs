@@ -9,13 +9,18 @@ public class ShopUIHandler : MonoBehaviour
     // Data is taken from ShopHandler after every shop encounter so the same data is passed to
     // other UI elements to display the next purchasable element on player's HUD
 
+    [Header("Components")]
     public ShopHandler shopUtil;
     [SerializeField] private HUDManager hudUtil;
     [SerializeField] private ShopElementDriver[] upgrades = new ShopElementDriver[5];
     [SerializeField] private ShopElementDriver[] weapons = new ShopElementDriver[2];
 
+    [Header("UI")]
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI description;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip onSuccessfulPurchase;
 
     private PurchasableElement selectedElement;
 
@@ -55,6 +60,7 @@ public class ShopUIHandler : MonoBehaviour
     {
         bool purchaseSuccess = shopUtil.EvaluatePurchase(selectedElement);
         if (!purchaseSuccess) return;
+        GameUtils.instance.audioSource.PlayOneShot(onSuccessfulPurchase);
         StartCoroutine(hudUtil.HideShopMenu());
     }
 

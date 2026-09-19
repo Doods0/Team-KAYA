@@ -36,7 +36,7 @@ MonoBehaviour:
   throwAnimations:
   - {fileID: 7400000, guid: 05b145d3a990ba24c88482d8b1ad7089, type: 2}
   throwSounds:
-  - {fileID: 8300000, guid: 50ef081dcedf87b48a650574a72c9f27, type: 3}
+  - {fileID: 8300000, guid: 1d7f0599f028e5c4dac822640194ebbe, type: 3}
   projectile: {fileID: 5350934001960373574, guid: ce07dca9905f98a48b88d0ff90dc1290, type: 3}
   projectileTexture: {fileID: 4247077973319795576, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
   projectileId: shot_flintlock

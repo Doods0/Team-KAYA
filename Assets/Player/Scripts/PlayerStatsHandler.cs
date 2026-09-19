@@ -305,7 +305,7 @@ public class PlayerStatsHandler : MonoBehaviour
         GameManager.instance.timeScale = 0;
         GameManager.instance.runtimeScale = 1;
 
-        // Play some shop sound idk
+        GameUtils.instance.audioSource.PlayOneShot(shopSound);
 
         StartCoroutine(HUD.ShowShopMenu());
         currentShopTriggerPoint = Mathf.Infinity;
