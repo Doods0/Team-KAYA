@@ -3,32 +3,22 @@ using UnityEngine;
 public class GroundTiler : MonoBehaviour
 {
     [Header("Target & Setup")]
-    [SerializeField] private Transform player;
     [SerializeField] private Transform[] tiles = new Transform[9];
 
     [Header("Settings")]
     [SerializeField] private Vector2 tileSize;
 
-    private void Start()
-    {
-        if (player == null)
-        {
-            GameObject p = GameObject.FindGameObjectWithTag("Player");
-            if (p != null) player = p.transform;
-        }
-    }
-
     private void LateUpdate()
     {
-        if (player == null) return;
+        Vector3 player = GameUtils.instance.playerPosition;
 
         // Check each tile individually
         foreach (Transform tile in tiles)
         {
             if (tile == null) continue;
 
-            float deltaX = player.position.x - tile.position.x;
-            float deltaY = player.position.y - tile.position.y;
+            float deltaX = player.x - tile.position.x;
+            float deltaY = player.y - tile.position.y;
 
             if (Mathf.Abs(deltaX) >= tileSize.x * 1.5f)
             {
