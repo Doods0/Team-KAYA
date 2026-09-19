@@ -77,13 +77,13 @@ public class PlayerController : MonoBehaviour
         toggleAutoAimAction.performed -= ToggleAutoAim;
     }
 
-    private void ToggleThrow(InputAction.CallbackContext _input) 
+    private void ToggleThrow(InputAction.CallbackContext _input)
     {
         isThrowMode = !isThrowMode;
         cameraUtil.SwapCrosshair(isThrowMode);
         if (isThrowMode) GameUtils.instance.audioSource.PlayOneShot(switchToThrowSound);
         else GameUtils.instance.audioSource.PlayOneShot(switchToMeleeSound);
-    } 
+    }
     private void ToggleAutoAim(InputAction.CallbackContext _input) => cameraUtil.isAutoAim = !cameraUtil.isAutoAim;
     #endregion
 
@@ -106,23 +106,24 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         footstepTimer += Time.deltaTime;
+        float timeScale = GameManager.instance.timeScale;
         // I can't use (rb.linearVelocity.magnitude != 0) because I need to make sure the reason
         // for movement is walking.
-        if (footstepTimer > timeBetweenFootsteps && (xMovementDir != 0 || yMovementDir != 0))
+        if ( footstepTimer > timeBetweenFootsteps
+            && (xMovementDir != 0 || yMovementDir != 0)
+            && timeScale > 0)
         {
-            GameUtils.instance.audioSource.PlayOneShot(RandomFootstepClip(), UnityEngine.Random.Range(.25f, 0.8f));
+            GameUtils.instance.audioSource.PlayOneShot(RandomFootstepClip(),
+                UnityEngine.Random.Range(.25f, 0.8f));
             footstepTimer = 0;
         }
 
+        rb.linearVelocityX = xMovementDir * statsHandler.stats.walkspeed * timeScale;
+        rb.linearVelocityY = yMovementDir * statsHandler.stats.walkspeed * timeScale;
 
-        rb.linearVelocityX = xMovementDir * statsHandler.stats.walkspeed * GameManager.instance.timeScale;
-        rb.linearVelocityY = yMovementDir * statsHandler.stats.walkspeed * GameManager.instance.timeScale;
+        if (timeScale != 0) knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
 
-        if (GameManager.instance.timeScale != 0)
-        {
-            knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
-        }
-        rb.linearVelocity += knockbackVelocity * GameManager.instance.timeScale;
+        rb.linearVelocity += knockbackVelocity * timeScale;
     }
 
     public void ApplyKnockback(Vector2 impulse) => knockbackVelocity += impulse;
