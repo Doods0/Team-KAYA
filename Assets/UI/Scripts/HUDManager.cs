@@ -144,7 +144,7 @@ public class HUDManager : MonoBehaviour
 
         pointsText.text = statsHandler.points.ToString();
         GameManager.instance.HUD.UpdateHealth(statsHandler.stats.health, statsHandler.stats.maxHealth);
-        shopMenu.DOLocalMoveY(-1100, 1).SetEase(Ease.InCubic);
+        shopMenu.DOLocalMoveY(-1300, 1).SetEase(Ease.InCubic);
         yield return new WaitForSeconds(1);
         shopUIHandler.shopUtil.UpdateStock();
         GameManager.instance.isGamePaused = false;
