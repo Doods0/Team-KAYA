@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (runtimeScale <= minTimeScale) TriggerGameOver();
+        if (runtimeScale <= minTimeScale && !isGamePaused) GameUtils.instance.playerStats.TakeDamage(999);
         runtimeScale = Mathf.Clamp(runtimeScale, 0, maxTimeScale);
         if (!isTimeBypassed) timeScale = runtimeScale;
 
