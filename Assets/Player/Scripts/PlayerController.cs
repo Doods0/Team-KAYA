@@ -110,8 +110,11 @@ public class PlayerController : MonoBehaviour
         // for movement is walking.
         if (footstepTimer > timeBetweenFootsteps && (xMovementDir != 0 || yMovementDir != 0))
         {
-            GameUtils.instance.audioSource.PlayOneShot(RandomFootstepClip(), UnityEngine.Random.Range(.25f, 0.8f));
-            footstepTimer = 0;
+            if (GameManager.instance.timeScale > 0) 
+            {
+                GameUtils.instance.audioSource.PlayOneShot(RandomFootstepClip(), UnityEngine.Random.Range(.25f, 0.8f));
+                footstepTimer = 0;
+            }
         }
 
 
