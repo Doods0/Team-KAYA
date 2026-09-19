@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum PlayerStatsIncreaseType { Addition, Percentage }
+
 // weapons are always a percentage that stacks up with upgrades by addition
 public enum Frequency { Once, Update } // Will this upgrade increase or decrease a stat once or link two stats together
 
@@ -13,11 +13,13 @@ public class UpgradeSO : ScriptableObject
 
     [Header("Basic Data")]
     public Sprite icon;
-    public PlayerStatsIncreaseType increaseType;
     public Frequency frequency;
 
     // The other stats are determined by other SOs inheriting as this script won't be usable on its own
-    public virtual void ApplyEffect(PlayerStats activePlayerStats, WeaponsBuffs activeWeaponBuffs) { }
+    public virtual void ApplyUpgrade
+        (ref PlayerStats activePlayerStats,
+        ref WeaponsBuffs activeWeaponBuffs,
+        ref LocalWeaponsData weaponData) { }
     // Add to it the two other detached classes representing light and heavy weapons' stats
 
 }

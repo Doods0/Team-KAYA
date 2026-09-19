@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e38b0a757f550439d79494ac0b19f2, type: 3}
-  m_Name: Hourglass Sword
+  m_Name: Skygazer Hammer
   m_EditorClassIdentifier: Assembly-CSharp::HeavyWeaponSO
-  texture: {fileID: -5082318553336741150, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
-  inUseGripOffset: 0
-  concealedGripOffset: 0
+  texture: {fileID: 5601323976189978565, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
+  inUseGripOffset: 0.3
+  concealedGripOffset: 0.35
   meleeStats:
-    slashDamage: 4
-    slashKnockback: 9.34
-    slashCooldown: 0.7
-    slashRadius: 3.5
+    slashDamage: 8
+    slashKnockback: 18
+    slashCooldown: 2
+    slashRadius: 5
     slashAngle: 120
   slashAnimations:
   - {fileID: 7400000, guid: b339d50496d0e23449af73c2fbb0565a, type: 2}

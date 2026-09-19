@@ -20,7 +20,21 @@ public class WeaponSO : ScriptableObject
     // code slashing here as it's common between both types
     public virtual void Slash(LocalWeaponsData weaponMemory, WeaponsBuffs buffs)
     {
-        MeleeStats localMeleeStats = meleeStats * buffs.meleeBuffs;
+        MeleeStats localMeleeStats = meleeStats;
+        if (this is LightWeaponSO)
+        {
+            localMeleeStats *= buffs.lightMeleeBuffs;
+            weaponMemory.lightMeleeSlashes++;
+            weaponMemory.heavyMeleeSlashes = 0;
+            weaponMemory.lightThrows = 0;
+        }
+        else if (this is HeavyWeaponSO)
+        {
+            localMeleeStats *= buffs.heavyMeleeBuffs;
+            weaponMemory.heavyMeleeSlashes++;
+            weaponMemory.lightMeleeSlashes = 0;
+            weaponMemory.lightThrows = 0;
+        }
 
         List<Collider2D> hitBuffer = weaponMemory.hitsBuffer;
         Vector3 playerPos = GameUtils.instance.playerPosition;
@@ -40,7 +54,7 @@ public class WeaponSO : ScriptableObject
             // Assuming enemy controller is the health handler
             if (hitBuffer[i].TryGetComponent<EnemyController>(out var target))
             {
-                target.TakeDamage(localMeleeStats.slashDamage);
+                target.TakeDamage((int)localMeleeStats.slashDamage);
                 Vector2 direction = (target.rigidbody.transform.position - GameUtils.instance.playerPosition).normalized;
                 target.ApplyKnockback(direction * localMeleeStats.slashKnockback);
             }
@@ -51,7 +65,7 @@ public class WeaponSO : ScriptableObject
 [Serializable]
 public class MeleeStats
 {
-    public int slashDamage;
+    public float slashDamage;
     public float slashKnockback;
     public float slashCooldown;
     public float slashRadius;

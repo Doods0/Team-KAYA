@@ -20,9 +20,12 @@ public class LightWeaponSO : WeaponSO
     public string projectileId;
     public bool projectileSpins;
 
-    public virtual void Throw(WeaponsBuffs buffs)
+    public virtual void Throw(LocalWeaponsData weaponsData, WeaponsBuffs buffs)
     {
-        ThrowStats localThrowStats = throwStats * buffs.throwBuffs;
+        ThrowStats localThrowStats = throwStats * buffs.lightThrowBuffs;
+        weaponsData.lightThrows++;
+        weaponsData.lightMeleeSlashes = 0;
+        weaponsData.heavyMeleeSlashes = 0;
 
         Vector3 currentPos = GameUtils.instance.playerPosition;
         Vector3 direction = CameraController.cursorDirectionVector;
@@ -40,7 +43,7 @@ public class LightWeaponSO : WeaponSO
         ProjectileController controller = proj.GetComponent<ProjectileController>();
 
         controller.id = projectileId;
-        controller.damage = localThrowStats.throwDamage;
+        controller.damage = (int)localThrowStats.throwDamage;
         controller.speed = localThrowStats.projectileSpeed;
         controller.knockback = localThrowStats.throwKnockback;
         controller.moveDirection = direction;
@@ -54,7 +57,7 @@ public class LightWeaponSO : WeaponSO
 [Serializable]
 public class ThrowStats
 {
-    public int throwDamage;
+    public float throwDamage;
     public float throwKnockback;
     public float throwCooldown;
     public float projectileLifetime;

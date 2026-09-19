@@ -116,14 +116,23 @@ MonoBehaviour:
       maxDepth: 0
       minNormalAngle: 0
       maxNormalAngle: 0
+    heavyMeleeSlashes: 0
+    lightMeleeSlashes: 0
+    lightThrows: 0
   weaponBuffs:
-    meleeBuffs:
+    heavyMeleeBuffs:
       slashDamage: 0
       slashKnockback: 0
       slashCooldown: 0
       slashRadius: 0
       slashAngle: 0
-    throwBuffs:
+    lightMeleeBuffs:
+      slashDamage: 0
+      slashKnockback: 0
+      slashCooldown: 0
+      slashRadius: 0
+      slashAngle: 0
+    lightThrowBuffs:
       throwDamage: 0
       throwKnockback: 0
       throwCooldown: 0
@@ -328,7 +337,7 @@ SpriteRenderer:
   m_Size: {x: 5.06, y: 10.09}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
 --- !u!1 &3188175393367837330
@@ -445,6 +454,8 @@ MonoBehaviour:
   ruleSO: {fileID: 11400000, guid: 2732c2804552a7647ad173d9e9fe25d3, type: 2}
   damageParticle: {fileID: 0}
   damageParticleId: 
+  damageNumberParticle: {fileID: 0}
+  damageNumberParticleId: 
   weaponPivot: {fileID: 7213980122949132133}
   weaponAnimator: {fileID: 3456348720646957787}
   activeWeapon: {fileID: 3081590247609530912}
@@ -774,7 +785,7 @@ SpriteRenderer:
   m_Size: {x: 5.06, y: 10.09}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
 --- !u!1 &8980373345696607377
