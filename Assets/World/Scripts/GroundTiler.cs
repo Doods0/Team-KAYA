@@ -8,9 +8,10 @@ public class GroundTiler : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private Vector2 tileSize;
 
-    private void LateUpdate()
+    private void Update()
     {
         Vector3 player = GameUtils.instance.playerPosition;
+        if (player == Vector3.zero) return;
 
         // Check each tile individually
         foreach (Transform tile in tiles)
