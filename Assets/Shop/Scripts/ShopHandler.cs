@@ -61,6 +61,7 @@ public class ShopHandler : MonoBehaviour
     {
         PlayerStatsHandler statsHandler = GameUtils.instance.playerStats;
 
+        if (product.price == 0) return false;
         if (product.price > statsHandler.points) return false;
         statsHandler.points -= product.price;
 

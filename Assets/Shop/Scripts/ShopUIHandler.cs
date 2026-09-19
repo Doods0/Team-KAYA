@@ -26,6 +26,9 @@ public class ShopUIHandler : MonoBehaviour
 
     public void UpdateStockVisual()
     {
+        itemName.text = "";
+        description.text = "";
+
         int upgradeCount = Mathf.Min(upgrades.Length, shopUtil.availableUpgrades.Count);
         for (int i = 0; i < upgradeCount; i++)
         {
@@ -60,6 +63,7 @@ public class ShopUIHandler : MonoBehaviour
     {
         bool purchaseSuccess = shopUtil.EvaluatePurchase(selectedElement);
         if (!purchaseSuccess) return;
+        selectedElement = new();
         GameUtils.instance.audioSource.PlayOneShot(onSuccessfulPurchase);
         StartCoroutine(hudUtil.HideShopMenu());
     }
