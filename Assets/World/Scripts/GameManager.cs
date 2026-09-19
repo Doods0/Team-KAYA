@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         runtimeScale = Mathf.Clamp(runtimeScale, 0, maxTimeScale);
         if (!isTimeBypassed) timeScale = runtimeScale;
 
-        if (timeScale != 0) timePassed += Time.deltaTime * timeScale;
+        if (timeScale != 0 && !isGamePaused) timePassed += Time.deltaTime;
         currentPhase = ((int)timePassed / timeTillNextPhase) + 1;
 
         HUD.UpdateUI(runtimeScale, timePassed);
