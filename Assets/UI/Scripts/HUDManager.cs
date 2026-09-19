@@ -140,8 +140,13 @@ public class HUDManager : MonoBehaviour
 
     public IEnumerator HideShopMenu()
     {
+        PlayerStatsHandler statsHandler = GameUtils.instance.playerStats;
+
+        pointsText.text = statsHandler.points.ToString();
+        GameManager.instance.HUD.UpdateHealth(statsHandler.stats.health, statsHandler.stats.maxHealth);
         shopMenu.DOLocalMoveY(-1100, 1).SetEase(Ease.InCubic);
         yield return new WaitForSeconds(1);
+        shopUIHandler.shopUtil.UpdateStock();
         GameManager.instance.isGamePaused = false;
         GameManager.instance.isTimeBypassed = false;
     }

@@ -10,34 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a3f266d7c3a12d498fa5985343c7a06, type: 3}
-  m_Name: Autumn Leaf
+  m_Name: Flintlock
   m_EditorClassIdentifier: Assembly-CSharp::LightWeaponSO
-  texture: {fileID: 7834802711767081893, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
-  inUseGripOffset: 0.14
-  concealedGripOffset: 0.78
+  texture: {fileID: -21522807587195298, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
+  inUseGripOffset: 0.23
+  concealedGripOffset: 0.3
   meleeStats:
-    slashDamage: 3
-    slashKnockback: 3
+    slashDamage: 1
+    slashKnockback: 3.5
     slashCooldown: 0.3
     slashRadius: 2
-    slashAngle: 120
+    slashAngle: 90
   slashAnimations:
   - {fileID: 7400000, guid: b339d50496d0e23449af73c2fbb0565a, type: 2}
   - {fileID: 7400000, guid: d161b72ba71b3044b8fc18107ff21705, type: 2}
   slashSounds:
   - {fileID: 8300000, guid: 26c32ab8ba3bd3b41a1e2c26f3440dd5, type: 3}
   throwStats:
-    throwDamage: 2
-    throwKnockback: 4.5
-    throwCooldown: 0.5
+    throwDamage: 4
+    throwKnockback: 7
+    throwCooldown: 0.4
     projectileLifetime: 3
     projectileSpeed: 34
-    projectileSize: 1
+    projectileSize: 1.5
   throwAnimations:
   - {fileID: 7400000, guid: 05b145d3a990ba24c88482d8b1ad7089, type: 2}
   throwSounds:
-  - {fileID: 8300000, guid: 50ef081dcedf87b48a650574a72c9f27, type: 3}
-  projectile: {fileID: 5350934001960373574, guid: bd80ef2cd15cdcb578fd78c43358838d, type: 3}
-  projectileTexture: {fileID: 7834802711767081893, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
-  projectileId: autumn_leaf
+  - {fileID: 8300000, guid: 1d7f0599f028e5c4dac822640194ebbe, type: 3}
+  projectile: {fileID: 5350934001960373574, guid: ce07dca9905f98a48b88d0ff90dc1290, type: 3}
+  projectileTexture: {fileID: 4247077973319795576, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
+  projectileId: shot_flintlock
   projectileSpins: 0
