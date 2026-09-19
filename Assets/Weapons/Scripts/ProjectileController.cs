@@ -23,13 +23,11 @@ public class ProjectileController : MonoBehaviour
     private Rigidbody2D rigidBody;
     private float lifetimeCounter;
 
-    void Awake()
+    void Awake() => rigidBody = GetComponent<Rigidbody2D>();
+    private void OnEnable() 
     {
-        rigidBody = GetComponent<Rigidbody2D>();
-
         if (spins) rigidBody.AddTorque(torque);
     }
-
     private void Update() => lifetimeCounter += Time.deltaTime;
 
     private void FixedUpdate()

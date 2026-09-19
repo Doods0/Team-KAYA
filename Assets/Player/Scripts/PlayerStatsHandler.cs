@@ -16,13 +16,19 @@ public class LocalWeaponsData
     public readonly List<Collider2D> hitsBuffer = new();
     public ContactFilter2D enemyFilter = new();
     // Moved the enemy filter from here to the mono script so it's reusable for knockback
+    public int heavyMeleeSlashes = 0; 
+    public int lightMeleeSlashes = 0;
+    public int lightThrows = 0;
+    // Use % to determine if this is the 7th shot for example to emit a specific effect
+    // Either from custom wepaon or upgrade
 }
 
 [Serializable]
 public class WeaponsBuffs
 {
-    public MeleeStats meleeBuffs = new();
-    public ThrowStats throwBuffs = new();
+    public MeleeStats heavyMeleeBuffs = new();
+    public MeleeStats lightMeleeBuffs = new();
+    public ThrowStats lightThrowBuffs = new();
     // Any new stats of custom weapons will have to be added here
 }
 #endregion
@@ -60,8 +66,8 @@ public class PlayerStats
             walkspeed = a.walkspeed + b.walkspeed,
             knockbackOnShockwave = a.knockbackOnShockwave + b.knockbackOnShockwave,
             cooldownOnShockwave = a.cooldownOnShockwave + b.cooldownOnShockwave,
-            health = a.health + b.health,
             maxHealth = a.maxHealth + b.maxHealth,
+            health = a.health + b.health,
             pickupRange = a.pickupRange + b.pickupRange,
             speedupDropInterval = a.speedupDropInterval + b.speedupDropInterval,
             slowdownDropInterval = a.slowdownDropInterval + b.slowdownDropInterval
@@ -75,8 +81,8 @@ public class PlayerStats
             walkspeed = a.walkspeed * (1f + b.walkspeed),
             knockbackOnShockwave = a.knockbackOnShockwave * (1f + b.knockbackOnShockwave),
             cooldownOnShockwave = a.cooldownOnShockwave * (1f + b.cooldownOnShockwave),
-            health = (int)(a.health * (1f + b.health)), // Cast back to int
             maxHealth = (int)(a.maxHealth * (1f + b.maxHealth)), // Cast back to int
+            health = (int)(a.health * (1f + b.health)), // Cast back to int
             pickupRange = a.pickupRange * (1f + b.pickupRange),
             speedupDropInterval = a.speedupDropInterval * (1f + b.speedupDropInterval),
             slowdownDropInterval = a.slowdownDropInterval * (1f + b.slowdownDropInterval)
@@ -118,7 +124,7 @@ public class PlayerStatsHandler : MonoBehaviour
     [HideInInspector] public int points;
     [HideInInspector] public LocalWeaponsData localWeaponsData;
     // Will be passed to all weapon types and values and will be added to values here (the one below)
-    [HideInInspector] public WeaponsBuffs weaponBuffs;
+    [HideInInspector] public WeaponsBuffs weaponBuffs = new();
     [HideInInspector] public List<UpgradeSO> upgrades;
     [HideInInspector] public ContactFilter2D enemyFilter;
 
@@ -144,12 +150,14 @@ public class PlayerStatsHandler : MonoBehaviour
         localWeaponsData.enemyFilter = enemyFilter;
     }
 
+    // Runs each weapon slash
+    // "Update" updates also include (Effect) on (number)th shot
     public void UpdateAllStats() // Run it all the time, and for "once" upgrades, run those upon purchase 
     {
         foreach (UpgradeSO upgrade in upgrades)
         {
-            if (upgrade.frequency != Frequency.Update) return;
-            upgrade.ApplyEffect(stats, weaponBuffs);
+            if (upgrade.frequency != Frequency.Update) continue;
+            upgrade.ApplyUpgrade(ref stats, ref weaponBuffs, ref localWeaponsData);
         }
     }
 
@@ -188,10 +196,11 @@ public class PlayerStatsHandler : MonoBehaviour
             else
             {
                 cooldown = lightWeapon.throwStats.throwCooldown;
-                lightWeapon.Throw(weaponBuffs);
+                lightWeapon.Throw(localWeaponsData, weaponBuffs);
             }
         }
 
+        UpdateAllStats();
         currentCooldown = cooldown;
         animator.TriggerWeaponAnimation(weaponInUse, otherWeapon, isThrowMode);
     }

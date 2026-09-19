@@ -9,7 +9,7 @@ public class ShopUIHandler : MonoBehaviour
     // Data is taken from ShopHandler after every shop encounter so the same data is passed to
     // other UI elements to display the next purchasable element on player's HUD
 
-    [SerializeField] private ShopHandler shopUtil;
+    public ShopHandler shopUtil;
     [SerializeField] private HUDManager hudUtil;
     [SerializeField] private ShopElementDriver[] upgrades = new ShopElementDriver[5];
     [SerializeField] private ShopElementDriver[] weapons = new ShopElementDriver[2];

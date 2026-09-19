@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2992b74548a3a6b4aa81ad29eca18757, type: 3}
+  m_Name: Skymaster
+  m_EditorClassIdentifier: Assembly-CSharp::EffectOnComboUpgrade
+  icon: {fileID: -1939666868790751462, guid: c61a34ee265193e40a20020d5000d433, type: 3}
+  frequency: 1
+  effect: {fileID: 11400000, guid: a618fb47b63758d439a19f9f9d6f6f75, type: 2}
+  combo: 2
+  intensity: 2
+  damage: 2
+  heavyMelee: 0
+  lightMelee: 1
+  lightThrow: 0

@@ -64,7 +64,11 @@ public class ShopHandler : MonoBehaviour
         if (product.price > statsHandler.points) return false;
         statsHandler.points -= product.price;
 
-        if (product.element is UpgradeSO upgrade) upgrade.ApplyEffect(statsHandler.stats, statsHandler.weaponBuffs);
+        if (product.element is UpgradeSO upgrade)
+        {
+            upgrade.ApplyUpgrade(ref statsHandler.stats,ref statsHandler.weaponBuffs,ref statsHandler.localWeaponsData);
+            statsHandler.upgrades.Add(upgrade);
+        }
         else if (product.element is WeaponSO weapon)
         {
             if (weapon is HeavyWeaponSO heavyWeapon) statsHandler.heavyWeapon = heavyWeapon;
