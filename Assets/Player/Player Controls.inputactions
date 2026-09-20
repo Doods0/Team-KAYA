@@ -65,6 +65,16 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "Toggle Pause Menu",
+                    "type": "Button",
+                    "id": "1f5b5004-d9de-4764-9d39-4b75c9a5cb2b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -219,6 +229,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Toggle AutoAim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4648b474-7065-483d-8f2c-08599f5435f5",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Pause Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

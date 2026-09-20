@@ -16,6 +16,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private RectTransform pointsCounterMove;
     [Header("Menus")]
     [SerializeField] private GameObject lossMenu;
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private RectTransform shopMenu;
     [SerializeField] private ShopUIHandler shopUIHandler;
     [Header("Data")]
@@ -152,6 +153,7 @@ public class HUDManager : MonoBehaviour
     }
 
     public void PlayLossAnimations() => lossMenu.SetActive(true);
+    public void TogglePauseMenu(bool isPaused) => pauseMenu.SetActive(isPaused);
 
     [ContextMenu("Load Menu")]
     public void MainMenu() => SceneManager.LoadScene("Menu");
