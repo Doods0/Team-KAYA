@@ -25,7 +25,7 @@ MonoBehaviour:
     speedupDropInterval: 0
     slowdownDropInterval: 0
   heavyMeleeStatsChange:
-    slashDamage: 0.15
+    slashDamage: 0.25
     slashKnockback: 0
     slashCooldown: 0
     slashRadius: 0
