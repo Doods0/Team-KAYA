@@ -121,7 +121,7 @@ MonoBehaviour:
   id: 
   animator: {fileID: 0}
   startRushRange: 10
-  endRushRange: 10
+  endRushRange: 20
   acceleration: 20
 --- !u!114 &4883562858673129351
 MonoBehaviour:
