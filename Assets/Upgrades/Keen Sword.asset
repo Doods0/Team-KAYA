@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b6957b85c40c94bb8783072c3929bc, type: 3}
+  m_Name: Keen Sword
+  m_EditorClassIdentifier: Assembly-CSharp::BasicAdditionUpgrade
+  icon: {fileID: -1271310309184709222, guid: c61a34ee265193e40a20020d5000d433, type: 3}
+  frequency: 0
+  increaseType: 0
+  playerStatsChange:
+    walkspeed: 0
+    knockbackOnShockwave: 0
+    cooldownOnShockwave: 0
+    health: 0
+    maxHealth: 0
+    pickupRange: 0
+    speedupDropInterval: 0
+    slowdownDropInterval: 0
+  heavyMeleeStatsChange:
+    slashDamage: 0.15
+    slashKnockback: 0
+    slashCooldown: 0
+    slashRadius: 0
+    slashAngle: 0
+  lightMeleeStatsChange:
+    slashDamage: 0
+    slashKnockback: 0
+    slashCooldown: 0
+    slashRadius: 0
+    slashAngle: 0
+  lightThrowStatsChange:
+    throwDamage: 0
+    throwKnockback: 0
+    throwCooldown: 0
+    projectileLifetime: 0
+    projectileSpeed: 0
+    projectileSize: 0
