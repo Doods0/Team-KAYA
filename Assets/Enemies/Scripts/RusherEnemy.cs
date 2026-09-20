@@ -7,9 +7,23 @@ public class RusherEnemy : EnemyController
     public float endRushRange;
     public float acceleration;
     bool rushing = false;
+    // Since we need to stop moving when the game is paused, we need to remember the speed at
+    // which we were going before pausing.
+    Vector3 storedSpeed = Vector3.zero;
 
     public override void FixedUpdate()
     {
+        if (GameManager.instance.timeScale == 0)
+        {
+            if (storedSpeed == Vector3.zero) storedSpeed = rigidbody.linearVelocity;
+            rigidbody.linearVelocity = Vector3.zero;
+        }
+        else if (storedSpeed != Vector3.zero)
+        {
+            rigidbody.linearVelocity = storedSpeed;
+            storedSpeed = Vector3.zero;
+        }
+
         float distanceToPlayer = ToPlayer().magnitude;
 
         if (distanceToPlayer >= endRushRange) rushing = false;
