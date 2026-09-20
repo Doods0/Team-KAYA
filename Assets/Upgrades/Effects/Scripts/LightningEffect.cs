@@ -8,6 +8,7 @@ public class LightningEffect : Effect
     [SerializeField] private GameObject lightningObject;
     [SerializeField] private string lightningObjectId;
     [SerializeField] private float range;
+    [SerializeField] private AudioClip lightningSound;
 
     public override void ApplyEffect(int intensity, int damage, LocalWeaponsData weaponData)
     {
@@ -31,6 +32,7 @@ public class LightningEffect : Effect
             enemyController.TakeDamage(damage);
 
             GameManager.instance.StartCoroutine(ScheduleDeletion(lightning));
+            GameUtils.instance.audioSource.PlayOneShot(lightningSound);
         }
     }
 

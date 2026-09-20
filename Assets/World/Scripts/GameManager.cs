@@ -51,8 +51,8 @@ public class GameManager : MonoBehaviour
     // Use to set up timescale externally and manually
     // AKA to be able to use Time.timeScale without this script overriding it
     // It pauses the time decay and time speeding too
-    public bool isGamePaused = false;
-    public bool isTimeBypassed = false;
+    public bool isGamePaused = false; // Used to trigger in-game menus like shop and death screen
+    public bool isTimeBypassed = false; // Used to pause or resume runtime timeScale manipulation
     public float runtimeScale = 1f;
     public float minTimeScale;
     public float maxTimeScale;
@@ -162,6 +162,8 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
+            while (timeScale == 0) yield return null;
+
             if (currentPhase != lastComputedPhase)
             {
                 lastComputedPhase = currentPhase;

@@ -1126,7 +1126,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 7.5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2099,7 +2099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d10ba03deb42248b9cb6e3d868367a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  player: {fileID: 1812880721}
   tiles:
   - {fileID: 319214121}
   - {fileID: 1889639867}
@@ -4064,9 +4063,9 @@ MonoBehaviour:
   timeSpeedIncrease: 0.02
   HUD: {fileID: 1917053155}
   camera: {fileID: 269142786}
-  enemySpawnrate: 1
+  enemySpawnrate: 2
   minEnemySpawnrate: 0.25
-  spawnrateDecreasePerPhase: 0.05
+  spawnrateDecreasePerPhase: 0.2
   timeTillNextPhase: 30
   enemyCurrencyPerPhase: 40
   chanceOfPickup: 0.1
@@ -4080,7 +4079,7 @@ MonoBehaviour:
     weight: 4
     id: speed
   - pickup: {fileID: 8040031927484897514, guid: 6b0d6ef779afabc439404fa70b867b11, type: 3}
-    weight: 6
+    weight: 4
     id: shop
   deathSound: {fileID: 8300000, guid: 87ab6b9c8730d7849a7ae50cc95ac2ad, type: 3}
   isGamePaused: 0
@@ -4104,7 +4103,7 @@ MonoBehaviour:
     enemyId: enemy_ranged
     enemyPrice: 8
     enemyCapPrice: 220
-    enemyCapPerPrice: 6
+    enemyCapPerPrice: 7
     enemyPriority: 3
     enemyCap: 0
     instancesToSpawn: 0
@@ -4120,8 +4119,8 @@ MonoBehaviour:
     numberOfInstances: 0
   - enemyPrefab: {fileID: 2380258183937040191, guid: 0600ab68c610ee650ba79b72c7bb950a, type: 3}
     enemyId: enemy
-    enemyPrice: 2
-    enemyCapPrice: 25
+    enemyPrice: 4
+    enemyCapPrice: 40
     enemyCapPerPrice: 10
     enemyPriority: 1
     enemyCap: 0
@@ -7308,95 +7307,99 @@ MonoBehaviour:
   purchasableWeapons:
   - texture: {fileID: 5601323976189978565, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
     element: {fileID: 11400000, guid: e6716eba8f00b4746bc56268953100d4, type: 2}
-    price: 150
+    price: 80
     title: Skygazer Hammer
     desc: A sturdy weapon this one, but with lower speed
   - texture: {fileID: 7569684938147083892, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
     element: {fileID: 11400000, guid: c67668a22bd4bba4fa0c3a3b21c763ea, type: 2}
-    price: 80
+    price: 40
     title: Hatchet
     desc: Causes heavy impact on throw, but is a bit slow to throw
   - texture: {fileID: -8951780388439148649, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
     element: {fileID: 11400000, guid: bdd3577dfd781c240a2cf643a120a5ac, type: 2}
-    price: 100
+    price: 55
     title: Bo Staff
     desc: Balanced speed with a little extra damage
   - texture: {fileID: 9147546874185701050, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
     element: {fileID: 11400000, guid: d42ea435283bba44597653f5c08ddce0, type: 2}
-    price: 120
+    price: 60
     title: Katana
     desc: A swifter main weapon with less impact
   - texture: {fileID: -3776783329477156521, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
     element: {fileID: 11400000, guid: 4c97623531a5c2a439f1a2f8a1ee6d94, type: 2}
-    price: 90
+    price: 55
     title: Crescent Sickle
     desc: Large enough so you never miss, with heavy impact and damage and fair throw
       damage
   - texture: {fileID: -3087264978319007404, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
     element: {fileID: 11400000, guid: 5e7b9859429b15947835f874a474a703, type: 2}
-    price: 70
+    price: 60
     title: Conqueror's Cutlass
     desc: A slightly tougher weapon that maintains fair speed, increased knockback
   - texture: {fileID: 8789762969407134151, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
     element: {fileID: 11400000, guid: 6fd34737a650b8844b7e4c6343f2ebed, type: 2}
-    price: 60
+    price: 35
     title: Seeker Knife
     desc: Glides to the enemy, causing fair damage
   - texture: {fileID: -7651578999465136024, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
-    element: {fileID: 11400000, guid: 6fd34737a650b8844b7e4c6343f2ebed, type: 2}
-    price: 60
+    element: {fileID: 11400000, guid: 1f2c4b35053036848bf37c4a245e2f14, type: 2}
+    price: 40
     title: Twin Blade
     desc: Great size, fair damage
   - texture: {fileID: -21522807587195298, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
-    element: {fileID: 11400000, guid: 6fd34737a650b8844b7e4c6343f2ebed, type: 2}
-    price: 120
+    element: {fileID: 11400000, guid: 92fb077d49abe9646b6c354c18dbb8f8, type: 2}
+    price: 75
     title: Flintlock Pistol
-    desc: Bullets are quicker than throwing!, fair slash knockback when you're in
-      a pinch, decent bullet damage
+    desc: Bullets are quicker than throwing!, decent bullet damage
   - texture: {fileID: -761887118410055393, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
     element: {fileID: 11400000, guid: b45d71668ec87154795e95338570c3b4, type: 2}
-    price: 150
+    price: 70
     title: Nightwatcher Scythe
     desc: A bit heavier but with good range and damage, spoooky!
   purchasableUpgrades:
   - texture: {fileID: 5931650925648850443, guid: c61a34ee265193e40a20020d5000d433, type: 3}
     element: {fileID: 11400000, guid: 548e1858f268a2c488688144b1769dfd, type: 2}
-    price: 100
+    price: 45
     title: Buying Time
     desc: +2 Max Health
   - texture: {fileID: -855806208316586141, guid: c61a34ee265193e40a20020d5000d433, type: 3}
     element: {fileID: 11400000, guid: 9a5994233e5921041a1ed6b08f0ecbdf, type: 2}
-    price: 50
+    price: 35
     title: Collector
     desc: +%50 Pickup Range
   - texture: {fileID: 6403128062800825099, guid: c61a34ee265193e40a20020d5000d433, type: 3}
     element: {fileID: 11400000, guid: 3aad1203964a1d040a89d7ba679e32bc, type: 2}
-    price: 80
+    price: 50
     title: Ground Slam
     desc: '+%33 Shockwave knockback +%50 Immunity after shockwave '
   - texture: {fileID: 2890409509781067523, guid: c61a34ee265193e40a20020d5000d433, type: 3}
     element: {fileID: 11400000, guid: 90471d924cec42f4c9ed9f18e8902207, type: 2}
-    price: 90
+    price: 55
     title: Handy Knife
-    desc: +%25 Slash damage +%15 Throw damage
+    desc: +%25 Light slash damage +%15 Throw damage
   - texture: {fileID: 249568837803001356, guid: c61a34ee265193e40a20020d5000d433, type: 3}
     element: {fileID: 11400000, guid: e9108cf8fd35bb046a52d9392789fe85, type: 2}
-    price: 70
+    price: 45
     title: Projectile Expert
     desc: +%30 Throw speed
   - texture: {fileID: -1224917531191432863, guid: c61a34ee265193e40a20020d5000d433, type: 3}
     element: {fileID: 11400000, guid: 0f14c61439e326246a0894c43aa56da1, type: 2}
-    price: 80
+    price: 50
     title: Runner
     desc: +%20 Walkspeed
   - texture: {fileID: -1939666868790751462, guid: c61a34ee265193e40a20020d5000d433, type: 3}
     element: {fileID: 11400000, guid: 72e46a60c5aec8b4992bc6d6c1eb73c0, type: 2}
-    price: 150
+    price: 75
     title: Skymaster
     desc: Every 2nd slash with a light weapon summons lightning on nearby enemies
+  - texture: {fileID: -1271310309184709222, guid: c61a34ee265193e40a20020d5000d433, type: 3}
+    element: {fileID: 11400000, guid: 4f6db0f5c6bee714b9d27b5c4b3ec1af, type: 2}
+    price: 60
+    title: Keen Sword
+    desc: +%15 Heavy melee damage
   availableWeapons: []
   availableUpgrades: []
-  pricingMultiplierPerPurchase: 1.25
+  pricingMultiplierPerPurchase: 1.1
 --- !u!4 &1928038538
 Transform:
   m_ObjectHideFlags: 0

@@ -4972,7 +4972,7 @@ MonoBehaviour:
   explosionDamageToPlayer: 1
   explosionRange: 3
   startTickingRange: 2
-  explosionKnockback: 30
+  explosionKnockback: 15
   speedWhileTicking: 1
 --- !u!114 &6212145394141096836
 MonoBehaviour:
