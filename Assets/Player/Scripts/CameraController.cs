@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
         Vector2 mouseDirectionVector;
         Vector2 cameraLockOffset;
 
-        if (utils.playerTransform == null || GameManager.instance.isGamePaused)
+        if (utils.playerTransform == null || GameManager.instance.isGamePaused || GameManager.instance.isSessionPaused)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;

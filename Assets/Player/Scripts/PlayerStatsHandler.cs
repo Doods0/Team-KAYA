@@ -228,7 +228,7 @@ public class PlayerStatsHandler : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(shockwaveTime);
 
-            while (GameManager.instance.isGamePaused) yield return null;
+            while (GameManager.instance.isGamePaused || GameManager.instance.isSessionPaused) yield return null;
 
             GameManager.instance.isTimeBypassed = false;
 

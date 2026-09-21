@@ -57,7 +57,7 @@ MonoBehaviour:
   lightAttackRef: {fileID: 8561477085750378441, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   toggleThrowRef: {fileID: -8354860198716426696, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   toggleAutoAimRef: {fileID: 577077884625866863, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
-  togglePauseMenuRef: {fileID: 619740698306353090, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
+  togglePauseMenuRef: {fileID: -3403031791080544083, guid: 4b996bdcb18001d43a4334ffdf89333c, type: 3}
   walk1: {fileID: 8300000, guid: 39da512ebf2141077a9d23696775598e, type: 3}
   walk2: {fileID: 8300000, guid: 2c603a7a70b50f77fbb4f077fcc83653, type: 3}
   walk3: {fileID: 8300000, guid: 7b9094a8a93549f74adbbc2760247eb5, type: 3}

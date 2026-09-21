@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputActionReference lightAttackRef;
     [SerializeField] private InputActionReference toggleThrowRef;
     [SerializeField] private InputActionReference toggleAutoAimRef;
+    [SerializeField] private InputActionReference togglePauseMenuRef;
     #endregion
 
     private Rigidbody2D rb;
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private InputAction lightAttackAction;
     private InputAction toggleThrowAction;
     private InputAction toggleAutoAimAction;
+    private InputAction togglePauseMenuAction;
     #endregion
 
     [Header("Sounds")] // We'll put them here because they're movement afterall
@@ -61,6 +63,7 @@ public class PlayerController : MonoBehaviour
         lightAttackAction = input.actions.FindAction(lightAttackRef.action.id);
         toggleThrowAction = input.actions.FindAction(toggleThrowRef.action.id);
         toggleAutoAimAction = input.actions.FindAction(toggleAutoAimRef.action.id);
+        togglePauseMenuAction = input.actions.FindAction(togglePauseMenuRef.action.id);
         #endregion
 
     }
@@ -70,11 +73,13 @@ public class PlayerController : MonoBehaviour
     {
         toggleThrowAction.performed += ToggleThrow;
         toggleAutoAimAction.performed += ToggleAutoAim;
+        togglePauseMenuAction.performed += TogglePauseMenu;
     }
     private void OnDisable()
     {
         toggleThrowAction.performed -= ToggleThrow;
         toggleAutoAimAction.performed -= ToggleAutoAim;
+        togglePauseMenuAction.performed -= TogglePauseMenu;
     }
 
     private void ToggleThrow(InputAction.CallbackContext _input)
@@ -85,6 +90,7 @@ public class PlayerController : MonoBehaviour
         else GameUtils.instance.audioSource.PlayOneShot(switchToMeleeSound);
     }
     private void ToggleAutoAim(InputAction.CallbackContext _input) => cameraUtil.isAutoAim = !cameraUtil.isAutoAim;
+    private void TogglePauseMenu(InputAction.CallbackContext _input) => GameManager.instance.TogglePauseMenu();
     #endregion
 
     private void Update()

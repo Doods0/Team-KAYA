@@ -51,8 +51,9 @@ public class GameManager : MonoBehaviour
     // Use to set up timescale externally and manually
     // AKA to be able to use Time.timeScale without this script overriding it
     // It pauses the time decay and time speeding too
-    public bool isGamePaused = false; // Used to trigger in-game menus like shop and death screen
-    public bool isTimeBypassed = false; // Used to pause or resume runtime timeScale manipulation
+    public bool isSessionPaused = false; // Used to pause game completely
+    public bool isGamePaused = false; // Used to pause game in menus and death screens
+    public bool isTimeBypassed = false; // Used to pause time decay and increase
     public float runtimeScale = 1f;
     public float minTimeScale;
     public float maxTimeScale;
@@ -68,11 +69,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (runtimeScale <= minTimeScale && !isGamePaused) GameUtils.instance.playerStats.TakeDamage(999);
+        if (runtimeScale <= minTimeScale && !isGamePaused && !isSessionPaused) GameUtils.instance.playerStats.TakeDamage(999);
         runtimeScale = Mathf.Clamp(runtimeScale, 0, maxTimeScale);
         if (!isTimeBypassed) timeScale = runtimeScale;
 
-        if (timeScale != 0 && !isGamePaused) timePassed += Time.deltaTime;
+        if (timeScale != 0 && !isGamePaused && !isSessionPaused) timePassed += Time.deltaTime;
         currentPhase = ((int)timePassed / timeTillNextPhase) + 1;
 
         HUD.UpdateUI(runtimeScale, timePassed);
@@ -91,7 +92,7 @@ public class GameManager : MonoBehaviour
 
         await HUD.PlayIntro();
 
-        isTimeBypassed = false;
+        if (!isSessionPaused) isTimeBypassed = false;
 
         StartCoroutine(SpawnEnemy());
         StartCoroutine(DecayTime());
@@ -207,6 +208,25 @@ public class GameManager : MonoBehaviour
 
     // Triggering game over is something global so it'll be fired from here
     public void TriggerGameOver() => StartCoroutine(OnGameOver());
+    public void TogglePauseMenu() 
+    {
+        if (!isSessionPaused)
+        {
+            HUD.TogglePauseMenu(true);
+            isSessionPaused = true;
+            isTimeBypassed = true;
+            timeScale = 0;
+        }
+        else 
+        {
+            HUD.TogglePauseMenu(false);
+            isSessionPaused = false;
+            if (!isGamePaused)
+            {
+                isTimeBypassed = false;
+            }
+        }
+    }
 
     public IEnumerator OnGameOver()
     {
