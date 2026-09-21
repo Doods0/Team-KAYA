@@ -76,6 +76,19 @@ public class ShopHandler : MonoBehaviour
             else if (weapon is LightWeaponSO lightWeapon) statsHandler.lightWeapon = lightWeapon;
             statsHandler.animator.SwapWeapons(statsHandler.heavyWeapon, statsHandler.lightWeapon);
         }
+
+        for (int i = 0; i < purchasableUpgrades.Count; i++)
+        {
+            PurchasableElement element = purchasableUpgrades[i];
+            element.price = (int)(element.price * pricingMultiplierPerPurchase);
+            purchasableUpgrades[i] = element;
+        }
+        for (int i = 0; i < purchasableWeapons.Count; i++)
+        {
+            PurchasableElement element = purchasableWeapons[i];
+            element.price = (int)(element.price * pricingMultiplierPerPurchase);
+            purchasableWeapons[i] = element;
+        }
         return true;
     }
 

@@ -183,19 +183,19 @@ public class PlayerStatsHandler : MonoBehaviour
 
         if (withHeavy)
         {
-            cooldown = heavyWeapon.meleeStats.slashCooldown;
+            cooldown = heavyWeapon.meleeStats.slashCooldown * (1 + weaponBuffs.heavyMeleeBuffs.slashCooldown);
             heavyWeapon.Slash(localWeaponsData, weaponBuffs);
         }
         else
         {
             if (!isThrowMode)
             {
-                cooldown = lightWeapon.meleeStats.slashCooldown;
+                cooldown = lightWeapon.meleeStats.slashCooldown * (1 + weaponBuffs.lightMeleeBuffs.slashCooldown);
                 lightWeapon.Slash(localWeaponsData, weaponBuffs);
             }
             else
             {
-                cooldown = lightWeapon.throwStats.throwCooldown;
+                cooldown = lightWeapon.throwStats.throwCooldown * (1 + weaponBuffs.lightThrowBuffs.throwCooldown);
                 lightWeapon.Throw(localWeaponsData, weaponBuffs);
             }
         }
@@ -288,8 +288,6 @@ public class PlayerStatsHandler : MonoBehaviour
 
     public void AssignShopTriggerPoint()
     {
-        if (currentShopTriggerPoint != Mathf.Infinity) return;
-
         float shopTriggerPoint = UnityEngine.Random.Range(
             GameManager.instance.minTimeScale + shopTriggerBuffer,
             GameManager.instance.maxTimeScale - shopTriggerBuffer);

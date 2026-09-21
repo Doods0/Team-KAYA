@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            while (timeScale == 0) yield return null; 
+            while (timeScale == 0) yield return null;
 
             if (currentPhase != lastComputedPhase)
             {

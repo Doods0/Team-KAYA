@@ -101,7 +101,7 @@ public class CameraController : MonoBehaviour
         //
         // Every frame, we get closer to the target camera zoom by (cameraZoomResistance)% for a
         // smooth transition.
-        float timeScale = GameManager.instance.timeScale;
+        float timeScale = Mathf.Clamp(GameManager.instance.timeScale, 0, 2);
         if (timeScale > GameManager.instance.minTimeScale)
         {
             if (timeScale < 1)
@@ -110,7 +110,7 @@ public class CameraController : MonoBehaviour
                     // The relationship between camera zoom and game speed is half as effective
                     // when timeScale < 1. This is because the default camera zoom is already
                     // pretty close to the player.
-                    (cameraOriginalSize + cameraOriginalSize * GameManager.instance.timeScale) / 2)
+                    (cameraOriginalSize + cameraOriginalSize * timeScale) / 2)
                     / cameraZoomResistance;
             else
                 camera.orthographicSize = (

@@ -124,8 +124,8 @@ public class PlayerController : MonoBehaviour
             footstepTimer = 0;
         }
 
-        rb.linearVelocityX = xMovementDir * statsHandler.stats.walkspeed * timeScale;
-        rb.linearVelocityY = yMovementDir * statsHandler.stats.walkspeed * timeScale;
+        rb.linearVelocityX = xMovementDir * statsHandler.stats.walkspeed * math.clamp(timeScale, 0, 2);
+        rb.linearVelocityY = yMovementDir * statsHandler.stats.walkspeed * math.clamp(timeScale, 0, 2);
 
         if (timeScale != 0) knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
 

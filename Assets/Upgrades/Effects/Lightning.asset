@@ -15,3 +15,4 @@ MonoBehaviour:
   lightningObject: {fileID: 3492027798362297746, guid: 4ad904d8b9d71b64995aa73fa9c8e73e, type: 3}
   lightningObjectId: lightning
   range: 6
+  lightningSound: {fileID: 8300000, guid: a23e3ebcc40e9ba4caff59ee955a6eea, type: 3}

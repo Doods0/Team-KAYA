@@ -119,6 +119,7 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   knockbackVelocity: {x: 0, y: 0}
   id: 
+  animator: {fileID: 0}
 --- !u!114 &-181971788821108395
 MonoBehaviour:
   m_ObjectHideFlags: 0
