@@ -82,7 +82,7 @@ MonoBehaviour:
   heavyWeapon: {fileID: 11400000, guid: 607cf59d278e30e49b27b6d5a60f4365, type: 2}
   lightWeapon: {fileID: 11400000, guid: 39bd6d2f19ad889459b6948e6640c6e9, type: 2}
   stats:
-    walkspeed: 5
+    walkspeed: 6
     knockbackOnShockwave: 25.32
     cooldownOnShockwave: 2
     health: 5

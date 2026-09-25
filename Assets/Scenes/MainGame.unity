@@ -8375,7 +8375,7 @@ MonoBehaviour:
     element: {fileID: 11400000, guid: 0f14c61439e326246a0894c43aa56da1, type: 2}
     price: 20
     title: Runner
-    desc: +%20 Walkspeed
+    desc: +%10 Walkspeed
   - texture: {fileID: -1939666868790751462, guid: c61a34ee265193e40a20020d5000d433, type: 3}
     element: {fileID: 11400000, guid: 72e46a60c5aec8b4992bc6d6c1eb73c0, type: 2}
     price: 40

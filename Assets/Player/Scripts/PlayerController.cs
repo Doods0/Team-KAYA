@@ -47,8 +47,8 @@ public class PlayerController : MonoBehaviour
     [Header("Utils")]
     [SerializeField] private CameraController cameraUtil;
 
-    private int xMovementDir;
-    private int yMovementDir;
+    private float xMovementDir;
+    private float yMovementDir;
     private bool isThrowMode = false;
 
     private void Awake()
@@ -99,14 +99,14 @@ public class PlayerController : MonoBehaviour
         if (lightAttackAction.IsPressed()) statsHandler.Attack(false, isThrowMode);
 
         // Movement values update
-        xMovementDir = (int)math.sign(xMovementAction.ReadValue<float>());
-        yMovementDir = (int)math.sign(yMovementAction.ReadValue<float>());
+        xMovementDir = math.sign(xMovementAction.ReadValue<float>());
+        yMovementDir = math.sign(yMovementAction.ReadValue<float>());
 
         // Animations
         if (xMovementDir != 0 || yMovementDir != 0) Animator.state = EntityState.Walking;
         else Animator.state = EntityState.Idle;
 
-        Animator.FlipCharacter(xMovementDir);
+        Animator.FlipCharacter((int)xMovementDir);
     }
 
     private void FixedUpdate()
@@ -124,8 +124,10 @@ public class PlayerController : MonoBehaviour
             footstepTimer = 0;
         }
 
-        rb.linearVelocityX = xMovementDir * statsHandler.stats.walkspeed * math.clamp(timeScale, 0, 2);
-        rb.linearVelocityY = yMovementDir * statsHandler.stats.walkspeed * math.clamp(timeScale, 0, 2);
+        Vector2 movementDir = new(xMovementDir, yMovementDir);
+        movementDir.Normalize();
+
+        rb.linearVelocity = movementDir * statsHandler.stats.walkspeed * math.clamp(timeScale, 0, 2);
 
         if (timeScale != 0) knockbackVelocity *= Mathf.Exp(-knockbackDecayRate * Time.deltaTime);
 
