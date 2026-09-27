@@ -30,14 +30,17 @@ MonoBehaviour:
     throwDamage: 4
     throwKnockback: 5
     throwCooldown: 0.65
-    projectileLifetime: 3
-    projectileSpeed: 25
-    projectileSize: 1
+    projectileStats:
+      speed: 25
+      damage: 4
+      knockback: 5
+      lifetime: 3
+      sizeIncrease: 0
   throwAnimations:
   - {fileID: 7400000, guid: 05b145d3a990ba24c88482d8b1ad7089, type: 2}
   throwSounds:
   - {fileID: 8300000, guid: 50ef081dcedf87b48a650574a72c9f27, type: 3}
-  projectile: {fileID: 5350934001960373574, guid: 5a9cec1c2fdc83c41ac314b35d65df0c, type: 3}
-  projectileTexture: {fileID: -7651578999465136024, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
+  projectile: {fileID: 9176292607335874921, guid: 5781ccff96351b84ca12cb06ae592297, type: 3}
   projectileId: twin_blade
   projectileSpins: 1
+  projectileTorque: 700

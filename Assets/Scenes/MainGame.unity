@@ -4786,16 +4786,16 @@ MonoBehaviour:
   timeTillNextPhase: 30
   enemyCurrencyPerPhase: 40
   chanceOfPickup: 0.1
-  pointPickup: {fileID: 5796465020088066133, guid: 93e54afa90caa33428e9db949e7a5769, type: 3}
+  pointPickup: {fileID: 758119257763697787, guid: 93e54afa90caa33428e9db949e7a5769, type: 3}
   pointPickupId: point
   specialPickups:
-  - pickup: {fileID: 5561569586672103232, guid: ba87df2c91a718c4680f2126b752496d, type: 3}
+  - pickup: {fileID: 1261607465218024090, guid: ba87df2c91a718c4680f2126b752496d, type: 3}
     weight: 4
     id: slow
-  - pickup: {fileID: 3792743525299019763, guid: eb70535bcb384924490cc172c2854dc0, type: 3}
+  - pickup: {fileID: 1930820094057594212, guid: eb70535bcb384924490cc172c2854dc0, type: 3}
     weight: 4
     id: speed
-  - pickup: {fileID: 8040031927484897514, guid: 6b0d6ef779afabc439404fa70b867b11, type: 3}
+  - pickup: {fileID: 7954887308930090669, guid: 6b0d6ef779afabc439404fa70b867b11, type: 3}
     weight: 4
     id: shop
   deathSound: {fileID: 8300000, guid: 87ab6b9c8730d7849a7ae50cc95ac2ad, type: 3}
@@ -4808,7 +4808,7 @@ MonoBehaviour:
   timeScale: 0
   timePassed: 0
   enemies:
-  - enemyPrefab: {fileID: 8169525927119518209, guid: f234a219850b7bdfa88b516bf5601712, type: 3}
+  - enemyPrefab: {fileID: 6110143124762924741, guid: f234a219850b7bdfa88b516bf5601712, type: 3}
     enemyId: enemy_rusher
     enemyPrice: 12
     enemyCapPrice: 300
@@ -4817,7 +4817,7 @@ MonoBehaviour:
     enemyCap: 0
     instancesToSpawn: 0
     numberOfInstances: 0
-  - enemyPrefab: {fileID: 7707728054247411321, guid: 815b978f7ba8aae42b91e2a96d9b9ed8, type: 3}
+  - enemyPrefab: {fileID: 8730184749999413326, guid: 815b978f7ba8aae42b91e2a96d9b9ed8, type: 3}
     enemyId: enemy_ranged
     enemyPrice: 8
     enemyCapPrice: 220
@@ -4826,7 +4826,7 @@ MonoBehaviour:
     enemyCap: 0
     instancesToSpawn: 0
     numberOfInstances: 0
-  - enemyPrefab: {fileID: 4792525644256836739, guid: 320bd0dcdf575b0bdaa3e78df49f3734, type: 3}
+  - enemyPrefab: {fileID: 6706134719532486924, guid: 320bd0dcdf575b0bdaa3e78df49f3734, type: 3}
     enemyId: enemy_exploder
     enemyPrice: 10
     enemyCapPrice: 120
@@ -4835,7 +4835,7 @@ MonoBehaviour:
     enemyCap: 0
     instancesToSpawn: 0
     numberOfInstances: 0
-  - enemyPrefab: {fileID: 2380258183937040191, guid: 0600ab68c610ee650ba79b72c7bb950a, type: 3}
+  - enemyPrefab: {fileID: 3605185052681545243, guid: 0600ab68c610ee650ba79b72c7bb950a, type: 3}
     enemyId: enemy
     enemyPrice: 4
     enemyCapPrice: 40

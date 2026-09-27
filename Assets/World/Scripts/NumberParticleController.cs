@@ -1,9 +1,9 @@
 using TMPro;
 using UnityEngine;
 
-public class DamageNumberDriver : MonoBehaviour
+public class NumberParticleController : MonoBehaviour, IPoolable
 {
-    [HideInInspector] public string id;
+    private string id;
 
     private TextMeshPro textComponent;
     private Color textColor;
@@ -17,8 +17,18 @@ public class DamageNumberDriver : MonoBehaviour
         textComponent = GetComponent<TextMeshPro>();
         textColor = textComponent.color;
     }
-    private void OnEnable() => textColor.a = 1;
-    public void Setup(int damageAmount) => textComponent.text = damageAmount.ToString();
+
+    public void Initialize(Vector3 position, string poolId, int damageAmount) 
+    {
+        gameObject.SetActive(true);
+        transform.position = position;
+        transform.rotation = Quaternion.identity;
+        id = poolId;
+
+        textColor.a = 1;
+        textComponent.text = damageAmount.ToString();
+
+    }
 
     void Update()
     {
@@ -29,7 +39,7 @@ public class DamageNumberDriver : MonoBehaviour
 
         if (textColor.a <= 0)
         {
-            GameManager.instance.AddInPool(id, gameObject);
+            GameManager.instance.AddInPool(id, this);
             gameObject.SetActive(false);
         }
     }

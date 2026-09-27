@@ -4989,14 +4989,14 @@ MonoBehaviour:
   character: {fileID: 4792525644256836739}
   state: 0
   ruleSO: {fileID: 11400000, guid: 36553074a9a91e145b9c586d28a9dfc6, type: 2}
-  damageParticle: {fileID: 2418114647592808732, guid: 1e08affe901afb240a55a74667e3924c, type: 3}
+  damageParticle: {fileID: 5243105396497009486, guid: 1e08affe901afb240a55a74667e3924c, type: 3}
   damageParticleId: damageP
-  damageNumberParticle: {fileID: 7880580348193083010, guid: c5ee371c416ca834ea4eceaa655c1744, type: 3}
+  damageNumberParticle: {fileID: 6041759689489268106, guid: c5ee371c416ca834ea4eceaa655c1744, type: 3}
   damageNumberParticleId: damageN
   hissingSound: {fileID: 8300000, guid: eff6d49d9437ced45a9f9e04772eb6f3, type: 3}
   explosionSound: {fileID: 8300000, guid: 19175168c64d3d04999b8d14e1b4f4bd, type: 3}
   hissingParticle: {fileID: 547286900606910559}
-  explosionParticle: {fileID: 9208686903684628324, guid: c33f2eeaa160b5d46bdbec7cf12dbfb4, type: 3}
+  explosionParticle: {fileID: 6899184323779116058, guid: c33f2eeaa160b5d46bdbec7cf12dbfb4, type: 3}
   explosionParticleId: explosion
 --- !u!95 &2290232962209852704
 Animator:

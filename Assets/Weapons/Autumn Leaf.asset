@@ -30,14 +30,17 @@ MonoBehaviour:
     throwDamage: 2
     throwKnockback: 4.5
     throwCooldown: 0.5
-    projectileLifetime: 3
-    projectileSpeed: 34
-    projectileSize: 1
+    projectileStats:
+      speed: 34
+      damage: 2
+      knockback: 4.5
+      lifetime: 3
+      sizeIncrease: 0
   throwAnimations:
   - {fileID: 7400000, guid: 05b145d3a990ba24c88482d8b1ad7089, type: 2}
   throwSounds:
   - {fileID: 8300000, guid: 50ef081dcedf87b48a650574a72c9f27, type: 3}
-  projectile: {fileID: 5350934001960373574, guid: bd80ef2cd15cdcb578fd78c43358838d, type: 3}
-  projectileTexture: {fileID: 7834802711767081893, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
+  projectile: {fileID: 755578953847787614, guid: 430b1fa728b04a344b75247a4bea4f16, type: 3}
   projectileId: autumn_leaf
   projectileSpins: 0
+  projectileTorque: 0

@@ -8,7 +8,7 @@ public class ExploderEnemyAnimator : EntityAnimator
 
     [Header("Particles")]
     [SerializeField] private ParticleSystem hissingParticle;
-    [SerializeField] private GameObject explosionParticle;
+    [SerializeField] private ParticleController explosionParticle;
     [SerializeField] private string explosionParticleId;
 
     private AudioClip hissing;
@@ -19,13 +19,9 @@ public class ExploderEnemyAnimator : EntityAnimator
 
         GameUtils.instance.audioSource.PlayOneShot(explosionSound);
 
-        GameObject particle = GameManager.instance.GetFromPool(explosionParticleId);
-        if (particle == null) particle = Instantiate(explosionParticle);
-        else particle.SetActive(true);
-        particle.transform.position = transform.position;
-        particle.transform.rotation = Quaternion.identity;
-        ParticleDriver driver = particle.GetComponent<ParticleDriver>();
-        driver.id = explosionParticleId;
+        IPoolable particle = GameManager.instance.GetFromPool(explosionParticleId) ?? Instantiate(explosionParticle);
+        if (!(particle is ParticleController controller)) return;
+        controller.Initialize(transform.position, explosionParticleId);
     }
 
     public void StartHissing()

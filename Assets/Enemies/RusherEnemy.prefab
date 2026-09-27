@@ -119,7 +119,7 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   knockbackVelocity: {x: 0, y: 0}
   id: 
-  animator: {fileID: 0}
+  animator: {fileID: 4883562858673129351}
   startRushRange: 10
   endRushRange: 20
   acceleration: 20
@@ -138,9 +138,9 @@ MonoBehaviour:
   character: {fileID: 8169525927119518209}
   state: 0
   ruleSO: {fileID: 11400000, guid: c9a4c5c8e6f0a2f4db432eb6235c6975, type: 2}
-  damageParticle: {fileID: 2418114647592808732, guid: 1e08affe901afb240a55a74667e3924c, type: 3}
+  damageParticle: {fileID: 5243105396497009486, guid: 1e08affe901afb240a55a74667e3924c, type: 3}
   damageParticleId: damageP
-  damageNumberParticle: {fileID: 7880580348193083010, guid: c5ee371c416ca834ea4eceaa655c1744, type: 3}
+  damageNumberParticle: {fileID: 6041759689489268106, guid: c5ee371c416ca834ea4eceaa655c1744, type: 3}
   damageNumberParticleId: damageN
 --- !u!95 &1712375734246991376
 Animator:

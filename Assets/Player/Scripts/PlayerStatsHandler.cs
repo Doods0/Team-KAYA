@@ -37,7 +37,7 @@ public class WeaponsBuffs
 [Serializable]
 public struct PickupChance
 {
-    public GameObject pickup;
+    public PickupController pickup;
     public int weight;
     public string id;
 }

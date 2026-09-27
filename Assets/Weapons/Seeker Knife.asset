@@ -30,14 +30,17 @@ MonoBehaviour:
     throwDamage: 5
     throwKnockback: 2
     throwCooldown: 0.8
-    projectileLifetime: 3
-    projectileSpeed: 10
-    projectileSize: 1
+    projectileStats:
+      speed: 10
+      damage: 5
+      knockback: 2
+      lifetime: 3
+      sizeIncrease: 0
   throwAnimations:
   - {fileID: 7400000, guid: 05b145d3a990ba24c88482d8b1ad7089, type: 2}
   throwSounds:
   - {fileID: 8300000, guid: 50ef081dcedf87b48a650574a72c9f27, type: 3}
-  projectile: {fileID: 5350934001960373574, guid: c95b50e52ace68842a3974873758b60f, type: 3}
-  projectileTexture: {fileID: 8789762969407134151, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
+  projectile: {fileID: 2491293474727848321, guid: 6b64a73c78c757f428cad1c36f884d31, type: 3}
   projectileId: seeker_knife
   projectileSpins: 0
+  projectileTorque: 0

@@ -11,9 +11,9 @@ public class EntityAnimator : MonoBehaviour
     public EntityState state;
     [SerializeField] private AnimationRuleSO ruleSO;
     [Header("Particles")]
-    [SerializeField] private GameObject damageParticle;
+    [SerializeField] private ParticleController damageParticle;
     [SerializeField] private string damageParticleId;
-    [SerializeField] private GameObject damageNumberParticle;
+    [SerializeField] private NumberParticleController damageNumberParticle;
     [SerializeField] private string damageNumberParticleId;
 
     private Dictionary<EntityState, AnimationRule> rulesDictionary;
@@ -65,25 +65,16 @@ public class EntityAnimator : MonoBehaviour
 
         if (damageParticle != null)
         {
-            GameObject particle = GameManager.instance.GetFromPool(damageParticleId);
-            if (particle == null) particle = Instantiate(damageParticle);
-            else particle.SetActive(true);
-            particle.transform.position = transform.position;
-            particle.transform.rotation = Quaternion.identity;
-            ParticleDriver driver = particle.GetComponent<ParticleDriver>();
-            driver.id = damageParticleId;
+            IPoolable particle = GameManager.instance.GetFromPool(damageParticleId) ?? Instantiate(damageParticle);
+            if (particle is ParticleController controller)
+                controller.Initialize(transform.position, damageParticleId);
         }
 
         if (damageNumberParticle != null)
         {
-            GameObject particle = GameManager.instance.GetFromPool(damageNumberParticleId);
-            if (particle == null) particle = Instantiate(damageNumberParticle);
-            else particle.SetActive(true);
-            particle.transform.position = transform.position;
-            particle.transform.rotation = Quaternion.identity;
-            DamageNumberDriver driver = particle.GetComponent<DamageNumberDriver>();
-            driver.id = damageNumberParticleId;
-            driver.Setup(damageAmount);
+            IPoolable particle = GameManager.instance.GetFromPool(damageNumberParticleId) ?? Instantiate(damageNumberParticle);
+            if (particle is NumberParticleController controller)
+                controller.Initialize(transform.position, damageNumberParticleId, damageAmount);
         }
 
         yield return new WaitForSeconds(duration);
