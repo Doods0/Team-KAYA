@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
+public interface IPoolable { }
+
 [System.Serializable]
 public class EnemyEntry
 {
-    public GameObject enemyPrefab;
+    public EnemyController enemyPrefab;
     public string enemyId;
     public int enemyPrice; // per unit
     public int enemyCapPrice; // hard cap to how much you can purchase based on currency
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
     public int enemyCurrencyPerPhase;
     [Header("Pickups")]
     public float chanceOfPickup;
-    public GameObject pointPickup;
+    public PickupController pointPickup;
     public string pointPickupId;
     public PickupChance[] specialPickups;
 
@@ -65,7 +67,7 @@ public class GameManager : MonoBehaviour
     private int currentEnemyCurrency;
 
     public List<EnemyEntry> enemies = new();
-    private readonly Dictionary<string, List<GameObject>> resourcePool = new();
+    private readonly Dictionary<string, List<IPoolable>> resourcePool = new();
 
     private void Update()
     {
@@ -100,20 +102,20 @@ public class GameManager : MonoBehaviour
 
     #region Resource Pooling
 
-    public void AddInPool(string id, GameObject obj)
+    public void AddInPool(string id, IPoolable obj)
     {
-        if (!resourcePool.TryGetValue(id, out List<GameObject> objs)) resourcePool[id] = new();
+        if (!resourcePool.TryGetValue(id, out List<IPoolable> objs)) resourcePool[id] = new();
         resourcePool[id].Add(obj);
 
         EnemyEntry enemy = enemies.Find(entry => entry.enemyId == id);
         if (enemy is not null) enemy.numberOfInstances--;
     }
 
-    public GameObject GetFromPool(string id)
+    public IPoolable GetFromPool(string id)
     {
-        if (resourcePool.TryGetValue(id, out List<GameObject> objs) && objs.Count > 0)
+        if (resourcePool.TryGetValue(id, out List<IPoolable> objs) && objs.Count > 0)
         {
-            GameObject obj = objs[^1];
+            IPoolable obj = objs[^1];
             objs.RemoveAt(objs.Count - 1);
             return obj;
         }
@@ -182,21 +184,10 @@ public class GameManager : MonoBehaviour
             foreach (EnemyEntry entry in enemies)
             {
                 if (entry.instancesToSpawn <= entry.numberOfInstances) continue;
+                IPoolable toBeSpawned = GetFromPool(entry.enemyId) ?? Instantiate(entry.enemyPrefab);
 
-                GameObject toBeSpawned = GetFromPool(entry.enemyId);
-                if (toBeSpawned == null)
-                {
-                    toBeSpawned = entry.enemyPrefab;
-                    GameObject spawnedEnemy = Instantiate(toBeSpawned, GameUtils.instance.playerPosition + offset, Quaternion.identity);
-                    spawnedEnemy.GetComponent<EnemyController>().id = entry.enemyId;
-                }
-                else
-                {
-                    toBeSpawned.SetActive(true);
-                    EnemyController controller = toBeSpawned.GetComponent<EnemyController>();
-                    controller.health = controller.maxHealth;
-                    toBeSpawned.transform.position = GameUtils.instance.playerPosition + offset;
-                }
+                if (toBeSpawned is EnemyController controller)
+                    controller.Initialize(GameUtils.instance.playerPosition + offset, entry.enemyId);
                 entry.numberOfInstances++;
             }
 

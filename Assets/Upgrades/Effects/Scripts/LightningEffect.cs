@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Upgrades/Effects/Lightning")]
 public class LightningEffect : Effect
 {
-    [SerializeField] private GameObject lightningObject;
+    [SerializeField] private StillVFXController lightningObject;
     [SerializeField] private string lightningObjectId;
     [SerializeField] private float range;
     [SerializeField] private AudioClip lightningSound;
@@ -21,26 +20,15 @@ public class LightningEffect : Effect
             Collider2D hitCollider = hitsBuffer[i];
             GameObject hitGO = hitCollider.gameObject;
 
-            GameObject lightning = GameManager.instance.GetFromPool(lightningObjectId);
-            if (lightning == null) lightning = Instantiate(lightningObject);
-            else lightning.SetActive(true);
+            IPoolable lightning = GameManager.instance.GetFromPool(lightningObjectId) ?? Instantiate(lightningObject);
+            if (!(lightning is StillVFXController vfxController)) return;
+            vfxController.Initialize(GameUtils.instance.playerPosition, lightningObjectId, 30f);
 
-            lightning.transform.position = hitGO.transform.position;
-            lightning.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-30, 30));
-
-            EnemyController enemyController = hitGO.GetComponent<EnemyController>();
+            if (!(hitGO.TryGetComponent(out EnemyController enemyController))) return;
             enemyController.TakeDamage(damage);
 
-            GameManager.instance.StartCoroutine(ScheduleDeletion(lightning));
             GameUtils.instance.audioSource.PlayOneShot(lightningSound);
         }
     }
 
-    private IEnumerator ScheduleDeletion(GameObject lightningObject)
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        lightningObject.SetActive(false);
-        GameManager.instance.AddInPool(lightningObjectId, lightningObject);
-    }
 }

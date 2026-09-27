@@ -119,17 +119,22 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   knockbackVelocity: {x: 0, y: 0}
   id: 
+  animator: {fileID: 5904572050643938467}
   speedWhileAiming: 0.5
-  rangedDamage: 2
   range: 15
   preferredRange: 7
   minimumRange: 3
   timeToCharge: 2
-  bullet: {fileID: 5350934001960373574, guid: 0e086c4c665346247bee794fe40917f9, type: 3}
-  bulletTexture: {fileID: 5944251188082942190, guid: 5cbd26f6f6d5ccb46aa5e11ac111e61b, type: 3}
-  bulletId: mushroompoof
-  bulletSpeed: 5
-  bulletLifetime: 5
+  projectile: {fileID: 7348597206988968774, guid: a26a284e761f58d4288f42ab10b31146, type: 3}
+  projectileId: mushroom_spore
+  projectileSpins: 0
+  projectileTorque: 0
+  projectileStats:
+    speed: 5
+    damage: 2
+    knockback: 0
+    lifetime: 5
+    sizeIncrease: 0
 --- !u!114 &5904572050643938467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,9 +150,9 @@ MonoBehaviour:
   character: {fileID: 7707728054247411321}
   state: 0
   ruleSO: {fileID: 11400000, guid: d39e5b00959c28b4e99cca2dfe4e94c6, type: 2}
-  damageParticle: {fileID: 2418114647592808732, guid: 1e08affe901afb240a55a74667e3924c, type: 3}
+  damageParticle: {fileID: 5243105396497009486, guid: 1e08affe901afb240a55a74667e3924c, type: 3}
   damageParticleId: damageP
-  damageNumberParticle: {fileID: 7880580348193083010, guid: c5ee371c416ca834ea4eceaa655c1744, type: 3}
+  damageNumberParticle: {fileID: 6041759689489268106, guid: c5ee371c416ca834ea4eceaa655c1744, type: 3}
   damageNumberParticleId: damageN
 --- !u!95 &7406577622406562060
 Animator:

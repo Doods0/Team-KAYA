@@ -30,14 +30,17 @@ MonoBehaviour:
     throwDamage: 4
     throwKnockback: 5
     throwCooldown: 0.8
-    projectileLifetime: 3
-    projectileSpeed: 25
-    projectileSize: 1
+    projectileStats:
+      speed: 25
+      damage: 4
+      knockback: 5
+      lifetime: 3
+      sizeIncrease: 0
   throwAnimations:
   - {fileID: 7400000, guid: 05b145d3a990ba24c88482d8b1ad7089, type: 2}
   throwSounds:
   - {fileID: 8300000, guid: 50ef081dcedf87b48a650574a72c9f27, type: 3}
-  projectile: {fileID: 5350934001960373574, guid: 760b3cb1efc3a4846bc7bde3d48c877e, type: 3}
-  projectileTexture: {fileID: 7569684938147083892, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
+  projectile: {fileID: 993115322439303305, guid: 0670f466cfb6e014b8dffe218af9d972, type: 3}
   projectileId: hatchet
   projectileSpins: 1
+  projectileTorque: -500

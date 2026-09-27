@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum PickupType { SpeedUp, SlowDown, Point, Shop }
 
-public class PickupController : MonoBehaviour
+public class PickupController : MonoBehaviour, IPoolable
 {
     public string poolId;
     public PickupType type;
@@ -12,12 +12,18 @@ public class PickupController : MonoBehaviour
     private const float pickupDuration = 0.5f;
     private TrailRenderer trail;
 
-    private void OnEnable()
-    {
-        pickupElapsed = 0f;
-    }
-
+    private void OnEnable() => pickupElapsed = 0f;
     private void Awake() => trail = GetComponent<TrailRenderer>();
+
+    public void Initialize(Vector3 starterPosition, string id)
+    {
+        gameObject.SetActive(true);
+        pickupStartPos = starterPosition;
+        transform.position = starterPosition;
+        transform.rotation = Quaternion.identity;
+
+        poolId = id;
+    }
 
     private void Update()
     {
@@ -34,7 +40,7 @@ public class PickupController : MonoBehaviour
 
         if (mag > 0.5f) return;
 
-        GameManager.instance.AddInPool(poolId, gameObject);
+        GameManager.instance.AddInPool(poolId, this);
 
         GameUtils.instance.playerStats.CollectPickup(type);
 

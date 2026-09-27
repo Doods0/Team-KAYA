@@ -30,14 +30,17 @@ MonoBehaviour:
     throwDamage: 4
     throwKnockback: 7
     throwCooldown: 0.4
-    projectileLifetime: 3
-    projectileSpeed: 34
-    projectileSize: 1.5
+    projectileStats:
+      speed: 34
+      damage: 4
+      knockback: 7
+      lifetime: 3
+      sizeIncrease: 0.5
   throwAnimations:
   - {fileID: 7400000, guid: 05b145d3a990ba24c88482d8b1ad7089, type: 2}
   throwSounds:
   - {fileID: 8300000, guid: 1d7f0599f028e5c4dac822640194ebbe, type: 3}
-  projectile: {fileID: 5350934001960373574, guid: ce07dca9905f98a48b88d0ff90dc1290, type: 3}
-  projectileTexture: {fileID: 4247077973319795576, guid: b80efcd484a96b14caa8cdd9fb8aa342, type: 3}
+  projectile: {fileID: 1010948484307109409, guid: 1c86af08acaf9584e97b49ecc29aa99d, type: 3}
   projectileId: shot_flintlock
   projectileSpins: 0
+  projectileTorque: 0

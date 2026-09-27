@@ -15,10 +15,10 @@ public class LightWeaponSO : WeaponSO
     public AudioClip[] throwSounds;
 
     [Header("Projectile")]
-    public GameObject projectile;
-    public Sprite projectileTexture;
+    public ProjectileController projectile;
     public string projectileId;
     public bool projectileSpins;
+    public int projectileTorque;
 
     public virtual void Throw(LocalWeaponsData weaponsData, WeaponsBuffs buffs)
     {
@@ -29,28 +29,17 @@ public class LightWeaponSO : WeaponSO
 
         Vector3 currentPos = GameUtils.instance.playerPosition;
         Vector3 direction = CameraController.cursorDirectionVector;
-        float angleToDirection = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         // PROJECTILE MUST FACE UP IN ART
 
-        GameObject proj = GameManager.instance.GetFromPool(projectileId);
-        if (!proj) proj = Instantiate(projectile);
+        IPoolable proj = GameManager.instance.GetFromPool(projectileId) ?? Instantiate(projectile);
+        if (!(proj is ProjectileController controller)) return;
 
-        proj.SetActive(true);
-        proj.transform.position = currentPos;
-        proj.transform.rotation = Quaternion.Euler(0f, 0f, angleToDirection);
-        proj.transform.localScale = Vector3.one * localThrowStats.projectileSize;
-
-        ProjectileController controller = proj.GetComponent<ProjectileController>();
-
-        controller.id = projectileId;
-        controller.damage = (int)localThrowStats.throwDamage;
-        controller.speed = localThrowStats.projectileSpeed;
-        controller.knockback = localThrowStats.throwKnockback;
-        controller.moveDirection = direction;
-        controller.lifetime = localThrowStats.projectileLifetime;
-        controller.spins = projectileSpins;
-        controller.renderer.sprite = projectileTexture;
-        controller.isEnemy = false;
+        controller.FireProjectile
+            (throwStats.projectileStats,
+            currentPos, direction,
+            projectileId,
+            projectileSpins,
+            projectileTorque);
     }
 }
 
@@ -60,9 +49,7 @@ public class ThrowStats
     public float throwDamage;
     public float throwKnockback;
     public float throwCooldown;
-    public float projectileLifetime;
-    public int projectileSpeed;
-    public float projectileSize;
+    public ProjectileStats projectileStats;
 
     public static ThrowStats operator +(ThrowStats a, ThrowStats b)
     {
@@ -71,9 +58,7 @@ public class ThrowStats
             throwDamage = a.throwDamage + b.throwDamage,
             throwKnockback = a.throwKnockback + b.throwKnockback,
             throwCooldown = a.throwCooldown + b.throwCooldown,
-            projectileLifetime = a.projectileLifetime + b.projectileLifetime,
-            projectileSpeed = a.projectileSpeed + b.projectileSpeed,
-            projectileSize = a.projectileSize + b.projectileSize
+            projectileStats = a.projectileStats + b.projectileStats
         };
     }
 
@@ -84,9 +69,7 @@ public class ThrowStats
             throwDamage = (int)(a.throwDamage * (1f + b.throwDamage)),
             throwKnockback = a.throwKnockback * (1f + b.throwKnockback),
             throwCooldown = a.throwCooldown * (1f + b.throwCooldown),
-            projectileLifetime = a.projectileLifetime * (1f + b.projectileLifetime),
-            projectileSpeed = (int)(a.projectileSpeed * (1f + b.projectileSpeed)),
-            projectileSize = a.projectileSize * (1f + b.projectileSize)
+            projectileStats = a.projectileStats * b.projectileStats
         };
     }
 }

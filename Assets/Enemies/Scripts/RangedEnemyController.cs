@@ -5,17 +5,18 @@ public class RangedEnemyController : EnemyController
 {
     [Header("Ranged Enemy")]
     [SerializeField] private float speedWhileAiming;
-    [SerializeField] private int rangedDamage;
     [SerializeField] private float range;
     [SerializeField] private float preferredRange;
     [SerializeField] private float minimumRange;
     [SerializeField] private float timeToCharge;
-    [Header("Bullet")]
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private Sprite bulletTexture;
-    [SerializeField] private string bulletId;
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private float bulletLifetime;
+    [Header("Projectile")]
+    [Header("Settings")]
+    [SerializeField] private ProjectileController projectile;
+    [SerializeField] private string projectileId;
+    [SerializeField] private bool projectileSpins;
+    [SerializeField] private int projectileTorque;
+    [Header("Stats")]
+    [SerializeField] private ProjectileStats projectileStats;
 
     bool lockedOnPlayer = false;
     // Used to "charge up" shots.
@@ -43,7 +44,9 @@ public class RangedEnemyController : EnemyController
             moveVector *= speed;
 
             timeSpentCharging = 0;
-        } else {
+        }
+        else
+        {
             moveVector *= speedWhileAiming;
 
             timeSpentCharging += Time.deltaTime;
@@ -52,28 +55,15 @@ public class RangedEnemyController : EnemyController
             {
                 timeSpentCharging = 0;
 
-                GameObject bulletInstance = GameManager.instance.GetFromPool(bulletId);
-
-                if (!bulletInstance) bulletInstance = Instantiate(bullet);
-
-                bulletInstance.SetActive(true);
-                bulletInstance.transform.position = transform.position;
-                bulletInstance.transform.rotation = quaternion.identity;
-
-                ProjectileController bulletScript = bulletInstance.GetComponent<ProjectileController>();
-                if (bulletScript == null)
-                {
-                    print("EnemyBullet script not found");
-                    return;
-                }
-
-                bulletScript.speed = bulletSpeed;
-                bulletScript.damage = rangedDamage;
-                bulletScript.moveDirection = moveVector.normalized;
-                bulletScript.id = bulletId;
-                bulletScript.renderer.sprite = bulletTexture;
-                bulletScript.isEnemy = true;
-                bulletScript.lifetime = bulletLifetime;
+                IPoolable bulletInstance = GameManager.instance.GetFromPool(projectileId) ?? Instantiate(projectile);
+                if (!(bulletInstance is ProjectileController controller)) return;
+                controller.FireProjectile(projectileStats,
+                    transform.position,
+                    moveVector.normalized,
+                    projectileId,
+                    projectileSpins,
+                    projectileTorque,
+                    true);
             }
         }
 

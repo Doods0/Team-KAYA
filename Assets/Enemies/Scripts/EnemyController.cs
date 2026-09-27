@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IPoolable
 {
     [Header("Settings")]
     public float knockbackDecayRate = 4f;
@@ -42,17 +42,26 @@ public class EnemyController : MonoBehaviour
 
     public virtual void ApplyKnockback(Vector2 impulse) => knockbackVelocity += impulse;
 
+    public void Initialize(Vector3 position, string poolId)
+    {
+        gameObject.SetActive(true);
+        health = maxHealth;
+        transform.position = position;
+        transform.rotation = Quaternion.identity;
+        id = poolId;
+    }
+
     public virtual void TakeDamage(int damage)
     {
         health -= damage;
         animator.OnDamageTaken(damage);
         if (health <= 0)
         {
+            HandleLoot();
             GameUtils.instance.audioSource.PlayOneShot(death, Random.Range(.75f, 1.25f));
 
             GameManager.instance.SpeedTime();
-            GameManager.instance.AddInPool(id, gameObject);
-            HandleLoot();
+            GameManager.instance.AddInPool(id, this);
 
             gameObject.SetActive(false);
         }
@@ -88,9 +97,8 @@ public class EnemyController : MonoBehaviour
 
     private void HandleLoot()
     {
-        PickupController controller;
-        GameObject pickupObj;
-        GameObject pickupObjType;
+        PickupController pickupObjType;
+        IPoolable pickupObj;
         string poolId;
 
         float chanceOfSpecial = Random.value;
@@ -124,16 +132,9 @@ public class EnemyController : MonoBehaviour
             poolId = GameManager.instance.pointPickupId;
             pickupObjType = GameManager.instance.pointPickup;
         }
-        pickupObj = GameManager.instance.GetFromPool(poolId);
+        pickupObj = GameManager.instance.GetFromPool(poolId) ?? Instantiate(pickupObjType);
 
-        if (!pickupObj) pickupObj = Instantiate(pickupObjType);
-
-        controller = pickupObj.GetComponent<PickupController>();
-        controller.poolId = poolId;
-        controller.pickupStartPos = transform.position;
-
-        pickupObj.SetActive(true);
-        pickupObj.transform.position = transform.position;
-        pickupObj.transform.rotation = Quaternion.identity;
+        if (!(pickupObj is PickupController controller)) return;
+        controller.Initialize(transform.position, poolId);
     }
 }
