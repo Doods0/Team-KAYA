@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameUtils : MonoBehaviour
@@ -16,7 +15,8 @@ public class GameUtils : MonoBehaviour
     public Vector3 playerPosition;
 
     [Header("Common Utils")]
-    public MaterialPropertyBlock flashingMaterial = new();
+    private MaterialPropertyBlock _flashingMaterial;
+    public MaterialPropertyBlock flashingMaterial => _flashingMaterial;
 
 
     private void Awake()
@@ -34,6 +34,7 @@ public class GameUtils : MonoBehaviour
 
     private void SetUpCommonUtils()
     {
-        flashingMaterial.SetFloat("_FlashAmount", 1);
+        _flashingMaterial = new();
+        _flashingMaterial.SetFloat("_FlashAmount", 1);
     }
 }
