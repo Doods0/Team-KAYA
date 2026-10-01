@@ -6,15 +6,16 @@ public class EntityAnimator : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private GameObject character;
-
     [Header("Animations")]
     public EntityState state;
     [SerializeField] private AnimationRuleSO ruleSO;
+    private MaterialPropertyBlock materialBlock;
     [Header("Particles")]
     [SerializeField] private ParticleController damageParticle;
     [SerializeField] private string damageParticleId;
     [SerializeField] private NumberParticleController damageNumberParticle;
     [SerializeField] private string damageNumberParticleId;
+    
 
     private Dictionary<EntityState, AnimationRule> rulesDictionary;
 
@@ -27,6 +28,7 @@ public class EntityAnimator : MonoBehaviour
         animator = character.GetComponent<Animator>();
         rulesDictionary = ruleSO.generateDictionary();
         renderer = character.GetComponent<SpriteRenderer>();
+        materialBlock = new();
     }
 
     public virtual void Update()
@@ -61,7 +63,8 @@ public class EntityAnimator : MonoBehaviour
 
     private IEnumerator DamageEffects(int damageAmount, float duration = 0.1f)
     {
-        renderer.material.SetFloat("_FlashAmount", 1);
+        materialBlock.SetFloat("_FlashAmount", 1);
+        renderer.SetPropertyBlock(materialBlock);
 
         if (damageParticle != null)
         {
@@ -78,8 +81,14 @@ public class EntityAnimator : MonoBehaviour
         }
 
         yield return new WaitForSeconds(duration);
-        renderer.material.SetFloat("_FlashAmount", 0);
+
+        materialBlock.SetFloat("_FlashAmount", 0);
+        renderer.SetPropertyBlock(materialBlock);
     }
 
-    private void OnDisable() => renderer.material.SetFloat("_FlashAmount", 0);
+    private void OnDisable()
+    {
+        materialBlock.SetFloat("_FlashAmount", 0);
+        renderer.SetPropertyBlock(materialBlock);
+    }
 }
