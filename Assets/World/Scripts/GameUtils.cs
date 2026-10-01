@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameUtils : MonoBehaviour
@@ -14,13 +15,25 @@ public class GameUtils : MonoBehaviour
     public Transform playerTransform;
     public Vector3 playerPosition;
 
+    [Header("Common Utils")]
+    public MaterialPropertyBlock flashingMaterial = new();
 
-    private void Awake() => instance = this;
+
+    private void Awake()
+    {
+        instance = this;
+        SetUpCommonUtils();
+    }
     private void Update() => UpdatePlayerData();
 
     private void UpdatePlayerData()
     {
         if (playerTransform != null) playerPosition = playerTransform.position;
         else playerPosition = Vector3.zero; // if the player was deleted or killed
+    }
+
+    private void SetUpCommonUtils()
+    {
+        flashingMaterial.SetFloat("_FlashAmount", 1);
     }
 }
